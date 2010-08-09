@@ -96,12 +96,12 @@ path."
   :type 'string
   :group 'coffee)
 
-(defcustom coffee-repl-args '("-i")
+(defcustom coffee-args-repl '("-i")
   "The command line arguments to pass to `coffee-command' to start a REPL."
   :type 'list
   :group 'coffee)
 
-(defcustom coffee-command-args '("-s" "-p" "--no-wrap")
+(defcustom coffee-args-compile '("-s" "-p" "--no-wrap")
   "The command line arguments to pass to `coffee-command' to get it to
 print the compiled JavaScript."
   :type 'list
@@ -150,7 +150,7 @@ print the compiled JavaScript."
   (unless (comint-check-proc "*CoffeeREPL*")
     (set-buffer
      (apply 'make-comint "CoffeeREPL"
-            coffee-command nil coffee-repl-args)))
+            coffee-command nil coffee-args-repl)))
 
   (pop-to-buffer "*CoffeeScript*"))
 
@@ -181,7 +181,7 @@ print the compiled JavaScript."
                        (get-buffer-create coffee-compiled-buffer-name)
                        nil
                        "-s" "-p" "--no-wrap")
-  (switch-to-buffer-other-frame (get-buffer coffee-compiled-buffer-name))
+  (switch-to-buffer (get-buffer coffee-compiled-buffer-name))
   (funcall coffee-js-mode)
   (beginning-of-buffer))
 
@@ -230,6 +230,9 @@ print the compiled JavaScript."
 ;; Instance variables (implicit this)
 (defvar coffee-this-regexp "@\\w*\\|this")
 
+;; Prototype::access
+(defvar coffee-prototype-regexp "\\(\\(\\w\\|\\.\\|_\\| \\|$\\)+?\\)::\\(\\(\\w\\|\\.\\|_\\| \\|$\\)+?\\):")
+
 ;; Assignment
 (defvar coffee-assign-regexp "\\(\\(\\w\\|\\.\\|_\\| \\|$\\)+?\\):")
 
@@ -240,7 +243,7 @@ print the compiled JavaScript."
 (defvar coffee-namespace-regexp "\\b\\(class\\s +\\(\\S +\\)\\)\\b")
 
 ;; Booleans
-(defvar coffee-boolean-regexp "\\b\\(true\\|false\\|yes\\|no\\|on\\|off\\)\\b")
+(defvar coffee-boolean-regexp "\\b\\(true\\|false\\|yes\\|no\\|on\\|off\\|null\\)\\b")
 
 ;; Regular Expressions
 (defvar coffee-regexp-regexp "\\/.+?\\/")
@@ -278,6 +281,7 @@ print the compiled JavaScript."
   ;; because otherwise the keyword "state" in the function
   ;; "state_entry" would be highlighted.
   `((,coffee-this-regexp . font-lock-variable-name-face)
+    (,coffee-prototype-regexp . font-lock-variable-name-face)
     (,coffee-assign-regexp . font-lock-type-face)
     (,coffee-regexp-regexp . font-lock-constant-face)
     (,coffee-boolean-regexp . font-lock-constant-face)
@@ -303,7 +307,7 @@ For detail, see `comment-dwim'."
 
 (defun coffee-command-full ()
   "The full `coffee-command' complete with args."
-  (mapconcat 'identity (append (list coffee-command) coffee-command-args) " "))
+  (mapconcat 'identity (append (list coffee-command) coffee-args-compile) " "))
 
 ;;
 ;; imenu support
@@ -457,8 +461,11 @@ For detail, see `comment-dwim'."
 
   (save-excursion
     (forward-line -1)
-    (while (coffee-line-empty-p) (forward-line -1))
-    (current-indentation)))
+    (if (bobp)
+        0
+      (progn
+        (while (coffee-line-empty-p) (forward-line -1))
+        (current-indentation)))))
 
 (defun coffee-line-empty-p ()
   "Is this line empty? Returns non-nil if so, nil if not."

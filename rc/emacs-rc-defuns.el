@@ -8,7 +8,8 @@
 ;; Status: not intended to be distributed yet
 
 (defun turn-on-whitespace ()
-  (whitespace-mode t))
+  (whitespace-mode t)
+  (add-hook 'before-save-hook 'delete-trailing-whitespace))
 
 (defun turn-on-linum ()
   (linum-mode 1))
@@ -23,9 +24,9 @@
       1 font-lock-warning-face t))))
 
 (add-hook 'coding-hook 'turn-on-whitespace)
-(add-hook 'coding-hook 'turn-on-hideshow)
-(add-hook 'coding-hook 'turn-on-linum)
 (add-hook 'coding-hook 'add-watchwords)
+(add-hook 'coding-hook 'turn-on-hideshow)
+;(add-hook 'coding-hook 'turn-on-linum)
 
 (defun run-coding-hook ()
   (interactive)

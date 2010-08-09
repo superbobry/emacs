@@ -12,9 +12,11 @@
 (define-key global-map (kbd "C--") 'text-scale-decrease)
 
 ;; File finding
-(global-set-key (kbd "C-x C-b") 'ibuffer)
-(global-set-key (kbd "M-<f12>") 'recentf-open-files)
-(global-set-key (kbd "C-x f") 'recentf-ido-find-file)
+(when (fboundp 'ibuffer)
+  (global-set-key (kbd "C-x C-b") 'ibuffer))
+(when (fboundp 'recentf-mode)
+  (global-set-key (kbd "M-<f12>") 'recentf-open-files)
+  (global-set-key (kbd "C-x f") 'recentf-ido-find-file))
 
 ;; Window switching
 (windmove-default-keybindings)
@@ -27,6 +29,10 @@
 (global-set-key (kbd "C-z") 'undo)
 (global-set-key (kbd "M-<up>") 'move-line-up)
 (global-set-key (kbd "M-<down>") 'move-line-down)
+
+;; Multi-term
+(global-set-key (kbd "C-c t") 'multi-term-next)
+(global-set-key (kbd "C-c T") 'multi-term)
 
 ;; Misc
 (global-set-key (kbd "C-x c") 'kill-daemon)

@@ -21,8 +21,8 @@
  ac-override-local-map nil
  ac-dwim t
  ac-modes
- '(emacs-lisp-mode cc-mode erlang-mode django-html-mode emacs-lisp-mode
-                   js2-mode haskell-mode lisp-interaction-mode lisp-mode
+ '(emacs-lisp-mode cc-mode css-mode erlang-mode django-html-mode emacs-lisp-mode
+                   espresso-mode haskell-mode lisp-interaction-mode lisp-mode
                    lua-mode python-mode ruby-mode scheme-mode sgml-mode
                    xml-mode org-mode)
  ac-default-sources

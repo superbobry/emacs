@@ -31,14 +31,17 @@
 (add-to-list 'load-path root-dir)
 (add-to-list 'load-path (concat root-dir "packages"))
 (add-to-list 'load-path (concat root-dir "packages/auto-complete"))
-(add-to-list 'load-path (concat root-dir "packages/erlang"))
 (add-to-list 'load-path (concat root-dir "packages/flymake"))
 (add-to-list 'load-path (concat root-dir "packages/themes"))
 (add-to-list 'load-path (concat root-dir "packages/yasnippet"))
 (add-to-list 'load-path (concat root-dir "rc"))
 
-(require 'cl)
+(eval-when-compile
+  (require 'cl))
 (require 'saveplace)
 
-(load-init '(auto-complete bindings ccmode desktop defuns django erlang flymake haskell
-                           ido io js lisp lua local python textmate yasnippet))
+(load-init '(auto-complete auctex ccmode defuns django erlang flymake haskell
+                           ido io js lisp lua local markup python textmate
+                           yasnippet vcs
+
+                           bindings))
