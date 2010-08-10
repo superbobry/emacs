@@ -30,10 +30,6 @@
 (global-set-key (kbd "M-<up>") 'move-line-up)
 (global-set-key (kbd "M-<down>") 'move-line-down)
 
-;; Multi-term
-(global-set-key (kbd "C-c t") 'multi-term-next)
-(global-set-key (kbd "C-c T") 'multi-term)
-
 ;; Misc
 (global-set-key (kbd "C-x c") 'kill-daemon)
 (global-set-key (kbd "C-c C-h") 'hs-hide-block)

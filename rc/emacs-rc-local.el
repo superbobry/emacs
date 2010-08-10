@@ -51,21 +51,21 @@
 ;; Backups
 (setq make-backup-files t ;; do make backups
       backup-by-copying t ;; and copy them here
-      backup-directory-alist '(("." . "~/.emacs.d/cache/backups"))
+      backup-directory-alist '(("." . (concat root-dir "/cache/backups")))
       version-control t
       kept-new-versions 2
       kept-old-versions 5
       delete-old-versions t)
 
 (setq auto-save-list-file-prefix
-  "~/.emacs.d/cache/auto-save-list/.saves-")
+  (concat root-dir "/cache/auto-save-list/.saves-"))
 
 (require 'saveplace)
-(setq save-place-file "~/.emacs.d/cache/saveplace")
+(setq save-place-file (concat root-dir "/cache//saveplace"))
 (setq-default save-place t) ;; activate it for all buffers
 
 (require 'recentf)
-(setq recentf-save-file "~/.emacs.d/cache/recentf"
+(setq recentf-save-file (concat root-dir "/cache/recentf")
       recentf-max-saved-items 100
       recentf-max-menu-items 10)
 (recentf-mode t)
@@ -73,7 +73,7 @@
 (require 'desktop)
 (setq-default desktop-missing-file-warning nil
               desktop-load-locked-desktop t
-              desktop-path (quote ("~/.emacs.d/cache/"))
+              desktop-path (quote (concat root-dir "/cache/"))
               desktop-save t)
 (desktop-save-mode t)
 
@@ -111,7 +111,7 @@
 (setq shell-prompt-pattern "^[^a-zA-Z].*[#$%>] *")
 (setq
   tramp-default-method "ssh"
-  tramp-persistency-file-name "~/.emacs.d/cache/tramp")
+  tramp-persistency-file-name (concat root-dir "/cache/tramp"))
 
 (require 'color-theme)
 (require 'color-theme-desert)

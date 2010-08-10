@@ -1,11 +1,10 @@
 *.elc
 */io-mode.el
-.bzr
 .svn
 custom.el
 auto-save-list/*
 ac-comphist.dat
-packages/auto-complete/*
+*/auto-complete/*
 tramp
 cache/*
-/packages/python-mode/website/*
+/packages/auto-complete/
