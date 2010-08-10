@@ -1,11 +1,5 @@
 ;;; emacs-rc-erlang.el ---
 
-;; Copyright (C) Sergei Lebedev
-;;
-;; Author: Sergei Lebedev <superbobry@gmail.com>
-;; Keywords:
-;; Requirements:
-;; Status: not intended to be distributed yet
 
 (let* ((emacs-version "2.6.4")
        (tools-path
@@ -19,5 +13,6 @@
 
 (add-hook 'erlang-mode-hook 'yas/minor-mode)
 (add-hook 'erlang-mode-hook 'run-coding-hook)
+
 
 ;;; emacs-rc-erlang.el ends here

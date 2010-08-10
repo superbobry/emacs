@@ -1,11 +1,5 @@
 ;;; emacs-rc-bindings.el ---
 
-;; Copyright (C) Sergei Lebedev
-;;
-;; Author: Sergei Lebedev <superbobry@gmail.com>
-;; Keywords:
-;; Requirements:
-;; Status: not intended to be distributed yet
 
 ;; Font size
 (define-key global-map (kbd "C-+") 'text-scale-increase)
@@ -33,7 +27,10 @@
 
 ;; Misc
 (global-set-key (kbd "C-x c") 'kill-daemon)
-(global-set-key (kbd "C-c C-h") 'hs-hide-block)
-(global-set-key (kbd "C-c C-s") 'hs-show-block)
+(global-set-key (kbd "C-c h") 'hs-hide-block)
+(global-set-key (kbd "C-c s") 'hs-show-block)
+(when (fboundp 'magit-status)
+  (global-set-key (kbd "C-c g") 'magit-status))
+
 
 ;;; emacs-rc-bindings.el ends here

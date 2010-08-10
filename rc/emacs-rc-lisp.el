@@ -1,11 +1,5 @@
 ;;; emacs-rc-lisp.el ---
 
-;; Copyright (C) Sergei Lebedev
-;;
-;; Author: Sergei Lebedev <superbobry@gmail.com>
-;; Keywords:
-;; Requirements:
-;; Status: not intended to be distributed yet
 
 ;; Elisp
 (add-hook 'emacs-lisp-mode-hook 'run-coding-hook)
@@ -23,5 +17,6 @@
 
 (add-hook 'scheme-mode-hook 'run-coding-hook)
 (add-hook 'inferior-scheme-mode-hook 'split-window)
+
 
 ;;; emacs-rc-lisp.el ends here

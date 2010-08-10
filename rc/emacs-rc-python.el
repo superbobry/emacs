@@ -1,12 +1,5 @@
-
 ;;; emacs-rc-python.el ---
 
-;; Copyright (C) Sergei Lebedev
-;;
-;; Author: Sergei Lebedev <superbobry@gmail.com>
-;; Keywords:
-;; Requirements:
-;; Status: not intended to be distributed yet
 
 (require 'python-mode)
 
@@ -30,5 +23,6 @@
               (setq autopair-handle-action-fns
                     (list #'autopair-default-handle-action
                           #'autopair-python-triple-quote-action))))
+
 
 ;;; emacs-rc-python.el ends here

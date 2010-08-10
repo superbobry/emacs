@@ -1,12 +1,5 @@
 ;;; emacs-rc-ido.el ---
 
-;; Copyright (C) Sergei Lebedev
-;;
-;; Author: Sergei Lebedev <superbobry@gmail.com>
-;; Keywords:
-;; Requirements:
-;; Status: not intended to be distributed yet
-
 
 (require 'ido)
 (ido-mode 'both)
@@ -30,5 +23,6 @@
  ido-max-prospects 10)
 
 (setq confirm-nonexistent-file-or-buffer nil)
+
 
 ;;; emacs-rc-ido.el ends here

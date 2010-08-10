@@ -1,12 +1,5 @@
 ;;; emacs-rc-jabber.el ---
 
-;; Copyright (C) Sergei Lebedev
-;;
-;; Author: Sergei Lebedev <superbobry@gmail.com>
-;; Keywords:
-;; Requirements:
-;; Status: not intended to be distributed yet
-
 
 (require 'jabber)
 (require 'jabber-bookmarks)

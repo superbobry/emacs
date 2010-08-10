@@ -1,11 +1,5 @@
 ;;; emacs-rc-misc.el ---
 
-;; Copyright (C) Sergei Lebedev
-;;
-;; Author: Sergei Lebedev <superbobry@gmail.com>
-;; Keywords:
-;; Requirements:
-;; Status: not intended to be distributed yet
 
 (defun turn-on-whitespace ()
   (whitespace-mode t)
@@ -71,5 +65,6 @@
   (if (null (ad-get-arg 2))
       (ad-set-arg 1 (* 4
                        (/ (window-height) 5)))))
+
 
 ;;; emacs-rc-misc.el ends here

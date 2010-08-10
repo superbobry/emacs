@@ -1,11 +1,5 @@
 ;;; emacs-rc-markup.el ---
 
-;; Copyright (C) Sergei Lebedev
-;;
-;; Author: Sergei Lebedev <superbobry@gmail.com>
-;; Keywords:
-;; Requirements:
-;; Status: not intended to be distributed yet
 
 (require 'markdown-mode)
 
@@ -26,5 +20,6 @@
           (lambda ()
             (setq tab-width 2)
             (auto-complete-mode)))
+
 
 ;;; emacs-rc-markup.el ends here

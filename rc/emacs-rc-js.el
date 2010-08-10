@@ -1,11 +1,5 @@
 ;;; emacs-rs-js.el ---
 
-;; Copyright (C) Sergei Lebedev
-;;
-;; Author: Sergei Lebedev <superbobry@gmail.com>
-;; Keywords:
-;; Requirements:
-;; Status: not intended to be distributed yet
 
 (require 'espresso)
 (require 'coffee-mode) ;; nice couple :)
@@ -27,5 +21,6 @@
 ;;                              (0 (progn (compose-region (match-beginning 1)
 ;;                                                        (match-end 1) "ƒ")
 ;;                                        nil)))))))
+
 
 ;;; emacs-rs-js.el ends here

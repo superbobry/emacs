@@ -1,11 +1,5 @@
 ;;; emacs-rc-auctex.el ---
 
-;; Copyright (C) Sergei Lebedev
-;;
-;; Author: Sergei Lebedev <superbobry@gmail.com>
-;; Keywords:
-;; Requirements:
-;; Status: not intended to be distributed yet
 
 (require 'tex-site)
 (require 'preview-latex)
@@ -22,5 +16,6 @@
              (TeX-fold-mode 1)
              (TeX-PDF-mode 1)
              (outline-minor-mode 1)))
+
 
 ;;; emacs-rc-auctex.el ends her

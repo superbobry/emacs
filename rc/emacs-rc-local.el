@@ -1,11 +1,5 @@
 ;;; emacs-rc-local.el ---
 
-;; Copyright (C) Sergei Lebedev
-;;
-;; Author: Sergei Lebedev <superbobry@gmail.com>
-;; Keywords:
-;; Requirements:
-;; Status: not intended to be distributed yet
 
 (defvar coding-hook nil
   "Hook that gets run on activation of any programming mode.")
@@ -61,7 +55,7 @@
   (concat root-dir "/cache/auto-save-list/.saves-"))
 
 (require 'saveplace)
-(setq save-place-file (concat root-dir "/cache//saveplace"))
+(setq save-place-file (concat root-dir "/cache/saveplace"))
 (setq-default save-place t) ;; activate it for all buffers
 
 (require 'recentf)
@@ -155,5 +149,6 @@
 (fringe-mode '(0 . 0)) ;; nah, i don't like fringe
 
 (fset 'yes-or-no-p 'y-or-n-p)
+
 
 ;;; emacs-rc-local.el ends here
