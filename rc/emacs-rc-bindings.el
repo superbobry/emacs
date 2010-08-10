@@ -29,6 +29,7 @@
 (global-set-key (kbd "C-z") 'undo)
 (global-set-key (kbd "M-<up>") 'move-line-up)
 (global-set-key (kbd "M-<down>") 'move-line-down)
+(global-set-key (kbd "<return>") 'newline-maybe-indent)
 
 ;; Misc
 (global-set-key (kbd "C-x c") 'kill-daemon)

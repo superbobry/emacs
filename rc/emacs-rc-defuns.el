@@ -11,9 +11,6 @@
   (whitespace-mode t)
   (add-hook 'before-save-hook 'delete-trailing-whitespace))
 
-(defun turn-on-linum ()
-  (linum-mode 1))
-
 (defun turn-on-hideshow ()
   (hs-minor-mode t))
 
@@ -26,7 +23,6 @@
 (add-hook 'coding-hook 'turn-on-whitespace)
 (add-hook 'coding-hook 'add-watchwords)
 (add-hook 'coding-hook 'turn-on-hideshow)
-;(add-hook 'coding-hook 'turn-on-linum)
 
 (defun run-coding-hook ()
   (interactive)
@@ -55,16 +51,6 @@
 (defun move-line-down ()
   (interactive)
   (move-line 1))
-
-(defun duplicate-line ()
-    "Clone line at cursor, leaving the latter intact."
-    (interactive)
-    (save-excursion
-        (let ((kill-read-only-ok t) deactivate-mark)
-                (toggle-read-only 1)
-                (kill-whole-line)
-                (toggle-read-only 0)
-                (yank))))
 
 (defun kill-daemon ()
   "Kills emacs daemon."
