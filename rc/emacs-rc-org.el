@@ -23,10 +23,8 @@
 (setq remember-annotation-functions '(org-remember-annotation)
       remember-handler-functions '(org-remember-handler)
       org-remember-templates
-      '(("Todo" ?t "* TODO %^{Brief Description} %^g\n%?\nAdded: %U"
-         (concat org-directory "gtd.org") "Tasks")
-
-        ("Music" ?m "* %^{Artist} %t :MUSIC:
+      '(("Todo" ?t "* TODO %^{Brief Description} %^g\n%?\nAdded: %U" "gtd.org" "Tasks")
+        ("Music" ?m "* %^{Artist} %t :MUSIC:%^g
 :PROPERTIES:
   :Artist: %?
   :Release:
@@ -35,10 +33,8 @@
   :Website:
 :END:
 
-Comments:
-" (concat org-directory "journal.org"))
-
-        ("CD" ?c "* %^{Title} %t :CD:MUSIC:
+Comments:\n" nil "Music")
+        ("Cd" ?c "* %^{Title} %t :CD:MUSIC:
 :PROPERTIES:
   :Artist: %?
   :Release:
@@ -46,9 +42,7 @@ Comments:
   :Genre:
   :Country:
   :Price:
-:END:\n
-" (concat org-directory "journal.org"))
-
+:END:\n\n" nil "CD")
         ("Film" ?f "* %^{Film Title} %t :CINEMA:
 :PROPERTIES:
   :Director: %?
@@ -57,11 +51,10 @@ Comments:
   :Country:
 :END:
 
-Comments: \n" (concat org-directory "journal.org"))
-
-        ("Idea" ?i "** %^{Idea} %U\n%? :IDEA: \n" (concat org-directory "journal.org"))
-        ("Word" ?w "** %^{Word} %U\n%? :WORD: \n" (concat org-directory "journal.org"))
-        ("Buzz" ?b "** %^{Topic} %T \n%i%?\n" (concat org-directory "journal.org"))
+Comments: \n" nil "Movies")
+        ("Idea" ?i "** %^{Idea} %U\n%? :IDEA:%^g \n" nil "Ideas")
+        ("Word" ?w "** %^{Word} %U\n%? :WORD: \n" nil "Words")
+        ("Buzz" ?b "** %^{Topic} %T %^g \n%i%?\n" nil "Buzz")
       ))
 
 (add-hook 'remember-mode-hook 'org-remember-apply-template)
