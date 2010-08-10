@@ -8,3 +8,4 @@ ac-comphist.dat
 tramp
 cache/*
 /packages/auto-complete/
+/packages/rainbow-mode/

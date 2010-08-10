@@ -34,6 +34,7 @@
 (add-to-list 'load-path (concat root-dir "packages/flymake"))
 (add-to-list 'load-path (concat root-dir "packages/themes"))
 (add-to-list 'load-path (concat root-dir "packages/yasnippet"))
+(add-to-list 'load-path (concat root-dir "packages/rainbow-mode"))
 (add-to-list 'load-path (concat root-dir "rc"))
 
 (load-init '(auto-complete auctex ccmode defuns erlang flymake haskell ido io js

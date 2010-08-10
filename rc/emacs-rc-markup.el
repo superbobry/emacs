@@ -22,4 +22,9 @@
             (auto-complete-mode)))
 
 
+(require 'rainbow-mode)
+(add-hook 'html-mode-hook 'rainbow-turn-on)
+(add-hook 'css-mode-hook 'rainbow-turn-on)
+
+
 ;;; emacs-rc-markup.el ends here
