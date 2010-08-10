@@ -36,8 +36,7 @@
 (add-to-list 'load-path (concat root-dir "packages/yasnippet"))
 (add-to-list 'load-path (concat root-dir "rc"))
 
-(load-init '(auto-complete auctex ccmode defuns django erlang flymake haskell
-                           ido io js lisp lua local markup python textmate
-                           yasnippet vcs
+(load-init '(auto-complete auctex ccmode defuns erlang flymake haskell ido io js
+                           lisp lua local markup org python textmate yasnippet vcs
 
                            bindings))

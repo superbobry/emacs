@@ -2,8 +2,8 @@
 
 
 ;; Font size
-(define-key global-map (kbd "C-+") 'text-scale-increase)
-(define-key global-map (kbd "C--") 'text-scale-decrease)
+(global-set-key (kbd "C-+") 'text-scale-increase)
+(global-set-key (kbd "C--") 'text-scale-decrease)
 
 ;; File finding
 (when (fboundp 'ibuffer)
@@ -23,7 +23,8 @@
 (global-set-key (kbd "C-z") 'undo)
 (global-set-key (kbd "M-<up>") 'move-line-up)
 (global-set-key (kbd "M-<down>") 'move-line-down)
-(global-set-key (kbd "<return>") 'newline-maybe-indent)
+;; FIXME: screws minibuffer prompt ...
+;; (global-set-key (kbd "<return>") 'newline-maybe-indent)
 
 ;; Misc
 (global-set-key (kbd "C-x c") 'kill-daemon)

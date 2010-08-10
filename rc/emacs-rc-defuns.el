@@ -66,5 +66,10 @@
       (ad-set-arg 1 (* 4
                        (/ (window-height) 5)))))
 
+(defun gtd ()
+  "Opens the GTD file."
+  (interactive)
+  (find-file (concat org-directory "gtd.org")))
+
 
 ;;; emacs-rc-misc.el ends here

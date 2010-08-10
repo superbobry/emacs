@@ -15,16 +15,18 @@
     (normal-erase-is-backspace-mode))
 
 (setq
- auto-save-interval 512 ;; autosave every 512 keyboard inputs
+ auto-save-interval 512            ;; autosave every 512 keyboard inputs
  auto-save-list-file-prefix nil
+ browse-url-browser-function 'browse-url-generic
+ browse-url-generic-program "/usr/bin/chromium"
  color-theme-is-global t
- echo-keystrokes 0.01 ;; see what you type
- inhibit-startup-message t ; don't show annoing startup msg
+ echo-keystrokes 0.01              ;; see what you type
+ inhibit-startup-message t         ;; don't show annoing startup msg
  initial-scratch-message nil
- kill-whole-line t ;; delete line in one stage
- mouse-yank-at-point t ;; paste at cursor, NOT at mouse pointer position
- next-line-add-newlines nil ;; don't add new lines when scrolling down
- require-final-newline t ;; end files with a newline
+ kill-whole-line t                 ;; delete line in one stage
+ mouse-yank-at-point t             ;; paste at cursor, NOT at mouse pointer position
+ next-line-add-newlines nil        ;; don't add new lines when scrolling down
+ require-final-newline t           ;; end files with a newline
  safe-local-variable-values '((encoding . utf-8) (prompt-to-byte-compile))
  scroll-margin 0                   ;; do smooth scrolling, ...
  scroll-conservatively 100000      ;; ... the defaults ...
@@ -45,7 +47,7 @@
 ;; Backups
 (setq make-backup-files t ;; do make backups
       backup-by-copying t ;; and copy them here
-      backup-directory-alist '(("." . (concat root-dir "/cache/backups")))
+      backup-directory-alist `(("." . ,(concat root-dir "/cache/backups")))
       version-control t
       kept-new-versions 2
       kept-old-versions 5
@@ -67,7 +69,7 @@
 (require 'desktop)
 (setq-default desktop-missing-file-warning nil
               desktop-load-locked-desktop t
-              desktop-path (quote (concat root-dir "/cache/"))
+              desktop-path `(,(concat root-dir "cache/"))
               desktop-save t)
 (desktop-save-mode t)
 
@@ -90,9 +92,6 @@
 
 (require 'autopair)
 (autopair-global-mode)
-
-(require 'multi-term)
-(setq multi-term-program "/bin/zsh")
 
 (require 'sr-speedbar nil 'noerror)
 (setq
