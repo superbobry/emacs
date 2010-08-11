@@ -60,11 +60,12 @@
     (when file
       (find-file file))))
 
-(defadvice split-window (before split-window-4/5 activate)
-  "Split a window horizontally in 4/5 from the original size."
-  (if (null (ad-get-arg 2))
-      (ad-set-arg 1 (* 4
-                       (/ (window-height) 5)))))
+;; FIXME: Screws WL's message display.
+;; (defadvice split-window (before split-window-4/5 activate)
+;;   "Split a window horizontally in 4/5 from the original size."
+;;   (if (null (ad-get-arg 2))
+;;       (ad-set-arg 1 (* 4
+;;                        (/ (window-height) 5)))))
 
 ;; The following two function are taken from textmate.el package
 ;; by defunkt.

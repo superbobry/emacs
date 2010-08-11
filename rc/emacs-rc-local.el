@@ -145,7 +145,7 @@
 (global-font-lock-mode t)
 (transient-mark-mode t)
 
-(fringe-mode '(0 . 0)) ;; nah, i don't like fringe
+(fringe-mode 'nil) ;; nah, i don't like fringe
 
 (fset 'yes-or-no-p 'y-or-n-p)
 
