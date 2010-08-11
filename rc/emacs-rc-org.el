@@ -3,14 +3,18 @@
 
 (require 'org-install)
 
-(setq org-log-done t
-      org-hide-leading-stars t
-      org-todo-keywords '((sequence "TODO(t)" "WAITING(w)" "STARTED(s)" "|" "DONE(d)"
-                                    "CANCELED(c)"))
-      org-directory (concat (getenv "HOME") "/docs/org/")
+(setq org-directory (concat (getenv "HOME") "/docs/org/"))
+(setq org-agenda-files `(,(concat org-directory "gtd.org"))
+      org-agenda-skip-deadline-if-done t
+      org-agenda-skip-scheduled-if-done t
       org-default-notes-file (concat org-directory "journal.org")
-      org-agenda-files (mapcar (lambda (fname) (concat org-directory fname))
-                               '("work.org" "personal.org")))
+      org-hide-leading-stars t
+      org-log-done t
+      org-fast-tag-selection-single-key 'expert
+      org-return-follows-link t
+      org-reverse-note-order t
+      org-todo-keywords '((sequence "TODO(t)" "WAITING(w)" "STARTED(s)" "|"
+                                    "DONE(d)" "CANCELED(c)")))
 
 (add-to-list 'org-link-abbrev-alist '("emacswiki" . "http://www.emacswiki.org/cgi-bin/wiki/"))
 (add-to-list 'org-link-abbrev-alist '("google" . "http://www.google.com/search?q="))
