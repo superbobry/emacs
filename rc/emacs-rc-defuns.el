@@ -66,10 +66,22 @@
       (ad-set-arg 1 (* 4
                        (/ (window-height) 5)))))
 
-(defun gtd ()
-  "Opens the GTD file."
-  (interactive)
-  (find-file (concat org-directory "gtd.org")))
+;; The following two function are taken from textmate.el package
+;; by defunkt.
+(defun textmate-shift-right (&optional arg)
+  "Shift the line or region to the ARG places to the right.
 
+A place is considered `tab-width' character columns."
+  (interactive)
+  (let ((deactivate-mark nil)
+        (beg (or (and mark-active (region-beginning))
+                 (line-beginning-position)))
+        (end (or (and mark-active (region-end)) (line-end-position))))
+    (indent-rigidly beg end (* (or arg 1) tab-width))))
+
+(defun textmate-shift-left (&optional arg)
+  "Shift the line or region to the ARG places to the left."
+  (interactive)
+  (textmate-shift-right (* -1 (or arg 1))))
 
 ;;; emacs-rc-misc.el ends here

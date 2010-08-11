@@ -38,6 +38,6 @@
 (add-to-list 'load-path (concat root-dir "rc"))
 
 (load-init '(auto-complete auctex ccmode defuns erlang flymake haskell ido io js
-                           lisp lua local markup org python textmate yasnippet vcs
+                           lisp lua local markup org python yasnippet vcs
 
                            bindings))

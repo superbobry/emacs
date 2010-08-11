@@ -23,6 +23,8 @@
 (global-set-key (kbd "C-z") 'undo)
 (global-set-key (kbd "M-<up>") 'move-line-up)
 (global-set-key (kbd "M-<down>") 'move-line-down)
+(global-set-key (kbd "C-<tab>") 'textmate-shift-right)
+(global-set-key (kbd "C-S-<iso-lefttab>") 'textmate-shift-left)
 ;; FIXME: screws minibuffer prompt ...
 ;; (global-set-key (kbd "<return>") 'newline-maybe-indent)
 
