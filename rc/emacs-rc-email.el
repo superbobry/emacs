@@ -4,31 +4,35 @@
 (autoload 'wl "wl" "Wanderlust" t)
 (autoload 'wl-draft "wl-draft" "Write draft with Wanderlust." t)
 
-;; IMAP
-(setq elmo-imap4-default-server "imap.gmail.com"
+;; Maildir, IMAP & SMTP
+(setq mail-dir "~/docs/mail"
+      elmo-maildir-folder-path mail-dir
+      elmo-localdir-folder-path mail-dir
       elmo-imap4-default-user "superbobry@gmail.com"
       elmo-imap4-default-authenticate-type 'clear
       elmo-imap4-default-port '993
+      elmo-imap4-default-server "imap.gmail.com"
       elmo-imap4-default-stream-type 'ssl
       elmo-imap4-use-modified-utf7 t
-      elmo-enable-disconnected-operation t)
-
-;; SMTP
-(setq wl-smtp-connection-type 'starttls
+      wl-smtp-connection-type 'starttls
       wl-smtp-posting-port 587
       wl-smtp-authenticate-type "plain"
       wl-smtp-posting-user "superbobry"
-      wl-smtp-posting-server "smtp.gmail.com"
-      wl-local-domain "gmail.com")
+      wl-smtp-posting-server "smtp.gmail.com")
+
+;; Offline & Sync
+(setq elmo-enable-disconnected-operation t
+      elmo-imap4-use-cache t
+      wl-ask-range nil)
 
 ;; Folders
-(setq wl-folders-file (concat root-dir ".folders")
-      wl-fcc "%[Gmail]/Sent Mail"
-      wl-fcc-force-as-read t            ;; mark sent messages as read
+(setq wl-folders-file (concat mail-dir "/" ".folders")
       wl-default-folder "Inbox"
-      wl-default-spec "%"
-      wl-draft-folder "%[Gmail]/Drafts" ;; Gmail IMAP
-      wl-trash-folder "%[Gmail]/Trash")
+      wl-draft-folder "+Drafts"
+      wl-queue-folder "+Queue"
+      wl-trash-folder "%[Gmail]/Trash"
+      wl-fcc "%[Gmail]/Sent Mail"
+      wl-fcc-force-as-read t)           ;; mark sent messages as read
 
 ;; Display
 (setq wl-stay-folder-window t           ;; show the folder pane (left)

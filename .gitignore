@@ -9,3 +9,4 @@ tramp
 cache/*
 /packages/auto-complete/
 /packages/rainbow-mode/
+/mail

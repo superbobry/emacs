@@ -1,5 +1,6 @@
-%Inbox     "Inbox"
+%Inbox             "Inbox"
++Drafts            "Drafts"
++Queue             "Queue"
 %[Gmail]/Sent Mail "Sent"
-%[Gmail]/Drafts    "Drafts"
 %[Gmail]/Spam      "Spam"
 %[Gmail]/Trash     "Trash"
