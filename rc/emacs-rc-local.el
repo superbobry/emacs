@@ -85,6 +85,14 @@
       desktop-locals-to-save nil)
 (desktop-read)
 
+(require 'elscreen)
+(require 'elscreen-wl)
+(require 'elscreen-color-theme)
+
+(setq elscreen-display-screen-number t
+      elscreen-tab-display-kill-screen nil
+      elscreen-prefix-key "\C-q")
+
 (require 'uniquify)
 (setq
   uniquify-buffer-name-style 'post-forward

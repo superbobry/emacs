@@ -32,8 +32,14 @@
 (global-set-key (kbd "C-x c") 'kill-daemon)
 (global-set-key (kbd "C-c h") 'hs-hide-block)
 (global-set-key (kbd "C-c s") 'hs-show-block)
+
 (when (fboundp 'magit-status)
   (global-set-key (kbd "C-c g") 'magit-status))
 
+(when (fboundp 'elscreen-toggle)
+  (global-set-key (kbd "C-<next>") 'elscreen-next)
+  (global-set-key (kbd "C-<prior>") 'elscreen-previous)
+  (global-set-key (kbd "<f9>") 'elscreen-create)
+  (global-set-key (kbd "S-<f9>") 'elscreen-kill))
 
 ;;; emacs-rc-bindings.el ends here

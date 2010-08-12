@@ -127,12 +127,19 @@
           `(ac-candidate-face ((t (:background ,desert-mhl-bg :foreground ,desert-fg))))
           '(ac-selection-face ((t (:inherit highlight))))
           '(ac-completion-face ((t (:inherit ac-selection-face))))
+
+          `(elscreen-tab-background-face ((t (:background ,desert-bg))))
+          `(elscreen-tab-other-screen-face ((t (:background ,desert-bg :foreground ,desert-fg))))
+          `(elscreen-tab-current-screen-face
+            ((t (:background ,desert-bg :foreground ,desert-warning-fg :bold t))))
+          `(elscreen-tab-control-face
+            ((t (:inherit elscreen-tab-current-screen-face :underline nil))))
           ))
    )
 
   ;; Adding fixmes-todos highlight
   (font-lock-add-keywords
-   nil '(("\\<\\(FIXME\\|TODO\\|BUG\\):" 1
+   nil '(("\\<\\(FIXME\\|TODO\\|BUG\\|XXX\\):" 1
           `((t (:foreground ,desert-fixme-fg :background ,desert-fixme-bg))) t)))
   ;; Adding long lines highlight
   (font-lock-add-keywords
