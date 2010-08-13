@@ -40,6 +40,7 @@
   (global-set-key (kbd "C-<next>") 'elscreen-next)
   (global-set-key (kbd "C-<prior>") 'elscreen-previous)
   (global-set-key (kbd "<f9>") 'elscreen-create)
-  (global-set-key (kbd "S-<f9>") 'elscreen-kill))
+  (global-set-key (kbd "S-<f9>") 'elscreen-kill-screen-and-buffers))
+
 
 ;;; emacs-rc-bindings.el ends here

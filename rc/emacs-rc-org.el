@@ -1,7 +1,7 @@
 ;;; emacs-rc-org.el ---
 
 
-(require 'org-install)
+(require 'org)
 
 (setq org-directory (concat (getenv "HOME") "/docs/org/"))
 (setq org-agenda-files `(,(concat org-directory "gtd.org"))

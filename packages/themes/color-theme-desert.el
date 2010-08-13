@@ -24,11 +24,7 @@
 ;; Status: not intended to be distributed yet
 
 
-;; FIXME: cc-mode <type keyword> has the same color, unlike vim's desert
-;;
-
 (require 'color-theme)
-
 
 (defvar desert-fg "ghost white")
 (defvar desert-bg "gray20")
@@ -38,7 +34,7 @@
 (defvar desert-kw-fg "khaki")
 (defvar desert-function-fg "PaleGreen3")
 (defvar desert-variable-fg desert-fg)
-(defvar desert-type-fg "PaleGreen3") ; unfortunately, vim doesn't highlight class names, when they are defined
+(defvar desert-type-fg "PaleGreen3")
 (defvar desert-string-fg "#ffa0a0")
 (defvar desert-constant-fg desert-string-fg)
 (defvar desert-warning-fg "goldenrod")
@@ -48,7 +44,7 @@
 (defvar desert-hl-bg "olivedrab")
 (defvar desert-minibuffer-fg "khaki")
 (defvar desert-linum-fg "yellow")
-(defvar desert-mhl-bg "gray15") ; mode-line, header-line
+(defvar desert-mhl-bg "gray15") ;; mode-line, header-line
 (defvar desert-fixme-fg "orangered")
 (defvar desert-fixme-bg "yellow2")
 

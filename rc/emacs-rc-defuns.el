@@ -5,8 +5,9 @@
   (whitespace-mode t)
   (add-hook 'before-save-hook 'delete-trailing-whitespace))
 
-(defun turn-on-hideshow ()
-  (hs-minor-mode t))
+(defun turn-on-hideshow () (hs-minor-mode t))
+
+(defun turn-on-linum () (linum-mode t))
 
 (defun add-watchwords ()
   (font-lock-add-keywords
@@ -17,6 +18,7 @@
 (add-hook 'coding-hook 'turn-on-whitespace)
 (add-hook 'coding-hook 'add-watchwords)
 (add-hook 'coding-hook 'turn-on-hideshow)
+(add-hook 'coding-hook 'turn-on-linum)
 
 (defun run-coding-hook ()
   (interactive)
@@ -67,6 +69,12 @@
 ;;       (ad-set-arg 1 (* 4
 ;;                        (/ (window-height) 5)))))
 
+(defmacro elscreen-create-buffer (ad-do-it)
+  `(progn
+     (when (fboundp 'elscreen-create)
+       (elscreen-create))
+     ,ad-do-it))
+
 ;; The following two function are taken from textmate.el package
 ;; by defunkt.
 (defun textmate-shift-right (&optional arg)
@@ -84,5 +92,6 @@ A place is considered `tab-width' character columns."
   "Shift the line or region to the ARG places to the left."
   (interactive)
   (textmate-shift-right (* -1 (or arg 1))))
+
 
 ;;; emacs-rc-misc.el ends here

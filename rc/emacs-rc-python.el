@@ -9,7 +9,8 @@
 (autoload 'pymacs-exec "pymacs" nil t)
 (autoload 'pymacs-load "pymacs" nil t)
 
-(pymacs-load "ropemacs" "rope-")
+;; Bugs, eww ...
+;; (pymacs-load "ropemacs" "rope-")
 
 (autoload 'python-mode "python-mode" "Python Mode." t)
 (add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode))

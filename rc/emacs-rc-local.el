@@ -90,8 +90,8 @@
 (require 'elscreen-color-theme)
 
 (setq elscreen-display-screen-number t
-      elscreen-tab-display-kill-screen nil
-      elscreen-prefix-key "\C-q")
+      elscreen-tab-display-kill-screen nil)
+(elscreen-set-prefix-key "\C-q")
 
 (require 'uniquify)
 (setq

@@ -91,8 +91,27 @@
 (add-hook 'wl-mail-send-pre-hook 'wl-draft-subject-check)
 (add-hook 'wl-mail-send-pre-hook 'wl-draft-attachment-check)
 
-;; This is supposed to fix UTF-8 issues (and it does!) ...
-(setq-default mime-transfer-level 8)
+(setq-default mime-transfer-level 8        ;; don't screw my unicode message
+              mime-edit-split-message nil) ;; and don't split large attachements!
+
+;; Auto-updating
+(setq wl-biff-check-folder-list '("%inbox")
+      wl-biff-check-interval 30
+      wl-biff-notify-hook '(ding))
+
+(add-hook 'buff-notify-hook
+          '(lambda ()
+             (let ((buffers (wl-collect-summary)))
+               (while buffers
+                 (with-current-buffer (car buffers)
+                   (save-excursion
+                     (wl-summary-sync-update)))
+                 (setq buffers (cdr buffers))))))
+
+
+(defadvice wl (around elscreen-wl activate)
+  "Advising `wl' to be launched in a separate screen."
+  (elscreen-create-buffer ad-do-it))
 
 
 ;;; emacs-rc-email.el ends here
