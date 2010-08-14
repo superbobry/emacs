@@ -157,5 +157,47 @@
 
 (fset 'yes-or-no-p 'y-or-n-p)
 
+;; Spell checking
+
+(require 'flyspell)
+(require 'ispell)
+
+(setq ispell-program-name "aspell"
+      ispell-dictionary-alist
+      '(("english"                       ;; English
+         "[a-zA-Z]"
+         "[^a-zA-Z]"
+         "[']"
+         nil
+         ("-d" "en")
+         nil iso-8859-1)
+        ("russian"                       ;; Russian
+         "[АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЬЫЪЭЮЯабвгдеёжзийклмнопрстуфхцчшщьыъэюя]"
+         "[^АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЬЫЪЭЮЯабвгдеёжзийклмнопрстуфхцчшщьыъэюя]"
+         "[-]"
+         nil
+         ("-C" "-d" "ru")
+         nil utf-8)
+        (nil                             ;; Default
+         "[A-Za-z]"
+         "[^A-Za-z]"
+         "[']"
+         nil
+         ("-C")
+         nil iso-8859-1))
+
+      ispell-dictionary ispell-english-dictionary
+      ispell-extra-args '("--sug-mode=ultra")
+      ispell-have-new-look t
+      ispell-highlight-face 'flyspell-incorrect
+      ispell-local-dictionary ispell-russian-dictionary
+      ispell-english-dictionary "english"
+      ispell-russian-dictionary "russian")
+
+(setq flyspell-delay 1
+      flyspell-default-dictionary ispell-russian-dictionary)
+
+(add-hook 'text-mode-hook 'flyspell-mode)
+
 
 ;;; emacs-rc-local.el ends here

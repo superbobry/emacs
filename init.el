@@ -40,6 +40,6 @@
 
 (load-init '(auto-complete auto-insert auctex ccmode defuns erlang email
                            flymake haskell ido io js lisp local markup
-                           org python rss vcs yasnippet
+                           org python vcs yasnippet
 
                            bindings))

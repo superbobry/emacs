@@ -17,8 +17,7 @@
 
 
 (defun my-jc-mode-hook ()
-;  (flyspell-mode)
-;  (autosmiley-mode)
+  (flyspell-mode)
   (setq fill-column 120)
 
   (progn
@@ -51,5 +50,13 @@
  jabber-chat-system-prompt-format "[%t] ")
 
 
-;;; emacs-rc-jabber.el ends here
+(defadvice jabber-connect-all (around elscreen-jabber-connect-all activate)
+  "Advising `jabber-connect-all' to be launched in a separate screen."
+  (elscreen-create-buffer ad-do-it))
 
+(defadvice jabber-disconnect (around elscreen-jabber-disconnect activate)
+  "Advising `jabber-disconnect' to kill the remaining screen."
+  (elscreen-kill-buffer ad-do-it))
+
+
+;;; emacs-rc-jabber.el ends here

@@ -75,6 +75,12 @@
        (elscreen-create))
      ,ad-do-it))
 
+(defmacro elscreen-kill-buffer (ad-do-it)
+  `(progn
+     ,ad-do-it
+     (when (fboundp 'elscreen-)
+       (elscreen-kill))))
+
 ;; The following two function are taken from textmate.el package
 ;; by defunkt.
 (defun textmate-shift-right (&optional arg)

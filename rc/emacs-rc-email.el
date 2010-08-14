@@ -92,7 +92,7 @@
 (add-hook 'wl-mail-send-pre-hook 'wl-draft-attachment-check)
 
 (setq-default mime-transfer-level 8        ;; don't screw my unicode message
-              mime-edit-split-message nil) ;; and don't split large attachements!
+              mime-edit-split-message nil) ;; and don't split large attachments!
 
 ;; Auto-updating
 (setq wl-biff-check-folder-list '("%inbox")
@@ -112,6 +112,11 @@
 (defadvice wl (around elscreen-wl activate)
   "Advising `wl' to be launched in a separate screen."
   (elscreen-create-buffer ad-do-it))
+
+(defadvice wl-exit (around elscreen-wl-exit activate)
+  "Advising `wl-exit' to kill the remaining screen."
+  (elscreen-kill-buffer ad-do-it))
+
 
 
 ;;; emacs-rc-email.el ends here
