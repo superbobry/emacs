@@ -118,5 +118,4 @@
   (elscreen-kill-buffer ad-do-it))
 
 
-
 ;;; emacs-rc-email.el ends here

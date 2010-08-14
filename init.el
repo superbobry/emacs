@@ -1,8 +1,8 @@
 ;; Turn off mouse interface early in startup to avoid momentary display
 ;; (c) Emacs Starter Kit
-(if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
-(if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
-(if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
+(when (fboundp 'menu-bar-mode) (menu-bar-mode -1))
+(when (fboundp 'tool-bar-mode) (tool-bar-mode -1))
+(when (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
 
 (setq
  root-dir (file-name-directory (or (buffer-file-name)
@@ -40,7 +40,7 @@
 (add-to-list 'load-path (concat root-dir "rc"))
 
 (load-init '(auto-complete auto-insert auctex ccmode defuns erlang email
-                           flymake haskell ido io js lisp local markup
-                           org python vcs yasnippet
+                           flymake flyspell haskell ido io js lisp local
+                           markup org python vcs yasnippet
 
                            bindings))

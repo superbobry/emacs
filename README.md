@@ -29,7 +29,9 @@ I also have the following packages installed from Arch repos:
         Mail/News reader supporting IMAP4rev1 for emacs.
 
 
-    Feel free to email me, in case you have any questions!
+
+Feel free to email me, in case you have any questions!
+
 
      \          superbobry@gmail.com
       \

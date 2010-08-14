@@ -11,7 +11,7 @@
 (set-language-environment "UTF-8")
 (set-input-method nil)
 
-(if (not (eq window-system 'nil))
+(if (null window-system)
     (normal-erase-is-backspace-mode))
 
 (setq
@@ -32,7 +32,7 @@
  scroll-conservatively 100000      ;; ... the defaults ...
  scroll-up-aggressively 0          ;; ... are very ...
  scroll-down-aggressively 0        ;; ... annoying
- scroll-preserve-screen-position t ;; preserve screen pos with C-v/M-v
+ scroll-preserve-screen-position t ;; preserve screen pos with C-v / M-v
  whitespace-style '(trailing lines space-before-tab
                              indentation space-after-tab)
  whitespace-line-column 100
@@ -40,28 +40,28 @@
 
 (setq-default major-mode 'org-mode
               tab-width 4
-              case-fold-search t ;; case INsensitive search
+              case-fold-search t   ;; case INsensitive search
               indent-tabs-mode nil ;; do not use tabs for indentation
-              fill-column 80) ;; number of chars in line
+              fill-column 100)      ;; number of chars in line
 
 ;; Backups
 (setq make-backup-files t ;; do make backups
       backup-by-copying t ;; and copy them here
-      backup-directory-alist `(("." . ,(concat root-dir "/cache/backups")))
+      backup-directory-alist `(("." . ,(concat root-dir "cache/backups")))
       version-control t
       kept-new-versions 2
       kept-old-versions 5
       delete-old-versions t)
 
 (setq auto-save-list-file-prefix
-  (concat root-dir "/cache/auto-save-list/.saves-"))
+  (concat root-dir "cache/auto-save-list/.saves-"))
 
 (require 'saveplace)
-(setq save-place-file (concat root-dir "/cache/saveplace"))
+(setq save-place-file (concat root-dir "cache/saveplace"))
 (setq-default save-place t) ;; activate it for all buffers
 
 (require 'recentf)
-(setq recentf-save-file (concat root-dir "/cache/recentf")
+(setq recentf-save-file (concat root-dir "cache/recentf")
       recentf-max-saved-items 100
       recentf-max-menu-items 10)
 (recentf-mode t)
@@ -110,7 +110,7 @@
 (setq shell-prompt-pattern "^[^a-zA-Z].*[#$%>] *")
 (setq
   tramp-default-method "ssh"
-  tramp-persistency-file-name (concat root-dir "/cache/tramp"))
+  tramp-persistency-file-name (concat root-dir "cache/tramp"))
 
 (require 'color-theme)
 (require 'color-theme-desert)
@@ -151,51 +151,7 @@
 (global-font-lock-mode t)
 (transient-mark-mode t)
 
-(fringe-mode 'nil) ;; nah, i don't like fringe
-
 (fset 'yes-or-no-p 'y-or-n-p)
-
-;; Spell checking
-
-(require 'flyspell)
-(require 'ispell)
-
-(setq ispell-program-name "aspell"
-      ispell-dictionary-alist
-      '(("english"                       ;; English
-         "[a-zA-Z]"
-         "[^a-zA-Z]"
-         "[']"
-         nil
-         ("-d" "en")
-         nil iso-8859-1)
-        ("russian"                       ;; Russian
-         "[АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЬЫЪЭЮЯабвгдеёжзийклмнопрстуфхцчшщьыъэюя]"
-         "[^АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЬЫЪЭЮЯабвгдеёжзийклмнопрстуфхцчшщьыъэюя]"
-         "[-]"
-         nil
-         ("-C" "-d" "ru")
-         nil utf-8)
-        (nil                             ;; Default
-         "[A-Za-z]"
-         "[^A-Za-z]"
-         "[']"
-         nil
-         ("-C")
-         nil iso-8859-1))
-
-      ispell-dictionary ispell-english-dictionary
-      ispell-extra-args '("--sug-mode=ultra")
-      ispell-have-new-look t
-      ispell-highlight-face 'flyspell-incorrect
-      ispell-local-dictionary ispell-russian-dictionary
-      ispell-english-dictionary "english"
-      ispell-russian-dictionary "russian")
-
-(setq flyspell-delay 1
-      flyspell-default-dictionary ispell-russian-dictionary)
-
-(add-hook 'text-mode-hook 'flyspell-mode)
 
 
 ;;; emacs-rc-local.el ends here

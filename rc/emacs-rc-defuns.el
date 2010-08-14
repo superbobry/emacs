@@ -9,6 +9,8 @@
 
 (defun turn-on-linum () (linum-mode t))
 
+(defun turn-on-flyspell () (flyspell-prog-mode))
+
 (defun add-watchwords ()
   (font-lock-add-keywords
    nil
@@ -19,6 +21,8 @@
 (add-hook 'coding-hook 'add-watchwords)
 (add-hook 'coding-hook 'turn-on-hideshow)
 (add-hook 'coding-hook 'turn-on-linum)
+(add-hook 'coding-hook 'turn-on-flyspell)
+
 
 (defun run-coding-hook ()
   (interactive)
@@ -78,7 +82,7 @@
 (defmacro elscreen-kill-buffer (ad-do-it)
   `(progn
      ,ad-do-it
-     (when (fboundp 'elscreen-)
+     (when (fboundp 'elscreen-kill)
        (elscreen-kill))))
 
 ;; The following two function are taken from textmate.el package

@@ -72,13 +72,6 @@ Example:
 
 (add-hook 'remember-mode-hook 'org-remember-apply-template)
 
-;; Clock
-(require 'org-clock)
-(org-clock-persistence-insinuate)
-(setq org-clock-idle-time 10)
-(setq org-clock-out-remove-zero-time-clocks t)
-(setq org-clock-persist 'history)
-
 ;; Habit
 (require 'org-habit)
 (add-to-list 'org-modules 'org-habit)
@@ -87,15 +80,19 @@ Example:
 
 ;; Compatibility issues.
 ;; a) windmove
+(require 'windmove)
+
 (add-hook 'org-shiftup-final-hook 'windmove-up)
 (add-hook 'org-shiftleft-final-hook 'windmove-left)
 (add-hook 'org-shiftdown-final-hook 'windmove-down)
 (add-hook 'org-shiftright-final-hook 'windmove-right)
+
 ;; b) yasnippet
-(add-hook 'org-mode-hook
-          (lambda ()
-            (org-set-local 'yas/trigger-key [tab])
-            (define-key yas/keymap [tab] 'yas/next-field-group)))
+(when (require 'yasnippet nil t)
+  (add-hook 'org-mode-hook
+            (lambda ()
+              (org-set-local 'yas/trigger-key [tab])
+              (define-key yas/keymap [tab] 'yas/next-field-group))))
 
 ;; Bindings
 (global-set-key (kbd "\C-cl") 'org-store-link)
