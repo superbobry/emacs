@@ -101,10 +101,8 @@
 (require 'autopair)
 (autopair-global-mode)
 
-(require 'sr-speedbar nil 'noerror)
-(setq
- sr-speedbar-width-x 20
- sr-speedbar-right-side t)
+(require 'nav)
+;; not much configuration here, huh?
 
 (require 'tramp)
 ;; we need a bit more funky pattern, as tramp will start $SHELL

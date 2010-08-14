@@ -42,5 +42,8 @@
   (global-set-key (kbd "<f9>") 'elscreen-create)
   (global-set-key (kbd "S-<f9>") 'elscreen-kill-screen-and-buffers))
 
+(when (fboundp 'nav)
+  (global-set-key (kbd "C-c n") 'nav-toggle))
+
 
 ;;; emacs-rc-bindings.el ends here
