@@ -18,7 +18,8 @@
       wl-smtp-posting-port 587
       wl-smtp-authenticate-type "plain"
       wl-smtp-posting-user "superbobry"
-      wl-smtp-posting-server "smtp.gmail.com")
+      wl-smtp-posting-server "smtp.gmail.com"
+      wl-local-domain "localhost")
 
 ;; Offline & Sync
 (setq elmo-enable-disconnected-operation t
@@ -116,6 +117,15 @@
 (defadvice wl-exit (around elscreen-wl-exit activate)
   "Advising `wl-exit' to kill the remaining screen."
   (elscreen-kill-buffer ad-do-it))
+
+;; HTML rendering for messages
+(when (require 'w3m nil t)
+  (require 'w3m-load)
+  (require 'mime-w3m)
+  (add-hook 'wl-init-hook 'mime-w3m-insinuate))
+
+;; TODO add org-mode integration from the mailing list
+;; http://thread.gmane.org/gmane.mail.wanderlust.general.japanese/7410/focus=7460
 
 
 ;;; emacs-rc-email.el ends here

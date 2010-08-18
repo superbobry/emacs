@@ -42,7 +42,7 @@
               tab-width 4
               case-fold-search t   ;; case INsensitive search
               indent-tabs-mode nil ;; do not use tabs for indentation
-              fill-column 100)      ;; number of chars in line
+              fill-column 100)     ;; number of chars in line
 
 ;; Backups
 (setq make-backup-files t ;; do make backups
