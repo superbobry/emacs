@@ -124,10 +124,11 @@
           '(ac-selection-face ((t (:inherit highlight))))
           '(ac-completion-face ((t (:inherit ac-selection-face))))
 
-          `(elscreen-tab-background-face ((t (:background ,desert-bg))))
-          `(elscreen-tab-other-screen-face ((t (:background ,desert-bg :foreground ,desert-fg))))
+          `(elscreen-tab-background-face ((t (:background ,desert-mhl-bg))))
+          `(elscreen-tab-other-screen-face
+            ((t (:background ,desert-mhl-bg :foreground "gray60"))))
           `(elscreen-tab-current-screen-face
-            ((t (:background ,desert-bg :foreground ,desert-warning-fg :bold t))))
+            ((t (:background ,desert-mhl-bg :foreground ,desert-warning-fg :bold t))))
           `(elscreen-tab-control-face
             ((t (:inherit elscreen-tab-current-screen-face :underline nil))))
           ))
