@@ -13,6 +13,7 @@
       org-hide-leading-stars t
       org-log-done t
       org-fast-tag-selection-single-key 'expert
+      org-footnote-auto-adjust t
       org-return-follows-link t
       org-reverse-note-order t
       org-todo-keywords
@@ -82,10 +83,10 @@ Example:
 ;; a) windmove
 (require 'windmove)
 
-(add-hook 'org-shiftup-final-hook 'windmove-up)
-(add-hook 'org-shiftleft-final-hook 'windmove-left)
-(add-hook 'org-shiftdown-final-hook 'windmove-down)
-(add-hook 'org-shiftright-final-hook 'windmove-right)
+(add-hook 'org-shiftup-hook 'windmove-up)
+(add-hook 'org-shiftleft-hook 'windmove-left)
+(add-hook 'org-shiftdown-hook 'windmove-down)
+(add-hook 'org-shiftright-hook 'windmove-right)
 
 ;; b) yasnippet
 (when (require 'yasnippet nil t)
