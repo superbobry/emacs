@@ -453,14 +453,19 @@ the trigger key itself."
     map)
   "The keymap active while a snippet expansion is in progress.")
 
-(defvar yas/key-syntaxes (list "w" "w_" "w_.()" "^ ")
-  "A list of syntax of a key. This list is tried in the order
-to try to find a key. For example, if the list is '(\"w\" \"w_\").
-And in emacs-lisp-mode, where \"-\" has the syntax of \"_\":
+(defvar yas/key-syntaxes (list "w" "w_" "w_." "w_.()" "^ ")
+  "List of character syntaxes used to find a trigger key before point.
+Scanning backwards for a key, this list is tried in the
+order. For example, if the list is '(\"w\" \"w_\") first look
+trigger keys which are composed exclusively of \"word\"-syntax
+characters, and then, if that fails, look for keys which are
+either of \"word\" or \"symbol\" syntax. So triggering after
+triggering after:
 
 foo-bar
 
-will first try \"bar\", if not found, then \"foo-bar\" is tried.")
+will first try \"bar\", if that trigger key isn't found found,
+\"foo-bar\" is tried.")
 
 (defvar yas/after-exit-snippet-hook
   '()
@@ -799,12 +804,6 @@ Key bindings:
          ;; Reload the trigger key
          ;;
          (yas/trigger-key-reload)
-         ;; Load all snippets definitions unless we still don't have a
-         ;; root-directory or some snippets have already been loaded.
-         ;;
-         (unless (or (null yas/snippet-dirs)
-                     (> (hash-table-count yas/tables) 0))
-           (yas/reload-all))
          ;; Install the direct keymaps in `emulation-mode-map-alists'
          ;; (we use `add-hook' even though it's not technically a hook,
          ;; but it works). Then define variables named after modes to
@@ -825,9 +824,7 @@ Key bindings:
   (yas/direct-keymaps-set-vars)
   (remove-hook 'yas/minor-mode-hook 'yas/direct-keymaps-set-vars-runonce))
 
-(defvar yas/dont-activate #'(lambda ()
-                              (and yas/snippet-dirs
-                                   (null (yas/get-snippet-tables))))
+(defvar yas/dont-activate nil
   "If non-nil don't let `yas/minor-mode-on' active yas for this buffer.
 
 `yas/minor-mode-on' is usually called by `yas/global-mode' so
@@ -838,13 +835,19 @@ behaviour.")
 (defun yas/minor-mode-on ()
   "Turn on YASnippet minor mode.
 
-Do this unless `yas/dont-activate' is t or the function
-`yas/get-snippet-tables' (which see), returns an empty list."
+Do this unless `yas/dont-activate' is t "
   (interactive)
-  (unless (or (and (functionp yas/dont-activate)
+  (unless (or (minibufferp)
+              (and (functionp yas/dont-activate)
                    (funcall yas/dont-activate))
               (and (not (functionp yas/dont-activate))
                    yas/dont-activate))
+    ;; Load all snippets definitions unless we still don't have a
+    ;; root-directory or some snippets have already been loaded.
+    ;;
+    (unless (or (null yas/snippet-dirs)
+                (> (hash-table-count yas/tables) 0))
+      (yas/reload-all))
     (yas/minor-mode 1)))
 
 (defun yas/minor-mode-off ()
@@ -1265,11 +1268,10 @@ return an expression that when evaluated will issue an error."
   (when (and keybinding
              (not (string-match "keybinding" keybinding)))
     (condition-case err
-        (let ((keybinding-string (or (and (string-match "\".*\"" keybinding)
-                                          (read keybinding))
-                                     ;; "KEY-DESC" with quotes is deprecated..., but supported
-                                     keybinding)))
-          (read-kbd-macro keybinding-string 'need-vector))
+        (let ((res (or (and (string-match "^\\[.*\\]$" keybinding)
+                            (read keybinding))
+                       (read-kbd-macro keybinding 'need-vector))))
+          res)
       (error
        (message "[yas] warning: keybinding \"%s\" invalid since %s."
                 keybinding (error-message-string err))
@@ -2066,11 +2068,11 @@ ommited from MODE's menu, even if they're manually loaded.
                                                       :table table
                                                       :perm-group group-list
                                                       :uuid (second e)))))
-             (define-key keymap (vector (make-symbol (second e)))
+             (define-key keymap (vector (gensym))
                (car (yas/snippet-menu-binding-pair-get-create template :stay)))))
           ((eq (first e) 'yas/submenu)
            (let ((subkeymap (make-sparse-keymap)))
-             (define-key keymap (vector (make-symbol(second e)))
+             (define-key keymap (vector (gensym))
                `(menu-item ,(second e) ,subkeymap))
              (yas/define-menu-1 table
                                 subkeymap
@@ -2791,11 +2793,13 @@ Use this in primary and mirror transformations to tget."
 (defun yas/inside-string ()
   (equal 'font-lock-string-face (get-char-property (1- (point)) 'face)))
 
-(defun yas/unimplemented ()
+(defun yas/unimplemented (&optional missing-feature)
   (if yas/current-template
-      (if (y-or-n-p "This snippet is unimplemented. Visit the snippet definition? ")
+      (if (y-or-n-p (format "This snippet is unimplemented (missing %s) Visit the snippet definition? "
+                            (or missing-feature
+                                "something")))
           (yas/visit-snippet-file-1 yas/current-template))
-    (message "No implementation.")))
+    (message "No implementation. Missing %s" (or missing-feature "something"))))
 
 
 ;;; Snippet expansion and field management
@@ -2934,7 +2938,7 @@ inserted first."
                                               (overlay-get ov 'yas/snippet))
                                           (if all-snippets
                                               (overlays-in (point-min) (point-max))
-                                            (overlays-at (point))))))
+                                            (nconc (overlays-at (point)) (overlays-at (1- (point))))))))
    #'(lambda (s1 s2)
        (<= (yas/snippet-id s2) (yas/snippet-id s1)))))
 
@@ -2963,7 +2967,7 @@ delegate to `yas/next-field'."
                                  (yas/snippet-fields snippet)))
          (active-field-pos (position active-field live-fields))
          (target-pos (and active-field-pos (+ arg active-field-pos)))
-         (target-field (nth target-pos live-fields)))
+         (target-field (and target-pos (nth target-pos live-fields))))
     ;; First check if we're moving out of a field with a transform
     ;;
     (when (and active-field
@@ -2975,7 +2979,7 @@ delegate to `yas/next-field'."
         ;; primary field transform: exit call to field-transform
         (yas/eval-lisp (yas/field-transform active-field))))
     ;; Now actually move...
-    (cond ((>= target-pos (length live-fields))
+    (cond ((and target-pos (>= target-pos (length live-fields)))
            (yas/exit-snippet snippet))
           (target-field
            (yas/move-to-field snippet target-field))
