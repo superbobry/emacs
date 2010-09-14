@@ -37,6 +37,7 @@
 (add-to-list 'load-path (concat root-dir "packages/rainbow-mode"))
 (add-to-list 'load-path (concat root-dir "packages/elscreen"))
 (add-to-list 'load-path (concat root-dir "packages/nav"))
+(add-to-list 'load-path (concat root-dir "packages/google-weather-el"))
 (add-to-list 'load-path (concat root-dir "rc"))
 
 (load-init '(auto-complete auto-insert auctex ccmode defuns erlang email

@@ -26,5 +26,8 @@
 (add-hook 'html-mode-hook 'rainbow-turn-on)
 (add-hook 'css-mode-hook 'rainbow-turn-on)
 
+(require 'zencoding-mode)
+(add-hook 'sgml-mode-hook 'zencoding-mode)
+
 
 ;;; emacs-rc-markup.el ends here

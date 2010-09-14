@@ -100,5 +100,8 @@ Example:
 (global-set-key (kbd "\C-ca") 'org-agenda)
 (global-set-key (kbd "\C-cr") 'org-remember)
 
+;; Weather
+(require 'org-google-weather nil t)
+
 
 ;;; emacs-rc-org.el ends here

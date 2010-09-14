@@ -38,7 +38,6 @@
 ;; Display
 (setq wl-stay-folder-window t           ;; show the folder pane (left)
       wl-folder-window-width 23         ;; toggle on/off with 'i'
-      wl-auto-select-first t            ;; display the first message in the folder
       wl-message-ignored-field-list '("^.*:")
       wl-message-visible-field-list
       '("^\\(To\\|Cc\\):"
@@ -100,7 +99,7 @@
       wl-biff-check-interval 30
       wl-biff-notify-hook '(ding))
 
-(add-hook 'buff-notify-hook
+(add-hook 'biff-notify-hook
           '(lambda ()
              (let ((buffers (wl-collect-summary)))
                (while buffers
