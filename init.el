@@ -41,7 +41,7 @@
 (add-to-list 'load-path (concat root-dir "rc"))
 
 (load-init '(auto-complete auto-insert auctex ccmode defuns erlang email
-                           flymake flyspell haskell ido io js lisp local
+                           flymake flyspell haskell ido js lisp local
                            markup org python vcs yasnippet
 
                            bindings))
