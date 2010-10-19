@@ -18,6 +18,7 @@
 ;; Editing
 (global-set-key (kbd "C-c C-j") 'join-line)
 (global-set-key (kbd "C-c C-d") 'duplicate-line)
+(global-set-key (kbd "C-c g") 'goto-line)
 (global-set-key (kbd "<delete>") 'delete-char)
 (global-set-key (kbd "M-S") 'toggle-input-method)
 (global-set-key (kbd "C-z") 'undo)
@@ -30,20 +31,37 @@
 
 ;; Misc
 (global-set-key (kbd "C-x c") 'kill-daemon)
-(global-set-key (kbd "C-c h") 'hs-hide-block)
-(global-set-key (kbd "C-c s") 'hs-show-block)
 
-(when (fboundp 'magit-status)
+(global-unset-key (kbd "C-x h"))
+(global-unset-key (kbd "C-c h"))
+(global-set-key (kbd "C-x h h") 'hs-hide-block)
+(global-set-key (kbd "C-x h s") 'hs-show-block)
+
+(when (featurep 'magit)
   (global-set-key (kbd "C-c g") 'magit-status))
 
-(when (fboundp 'elscreen-toggle)
+(when (featurep 'ahg)
+  (global-set-key (kbd "C-c h") 'ahg-status))
+
+(when (featurep 'elscreen)
   (global-set-key (kbd "C-<next>") 'elscreen-next)
   (global-set-key (kbd "C-<prior>") 'elscreen-previous)
   (global-set-key (kbd "<f9>") 'elscreen-create)
   (global-set-key (kbd "S-<f9>") 'elscreen-kill-screen-and-buffers))
 
-(when (fboundp 'nav)
+(when (featurep 'nav)
   (global-set-key (kbd "C-c n") 'nav-toggle))
+
+(when (featurep 'bm)
+  (global-set-key (kbd "C-x r t") 'bm-toggle)
+  (global-set-key (kbd "C-x r n") 'bm-next)
+  (global-set-key (kbd "C-x r p") 'bm-prev)
+  (global-set-key (kbd "C-x r a") 'bm-show-all))
+
+(when (featurep 'org)
+  (global-set-key (kbd "\C-ca") 'org-agenda)
+  (global-set-key (kbd "\C-cc") 'org-capture)
+  (global-set-key (kbd "\C-cl") 'org-store-link))
 
 
 ;;; emacs-rc-bindings.el ends here

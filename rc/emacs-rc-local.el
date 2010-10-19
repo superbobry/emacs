@@ -60,6 +60,8 @@
 (setq save-place-file (concat root-dir "cache/saveplace"))
 (setq-default save-place t) ;; activate it for all buffers
 
+(require 'longlines) ;; oh please break those long lines for me ...
+
 (require 'recentf)
 (setq recentf-save-file (concat root-dir "cache/recentf")
       recentf-max-saved-items 100
@@ -84,6 +86,8 @@
                 register-alist))
       desktop-locals-to-save nil)
 (desktop-read)
+
+(require 'bm) ;; bookmarks are nice, see *-bindings.el!
 
 (require 'elscreen)
 (require 'elscreen-wl)
@@ -116,6 +120,8 @@
 (require 'color-theme-desert)
 (color-theme-initialize)
 (color-theme-desert)
+
+(set-frame-font "Monaco-12")
 
 (mouse-avoidance-mode 'cat-and-mouse)
 

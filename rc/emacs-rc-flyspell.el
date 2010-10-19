@@ -15,7 +15,6 @@
       flyspell-default-dictionary "english")
 
 (add-hook 'org-mode-hook 'flyspell-mode)
-(add-hook 'text-mode-hook 'flyspell-mode)
 
 
 ;;; emacs-rc-flyspell.el ends here
