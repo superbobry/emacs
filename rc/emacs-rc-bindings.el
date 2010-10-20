@@ -43,6 +43,9 @@
 (when (featurep 'ahg)
   (global-set-key (kbd "C-c h") 'ahg-status))
 
+(when (featurep 'scratch)
+  (global-set-key (kbd "C-c s") 'scratch))
+
 (when (featurep 'elscreen)
   (global-set-key (kbd "C-<next>") 'elscreen-next)
   (global-set-key (kbd "C-<prior>") 'elscreen-previous)

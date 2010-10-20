@@ -108,6 +108,9 @@
 (require 'nav)
 ;; not much configuration here, huh?
 
+;; scratch buffers for the active mode with two key strokes!
+(autoload 'scratch "scratch" nil t)
+
 (require 'tramp)
 ;; we need a bit more funky pattern, as tramp will start $SHELL
 ;; (sudo -s), ie., zsh for root user

@@ -26,16 +26,19 @@
 
 (setq org-capture-templates
       '(("t" "Todo" entry (file+headline "gtd.org" "Tasks")
-            "* TODO %^{Brief Description} %^g\n%?\nAdded: %U")
+         "* TODO %^{Brief Description} %^g\n%?\nAdded: %U"
+         :prepend t)
         ("w" "Word" entry (file+headline "" "Words")
              "** /%^{Word}/ %U :WORD:
 %?
 
 Example:")
         ("i" "Idea" entry (file+headline "" "Ideas")
-            "** %^{Idea} %U :IDEA:%^g\n%?")
+         "** %^{Idea} %U :IDEA:%^g\n%?"
+         :prepend t)
         ("b" "Buzz" entry (file+headline "" "Buzz")
-            "** %^{Topic} %T %^g \n%i%?\n")
+         "** %^{Topic} %T %^g \n%i%?\n"
+         :prepend t)
       ))
 
 ;; Habit.
