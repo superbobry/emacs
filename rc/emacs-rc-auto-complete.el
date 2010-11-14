@@ -4,7 +4,7 @@
 (require 'auto-complete)
 
 (add-to-list 'ac-dictionary-directories
-             (concat root-dir "packages/auto-complete/dict"))
+             (concat el-get-dir "auto-complete/dict"))
 
 (require 'auto-complete-config)
 (ac-config-default)

@@ -36,9 +36,9 @@
 
 (load-library "/home/bobry/code/el-get/el-get")
 (setq el-get-sources
-      '(auto-complete ahg autopair color-theme color-theme-twilight django-mode
-                      google-weather haskell-mode rainbow-mode scratch
-                      session yasnippet
+      '(auto-complete ahg autopair color-theme django-mode google-weather
+                      haskell-mode rainbow-mode scratch session switch-window
+                      yasnippet
 
        ;; doesn't work that well :(
        ;; (:name bm
@@ -71,7 +71,8 @@
        (:name color-theme-subdued
               :type git
               :url "https://github.com/jbw/color-theme-subdued.git"
-              :features color-theme-subdued)))
+              :features color-theme-subdued
+              :after (lambda () (color-theme-subdued)))))
 
 (el-get)
 
