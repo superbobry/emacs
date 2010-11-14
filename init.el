@@ -71,8 +71,12 @@
        (:name color-theme-subdued
               :type git
               :url "https://github.com/jbw/color-theme-subdued.git"
-              :features color-theme-subdued
-              :after (lambda () (color-theme-subdued)))))
+              :features color-theme-subdued)
+       (:name color-theme-desert
+              :type git
+              :url "git://github.com/superbobry/color-theme-desert.git"
+              :features color-theme-desert
+              :after (lambda () (color-theme-desert)))))
 
 (el-get)
 

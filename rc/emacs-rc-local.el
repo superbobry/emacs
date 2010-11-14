@@ -117,7 +117,7 @@
   (color-theme-reset-faces)
   (color-theme-subdued))
 
-(set-frame-font "Droid Sans Mono-12")
+(set-frame-font "Droid Sans Mono-11")
 
 (mouse-avoidance-mode 'cat-and-mouse)
 
