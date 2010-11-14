@@ -2,15 +2,15 @@
 
 
 (require 'yasnippet)
+(require 'dropdown-list)
 
-(setq
- yas/prompt-functions '(yas/dropdown-prompt
-                        yas/completing-prompt))
+(setq yas/prompt-functions '(yas/dropdown-prompt
+                             yas/x-prompt
+                             yas/ido-prompt)
+      yas/snippet-dirs (list (concat root-dir "snippets")
+                             (concat el-get-dir "yasnippet/snippets")))
 
-(eval-after-load "yasnippet"
-  '(progn
-     (yas/initialize)
-     (yas/load-directory (concat (getenv "HOME") "/.emacs.d/snippets"))))
+(yas/initialize)
 
 ;; (add-hook 'after-save-hook
 ;; 	  (if (string-match my-yasnippet-dir (or buffer-file-name ""))
@@ -18,3 +18,4 @@
 
 
 ;;; emacs-rc-yasnippet.el ends here
+

@@ -2,9 +2,7 @@
 .hg
 auto-save-list/
 cache/
-/packages/auto-complete/
-/packages/rainbow-mode/
-/packages/io-mode.el
+el-get/
 custom.el
 ac-comphist.dat
 tramp

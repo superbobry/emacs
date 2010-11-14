@@ -28,20 +28,55 @@
 
 (add-hook 'after-save-hook 'autocompile)
 
-(add-to-list 'load-path root-dir)
-(add-to-list 'load-path (concat root-dir "packages"))
-(add-to-list 'load-path (concat root-dir "packages/auto-complete"))
-(add-to-list 'load-path (concat root-dir "packages/flymake"))
-(add-to-list 'load-path (concat root-dir "packages/themes"))
-(add-to-list 'load-path (concat root-dir "packages/yasnippet"))
-(add-to-list 'load-path (concat root-dir "packages/rainbow-mode"))
-(add-to-list 'load-path (concat root-dir "packages/elscreen"))
-(add-to-list 'load-path (concat root-dir "packages/nav"))
-(add-to-list 'load-path (concat root-dir "packages/google-weather-el"))
-(add-to-list 'load-path (concat root-dir "rc"))
 
-(load-init '(auto-complete auto-insert auctex ccmode defuns erlang email
-                           flymake flyspell haskell ido js lisp local
-                           markup org python vcs yasnippet
+(add-to-list 'load-path root-dir)
+(add-to-list 'load-path (concat root-dir "rc"))
+(add-to-list 'load-path (concat root-dir "el-get"))
+
+
+(load-library "/home/bobry/code/el-get/el-get")
+(setq el-get-sources
+      '(auto-complete ahg autopair color-theme color-theme-twilight django-mode
+                      google-weather haskell-mode rainbow-mode scratch
+                      session yasnippet
+
+       ;; doesn't work that well :(
+       ;; (:name bm
+       ;;        :type http
+       ;;        :url "http://ftp.twaren.net/Unix/NonGNU/bm/bm-1.50.el")
+       (:name icomplete+
+              :type emacswiki)
+       (:name js2-mode
+              :type git-svn
+              :url "http://js2-mode.googlecode.com/svn/trunk/")
+       (:name nav
+              :type git-svn
+              :url "http://emacs-nav.googlecode.com/svn/trunk/")
+       (:name coffee-mode
+              :type git
+              :url "https://github.com/defunkt/coffee-mode.git")
+       (:name python-mode
+              :type bzr
+              :url "https://code.launchpad.net/~python-mode-devs/python-mode/python-mode"
+              :features python-mode)
+       (:name soy-mode
+              :type git
+              :url "https://github.com/toomore-such/soy-mode.git")
+       (:name markdown-mode
+              :type git
+              :url "https://github.com/defunkt/markdown-mode.git")
+       (:name quack
+              :type http
+              :url "http://www.neilvandyke.org/quack/quack.el")
+       (:name color-theme-subdued
+              :type git
+              :url "https://github.com/jbw/color-theme-subdued.git"
+              :features color-theme-subdued)))
+
+(el-get)
+
+(load-init '(auto-complete auto-insert ccmode defuns erlang flymake
+                           flyspell haskell ido js lisp local markup org
+                           python vcs yasnippet
 
                            bindings))

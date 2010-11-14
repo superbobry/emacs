@@ -17,6 +17,8 @@
 (setq
  auto-save-interval 512            ;; autosave every 512 keyboard inputs
  auto-save-list-file-prefix nil
+ max-specpdl-size 4096
+ max-lisp-eval-depth 1024
  browse-url-browser-function 'browse-url-generic
  browse-url-generic-program "/usr/bin/chromium"
  color-theme-is-global t
@@ -38,8 +40,7 @@
  whitespace-line-column 100
  x-select-enable-clipboard t)
 
-(setq-default major-mode 'org-mode
-              tab-width 4
+(setq-default tab-width 4
               case-fold-search t   ;; case INsensitive search
               indent-tabs-mode nil ;; do not use tabs for indentation
               fill-column 100)     ;; number of chars in line
@@ -87,25 +88,17 @@
       desktop-locals-to-save nil)
 (desktop-read)
 
-(require 'bm) ;; bookmarks are nice, see *-bindings.el!
-
-(require 'elscreen)
-(require 'elscreen-wl)
-(require 'elscreen-color-theme)
-
-(setq elscreen-display-screen-number t
-      elscreen-tab-display-kill-screen nil)
-(elscreen-set-prefix-key "\C-q")
+(require 'bm nil t) ;; bookmarks are nice, see *-bindings.el!
 
 (require 'uniquify)
 (setq
   uniquify-buffer-name-style 'post-forward
   uniquify-separator ":")
 
-(require 'autopair)
-(autopair-global-mode)
+(when (require 'autopair nil t)
+  (autopair-global-mode))
 
-(require 'nav)
+(require 'nav nil t)
 ;; not much configuration here, huh?
 
 ;; scratch buffers for the active mode with two key strokes!
@@ -119,21 +112,23 @@
   tramp-default-method "ssh"
   tramp-persistency-file-name (concat root-dir "cache/tramp"))
 
-(require 'color-theme)
-(require 'color-theme-desert)
-(color-theme-initialize)
-(color-theme-desert)
+(when (require 'color-theme nil t)
+  (color-theme-initialize)
+  (color-theme-reset-faces)
+  (color-theme-subdued))
 
-(set-frame-font "Monaco-12")
+(set-frame-font "Droid Sans Mono-12")
 
 (mouse-avoidance-mode 'cat-and-mouse)
 
 (global-linum-mode 0)   ;; no line number unless i say so ...
 (global-hl-line-mode 0) ;; ... and no line highlighting too
+(blink-cursor-mode -1)  ;; and cut that blinking out, okay?
 
 (setq
  cursor-in-non-selected-windows nil
  use-dialog-box nil)
+
 
 ;; Modeline
 (column-number-mode t)
@@ -160,7 +155,13 @@
 (global-font-lock-mode t)
 (transient-mark-mode t)
 
+;; stop prmopting me, allright?
+;; a) y is yes and n is no
 (fset 'yes-or-no-p 'y-or-n-p)
+;; b) i don't care if the process is running
+(setq kill-buffer-query-functions
+  (remq 'process-kill-buffer-query-function
+        kill-buffer-query-functions))
 
 
 ;;; emacs-rc-local.el ends here

@@ -43,14 +43,8 @@
 (when (featurep 'ahg)
   (global-set-key (kbd "C-c h") 'ahg-status))
 
-(when (featurep 'scratch)
+(when (require 'scratch 'nil t)
   (global-set-key (kbd "C-c s") 'scratch))
-
-(when (featurep 'elscreen)
-  (global-set-key (kbd "C-<next>") 'elscreen-next)
-  (global-set-key (kbd "C-<prior>") 'elscreen-previous)
-  (global-set-key (kbd "<f9>") 'elscreen-create)
-  (global-set-key (kbd "S-<f9>") 'elscreen-kill-screen-and-buffers))
 
 (when (featurep 'nav)
   (global-set-key (kbd "C-c n") 'nav-toggle))

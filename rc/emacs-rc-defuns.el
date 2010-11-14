@@ -5,7 +5,7 @@
   (whitespace-mode t)
   (add-hook 'before-save-hook 'delete-trailing-whitespace))
 
-(defun turn-on-hideshow () (hs-minor-mode t))
+(defun turn-on-hideshow () (hs-minor-mode t)) 
 
 (defun turn-on-linum () (linum-mode t))
 

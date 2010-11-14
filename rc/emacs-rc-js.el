@@ -1,26 +1,27 @@
 ;;; emacs-rs-js.el ---
 
 
-(require 'espresso)
+(require 'js2-mode nil t)
 (require 'coffee-mode) ;; nice couple :)
 
-(autoload 'espresso-mode "espresso" "Start espresso-mode" t)
-(add-to-list 'auto-mode-alist '("\\.js$" . espresso-mode))
-(add-to-list 'auto-mode-alist '("\\.json$" . espresso-mode))
+(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+(add-to-list 'auto-mode-alist '("\\.json$" . js2-mode))
 
-(add-hook 'espresso-mode-hook 'run-coding-hook)
+(add-hook 'js2-mode-hook 'run-coding-hook)
+(add-hook 'js2-mode-hook
+          '(lambda ()
+             ;; (font-lock-add-keywords
+             ;;  'js2-mode `(("\\(function *\\)("
+             ;;               (0 (progn (compose-region (match-beginning 1)
+             ;;                                         (match-end 1) "ƒ")
+             ;;                         nil)))))
+             (autopair-mode)))
 
-(setq espresso-indent-level 2)
-
-;; Note: doesn't work with autopair.el :/
-;; (eval-after-load 'espresso
-;;   '(progn ;; fixes problem with pretty function font-lock
-;;           (define-key espresso-mode-map (kbd ",") 'self-insert-command)
-;;           (font-lock-add-keywords
-;;            'espresso-mode `(("\\(function *\\)("
-;;                              (0 (progn (compose-region (match-beginning 1)
-;;                                                        (match-end 1) "ƒ")
-;;                                        nil)))))))
+(setq js2-basic-offset 2
+      js2-auto-indent-p 'nil
+      js2-bounce-indent-p t
+      js2-global-externs '("console")
+      js2-electric-keys '(";" "," "*", "{", "("))
 
 
 ;;; emacs-rs-js.el ends here
