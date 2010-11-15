@@ -34,7 +34,7 @@
 (add-to-list 'load-path (concat root-dir "el-get"))
 
 
-(load-library "/home/bobry/code/el-get/el-get")
+(load-library "el-get/el-get")
 (setq el-get-sources
       '(auto-complete ahg autopair color-theme django-mode google-weather
                       haskell-mode rainbow-mode scratch session switch-window
@@ -80,8 +80,7 @@
 
 (el-get)
 
-(load-init '(auto-complete auto-insert ccmode defuns erlang flymake
-                           flyspell haskell ido js lisp local markup org
-                           python vcs yasnippet
+(load-init '(auto-complete auto-insert ccmode defuns flymake flyspell haskell
+                           ido js lisp local markup org python vcs yasnippet
 
                            bindings))

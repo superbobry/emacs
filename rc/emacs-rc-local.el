@@ -112,11 +112,6 @@
   tramp-default-method "ssh"
   tramp-persistency-file-name (concat root-dir "cache/tramp"))
 
-(when (require 'color-theme nil t)
-  (color-theme-initialize)
-  (color-theme-reset-faces)
-  (color-theme-subdued))
-
 (set-frame-font "Droid Sans Mono-11")
 
 (mouse-avoidance-mode 'cat-and-mouse)
