@@ -5,7 +5,7 @@
   (whitespace-mode t)
   (add-hook 'before-save-hook 'delete-trailing-whitespace))
 
-(defun turn-on-hideshow () (hs-minor-mode t)) 
+(defun turn-on-hideshow () (hs-minor-mode t))
 
 (defun turn-on-linum () (linum-mode t))
 
@@ -49,13 +49,6 @@
   (interactive)
   (move-line 1))
 
-(defun kill-daemon ()
-  "Kills emacs daemon."
-  (interactive)
-  (save-some-buffers)
-  (desktop-save-in-desktop-dir)
-  (kill-emacs))
-
 (defun recentf-ido-find-file ()
   "Find a recent file using ido."
   (interactive)
@@ -63,24 +56,6 @@
     (when file
       (find-file file))))
 
-;; FIXME: Screws WL's message display.
-;; (defadvice split-window (before split-window-4/5 activate)
-;;   "Split a window horizontally in 4/5 from the original size."
-;;   (if (null (ad-get-arg 2))
-;;       (ad-set-arg 1 (* 4
-;;                        (/ (window-height) 5)))))
-
-(defmacro elscreen-create-buffer (ad-do-it)
-  `(progn
-     (when (fboundp 'elscreen-create)
-       (elscreen-create))
-     ,ad-do-it))
-
-(defmacro elscreen-kill-buffer (ad-do-it)
-  `(progn
-     ,ad-do-it
-     (when (fboundp 'elscreen-kill)
-       (elscreen-kill))))
 
 ;; The following two function are taken from textmate.el package
 ;; by defunkt.
