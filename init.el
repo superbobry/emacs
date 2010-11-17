@@ -37,8 +37,8 @@
 (load-library "el-get/el-get")
 (setq el-get-sources
       '(auto-complete ahg autopair color-theme django-mode google-weather
-                      haskell-mode rainbow-mode scratch session switch-window
-                      yasnippet
+                      haskell-mode magit rainbow-mode scratch session
+                      switch-window yasnippet
 
        ;; doesn't work that well :(
        ;; (:name bm
@@ -62,6 +62,10 @@
        (:name soy-mode
               :type git
               :url "https://github.com/toomore-such/soy-mode.git")
+       (:name undo-tree
+              :type git
+              :features undo-tree
+              :url "http://www.dr-qubit.org/git/undo-tree.git")
        (:name markdown-mode
               :type git
               :url "https://github.com/defunkt/markdown-mode.git")

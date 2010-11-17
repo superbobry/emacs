@@ -29,8 +29,11 @@
 ;; FIXME: screws minibuffer prompt ...
 ;; (global-set-key (kbd "<return>") 'newline-maybe-indent)
 
+(when (featurep 'undo-tree)
+  (global-set-key (kbd "C-x u") 'undo-tree-visualize))
+
 ;; Misc
-(global-set-key (kbd "C-x c") 'kill-daemon)
+(global-set-key (kbd "C-x c") 'save-buffers-kill-emacs)
 
 (global-unset-key (kbd "C-x h"))
 (global-unset-key (kbd "C-c h"))

@@ -66,5 +66,4 @@ Example:")
 ;; Weather
 (require 'org-google-weather nil t)
 
-
 ;;; emacs-rc-org.el ends here
