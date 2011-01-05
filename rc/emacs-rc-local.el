@@ -99,6 +99,7 @@
   (autopair-global-mode))
 
 (require 'nav nil t)
+(setq nav-width 25)
 ;; not much configuration here, huh?
 
 ;; scratch buffers for the active mode with two key strokes!
@@ -112,7 +113,7 @@
   tramp-default-method "ssh"
   tramp-persistency-file-name (concat root-dir "cache/tramp"))
 
-(set-frame-font "Droid Sans Mono-11")
+(set-frame-font "Monaco-11")
 
 (mouse-avoidance-mode 'cat-and-mouse)
 
@@ -129,6 +130,14 @@
 (column-number-mode t)
 (line-number-mode t)
 (size-indication-mode t)
+
+(when (require 'diminish nil t)
+  (eval-after-load 'whitespace-mode
+    '(diminish 'whitespace-mode))
+
+  (eval-after-load 'autopair-mode
+    '(diminish 'autopair-mode)))
+
 
 ;; Minibuffer
 (setq

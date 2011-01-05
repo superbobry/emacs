@@ -8,8 +8,8 @@
 (setq
  ido-save-directory-list-file "~/.emacs.d/cache/ido.last"
  ido-ignore-buffers ;; ignore these guys
- '("\\` " "^\*SPEED" "^\*Mess" "^\*Back" ".*Completion"
-   "^\*Ido" "^\*trace" "^\*compilation" "^Folder\\|^Summary\\|^Message\*")
+ '("\\` " "^\*SPEED" "^\*Back" ".*Completion"
+   "^\*Ido" "^\*trace" "^\*compilation" "^\*Messages\*")
  ido-case-fold  t   ;; be case-insensitive
  ido-confirm-unique-completion t     ;; wait for RET, even with unique completion
  ido-create-new-buffer 'always

@@ -15,10 +15,14 @@
             (auto-complete-mode)))
 
 
-(require 'rainbow-mode)
-(add-hook 'html-mode-hook 'rainbow-turn-on)
-(add-hook 'css-mode-hook 'rainbow-turn-on)
+(when (require 'rainbow-mode nil t)
+  (add-hook 'html-mode-hook 'rainbow-turn-on)
+  (add-hook 'css-mode-hook 'rainbow-turn-on))
 
 (require 'soy-mode)
+
+(when (require 'po-mode nil t)
+  (add-to-list 'auto-mode-alist '("\\.po\\'\\|\\.po\\." . po-mode))
+  (autoload 'po-mode "po-mode" "Major mode for translators to edit PO files" t))
 
 ;;; emacs-rc-markup.el ends here
