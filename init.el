@@ -39,7 +39,7 @@
       '(auto-complete ahg autopair auctex color-theme coffee-mode django-mode
                       el-get emacs-goodies-el google-weather haskell-mode
                       icomplete+ magit rainbow-mode python-mode scratch
-                      switch-window undo-tree yasnippet
+                      session switch-window undo-tree yasnippet
        (:name js2-mode
               :type git-svn
               :url "http://js2-mode.googlecode.com/svn/trunk/")
