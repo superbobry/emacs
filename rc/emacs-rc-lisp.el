@@ -13,7 +13,7 @@
 (autoload 'run-scheme "cmuscheme" "Run an inferior Scheme" t)
 (setq scheme-program-name "guile")
 
-(require 'quack)
+(require 'quack nil t)
 
 (add-hook 'scheme-mode-hook 'run-coding-hook)
 (add-hook 'inferior-scheme-mode-hook 'split-window)

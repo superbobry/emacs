@@ -35,37 +35,46 @@
 
 
 (load-library "el-get/el-get")
-(setq el-get-sources
-      '(auto-complete ahg autopair auctex color-theme coffee-mode django-mode
-                      el-get emacs-goodies-el google-weather haskell-mode
-                      icomplete+ magit rainbow-mode python-mode scratch
-                      session switch-window undo-tree yasnippet
-       (:name js2-mode
-              :type git-svn
-              :url "http://js2-mode.googlecode.com/svn/trunk/")
+(setq el-get-recipe-path (cons "~/code/el-get/recipes" el-get-recipe-path)
+      el-get-sources
+      '(auto-complete autopair auctex color-theme coffee-mode django-mode
+                      el-get google-weather haskell-mode icomplete+ js2-mode
+                      markdown-mode rainbow-mode python-mode session yasnippet
+                      color-theme-mac-classic virtualenv
+
+       (:name magit
+              :after (lambda ()
+                       (global-set-key (kbd "C-x C-g") 'magit-status)))
+
+       (:name ahg
+              :after (lambda ()
+                       (global-set-key (kbd "C-x C-h") 'ahg-status)))
+
+       (:name undo-tree
+              :after (lambda ()
+                       (global-set-key (kbd "C-x C-u") 'undo-tree-visualize)))
+
+       (:name switch-window
+              :after (lambda ()
+                       (windmove-default-keybindings)
+                       (setq windmove-wrap-around t)))
+
+       (:name scratch
+              :after (lambda ()
+                       (global-set-key (kbd "C-x \\") 'scratch)))
+
        (:name nav
-              :type git-svn
-              :url "http://emacs-nav.googlecode.com/svn/trunk/")
-       (:name soy-mode
-              :type git
-              :url "https://github.com/toomore-such/soy-mode.git")
+              :after (lambda ()
+                       (global-set-key (kbd "C-x C-n") 'nav-toggle)))
+
        (:name po-mode
               :type http
-              :url "http://cvs.savannah.gnu.org/viewvc/*checkout*/gettext/gettext-tools/misc/po-mode.el?root=gettext")
-       ;; (:name color-theme-desert
-       ;;        :type git
-       ;;        :url "https://github.com/superbobry/color-theme-desert.git"
-       ;;        :features color-theme-desert
-       ;;        :after (lambda () (color-theme-desert)))
-       (:name color-theme-mac-classic
-              :type git
-              :url "https://github.com/jbw/color-theme-mac-classic.git"
-              :features color-theme-mac-classic
-              :after (lambda () (color-theme-mac-classic)))))
+              :url "http://cvs.savannah.gnu.org/viewvc/*checkout*/gettext/gettext-tools/misc/po-mode.el?root=gettext")))
 
-(el-get)
+(el-get 'sync)
+(el-get 'wait)
 
 (load-init '(auto-complete auto-insert ccmode defuns flymake flyspell haskell
-                           ido js lisp local markup org python vcs yasnippet
+                           ido js lisp local markup org python yasnippet
 
                            bindings))

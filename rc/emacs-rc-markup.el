@@ -19,8 +19,6 @@
   (add-hook 'html-mode-hook 'rainbow-turn-on)
   (add-hook 'css-mode-hook 'rainbow-turn-on))
 
-(require 'soy-mode)
-
 (when (require 'po-mode nil t)
   (add-to-list 'auto-mode-alist '("\\.po\\'\\|\\.po\\." . po-mode))
   (autoload 'po-mode "po-mode" "Major mode for translators to edit PO files" t))
