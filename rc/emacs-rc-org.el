@@ -48,20 +48,12 @@ Example:")
       org-habit-graph-column 50)
 
 ;; Compatibility issues.
-;; a) windmove
 (require 'windmove)
 
 (add-hook 'org-shiftup-hook 'windmove-up)
 (add-hook 'org-shiftleft-hook 'windmove-left)
 (add-hook 'org-shiftdown-hook 'windmove-down)
 (add-hook 'org-shiftright-hook 'windmove-right)
-
-;; b) yasnippet
-(when (require 'yasnippet nil t)
-  (add-hook 'org-mode-hook
-            (lambda ()
-              (org-set-local 'yas/trigger-key [tab])
-              (define-key yas/keymap [tab] 'yas/next-field-group))))
 
 ;; Weather
 (require 'org-google-weather nil t)

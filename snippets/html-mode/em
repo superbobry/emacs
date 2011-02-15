@@ -1,5 +1,4 @@
 # -*- mode: snippet -*-
-# contributor: Sergei Lebedev <superbobry@gmail.com>
-# name: <em>...</em>
+# name: em
 # --
-<em>$0</em>
+<em>${}</em>

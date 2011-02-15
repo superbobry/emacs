@@ -1,0 +1,4 @@
+# -*- mode: snippet -*-
+# name: meta.charset
+# --
+<meta charset="${utf-8}" />

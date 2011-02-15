@@ -18,4 +18,4 @@
              (outline-minor-mode 1)))
 
 
-;;; emacs-rc-auctex.el ends her
+;;; emacs-rc-auctex.el ends here

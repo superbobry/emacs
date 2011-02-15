@@ -25,12 +25,6 @@
   (interactive)
   (run-hooks 'coding-hook))
 
-(defun newline-maybe-indent ()
-  "Like newline-and-indent, but doesn't indent if the previous line is blank"
-  (interactive "*")
-  (if (= (line-beginning-position) (line-end-position))
-      (newline)
-    (newline-and-indent)))
 
 (defun move-line (arg)
   "Moves line up or down, depending on the arg."
@@ -93,6 +87,7 @@ A place is considered `tab-width' character columns."
              (set-visited-file-name new-name)
              (set-buffer-modified-p nil))))))
 
+
 (defun move-buffer-file (dir)
   "Moves both current buffer and file it's visiting to DIR."
   (interactive "DNew directory: ")
@@ -110,6 +105,11 @@ A place is considered `tab-width' character columns."
         (set-visited-file-name newname)
         (set-buffer-modified-p nil)
         t))))
+
+
+(defun text-scale-normal-size ()
+  (interactive)
+  (text-scale-increase 0))
 
 
 ;;; emacs-rc-misc.el ends here

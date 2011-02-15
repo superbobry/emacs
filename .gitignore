@@ -8,3 +8,5 @@ ac-comphist.dat
 tramp
 
 *.elc
+/bookmarks
+/url/cookies

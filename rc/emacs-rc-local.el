@@ -17,8 +17,6 @@
 (setq
  auto-save-interval 512            ;; autosave every 512 keyboard inputs
  auto-save-list-file-prefix nil
- max-specpdl-size 4096
- max-lisp-eval-depth 1024
  browse-url-browser-function 'browse-url-generic
  browse-url-generic-program "/usr/bin/chromium"
  color-theme-is-global t
@@ -88,19 +86,10 @@
       desktop-locals-to-save nil)
 (desktop-read)
 
-(require 'bm nil t) ;; bookmarks are nice, see *-bindings.el!
-
 (require 'uniquify)
 (setq
   uniquify-buffer-name-style 'post-forward
   uniquify-separator ":")
-
-(when (require 'autopair nil t)
-  (autopair-global-mode))
-
-(require 'nav nil t)
-(setq nav-width 25)
-;; not much configuration here, huh?
 
 ;; scratch buffers for the active mode with two key strokes!
 (autoload 'scratch "scratch" nil t)
@@ -131,13 +120,6 @@
 (line-number-mode t)
 (size-indication-mode t)
 
-(when (require 'diminish nil t)
-  (eval-after-load 'whitespace-mode
-    '(diminish 'whitespace-mode))
-
-  (eval-after-load 'autopair-mode
-    '(diminish 'autopair-mode)))
-
 
 ;; Minibuffer
 (setq
@@ -150,7 +132,6 @@
 (setq
   icomplete-prospects-height 1     ;; don't spam my minibuffer
   icomplete-compute-delay 0)       ;; don't wait
-(require 'icomplete+ nil 'noerror) ;; drew adams' extras
 
 (when (fboundp 'show-paren-mode)
   (show-paren-mode t)
@@ -159,6 +140,8 @@
 (global-font-lock-mode t)
 (transient-mark-mode t)
 
+(load-theme 'tango-dark)
+
 ;; stop prmopting me, allright?
 ;; a) y is yes and n is no
 (fset 'yes-or-no-p 'y-or-n-p)
@@ -166,6 +149,23 @@
 (setq kill-buffer-query-functions
   (remq 'process-kill-buffer-query-function
         kill-buffer-query-functions))
+
+
+(require 'windmove)
+(windmove-default-keybindings)
+(setq windmove-wrap-around t)
+
+
+(when (require 'autopair)
+  (autopair-global-mode))
+
+
+(when (and (require 'auto-complete)
+           (require 'auto-complete-config))
+  (setq ac-comphist-file (concat root-dir "cache/ac-comphist.dat")
+        ac-candidate-limit 20
+        ac-ignore-case nil)
+  (global-auto-complete-mode))
 
 
 ;;; emacs-rc-local.el ends here

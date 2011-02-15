@@ -11,9 +11,16 @@
 
 ;; Scheme
 (autoload 'run-scheme "cmuscheme" "Run an inferior Scheme" t)
-(setq scheme-program-name "guile")
+(setq scheme-program-name "racket")
 
 (require 'quack nil t)
+
+(add-hook 'after-save-hook ;; compile elisp on save
+          '(lambda ()
+             (when (string-match "\\.el$" (buffer-file-name))
+               (byte-compile-file (buffer-file-name)))))
+
+
 
 (add-hook 'scheme-mode-hook 'run-coding-hook)
 (add-hook 'inferior-scheme-mode-hook 'split-window)
