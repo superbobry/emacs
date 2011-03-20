@@ -1,15 +1,12 @@
 ;;; emacs-rc-local.el ---
 
+;; load color theme before doing anything else! (requires emacs-24)
+(when (fboundp 'load-theme)
+  (load-theme 'wombat))
+;; tat's better ;)
 
 (defvar coding-hook nil
   "Hook that gets run on activation of any programming mode.")
-
-(set-terminal-coding-system 'utf-8)
-(set-keyboard-coding-system 'utf-8)
-(set-selection-coding-system 'utf-8)
-(prefer-coding-system 'utf-8)
-(set-language-environment "UTF-8")
-(set-input-method nil)
 
 (if (null window-system)
     (normal-erase-is-backspace-mode))
@@ -41,7 +38,7 @@
 (setq-default tab-width 4
               case-fold-search t   ;; case INsensitive search
               indent-tabs-mode nil ;; do not use tabs for indentation
-              fill-column 100)     ;; number of chars in line
+              fill-column 80)      ;; number of chars in line
 
 ;; Backups
 (setq make-backup-files t ;; do make backups
@@ -140,8 +137,6 @@
 (global-font-lock-mode t)
 (transient-mark-mode t)
 
-(load-theme 'tango-dark)
-
 ;; stop prmopting me, allright?
 ;; a) y is yes and n is no
 (fset 'yes-or-no-p 'y-or-n-p)
@@ -156,12 +151,8 @@
 (setq windmove-wrap-around t)
 
 
-(when (require 'autopair)
-  (autopair-global-mode))
-
-
-(when (and (require 'auto-complete)
-           (require 'auto-complete-config))
+(when (and (require 'auto-complete nil t)
+           (require 'auto-complete-config nil t))
   (setq ac-comphist-file (concat root-dir "cache/ac-comphist.dat")
         ac-candidate-limit 20
         ac-ignore-case nil)

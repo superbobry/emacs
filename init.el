@@ -17,10 +17,10 @@
 
 (load-library "el-get/el-get")
 (setq el-get-sources
-      '(el-get ahg auctex autopair auto-complete coffee-mode django-mode
-               google-weather haskell-mode icomplete+ python-mode js2-mode
-               magit markdown-mode org-mode org-contacts rainbow-mode session
-               scratch switch-window quack undo-tree yasnippet
+      '(el-get ahg auctex autopair auto-complete coffee-mode google-weather
+               haskell-mode icomplete+ python-mode django-mode js2-mode
+               magit markdown-mode org-mode rainbow-mode session
+               scratch switch-window tuareg-mode quack undo-tree yasnippet
 
        (:name nav
               :after (lambda ()
@@ -34,7 +34,7 @@
 (mapc (lambda (name)
         (load (concat root-dir
                       (format "rc/emacs-rc-%s" name)) t))
-      '(auto-insert ccmode defuns erlang flymake flyspell haskell ido js lisp
+      '(auto-insert defuns erlang flymake flyspell haskell ido js lisp
                     local markup org python yasnippet
 
                     bindings))

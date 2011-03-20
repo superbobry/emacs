@@ -3,7 +3,7 @@
 
 (require 'org)
 
-(setq org-directory (concat (getenv "HOME") "/docs/org/"))
+(setq org-directory (concat (getenv "HOME") "/Documents/org/"))
 (setq org-agenda-files `(,(concat org-directory "gtd.org"))
       org-agenda-skip-deadline-if-done t
       org-agenda-skip-scheduled-if-done t
