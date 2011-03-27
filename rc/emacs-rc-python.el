@@ -2,8 +2,6 @@
 
 
 (when (require 'python-mode nil t)
-  (setq py-python-command "python2")
-
   (add-hook 'python-mode-hook 'run-coding-hook)
   (add-hook 'python-mode-hook
             #'(lambda ()

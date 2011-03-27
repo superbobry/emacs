@@ -19,8 +19,8 @@
 (setq el-get-sources
       '(el-get ahg auctex autopair auto-complete coffee-mode google-weather
                haskell-mode icomplete+ python-mode django-mode js2-mode
-               magit markdown-mode org-mode rainbow-mode session
-               scratch switch-window tuareg-mode quack undo-tree yasnippet
+               magit markdown-mode org-mode rainbow-mode session scratch
+               tuareg-mode quack yasnippet
 
        (:name nav
               :after (lambda ()
