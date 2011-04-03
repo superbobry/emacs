@@ -17,15 +17,24 @@
 
 (load-library "el-get/el-get")
 (setq el-get-sources
-      '(el-get ahg auctex autopair auto-complete coffee-mode google-weather
-               haskell-mode icomplete+ python-mode django-mode js2-mode
-               magit markdown-mode org-mode rainbow-mode session scratch
-               tuareg-mode quack yasnippet
+      '(el-get
+        ;; generally useful stuff
+        autopair auto-complete icomplete+ magit session scratch
+        yasnippet grep+
+        ;; vcs
+        ahg magit
+        ;; programming languages
+        coffee-mode haskell-mode python-mode django-mode js2-mode
+        tuareg-mode quack
+        ;; markup
+        auctex markdown-mode org-mode rainbow-mode
+        ;; rest
+        google-weather
 
-       (:name nav
-              :after (lambda ()
-                       (setq nav-width 25)
-                       (global-set-key (kbd "C-x C-n") 'nav-toggle)))))
+        (:name nav
+               :after (lambda ()
+                        (setq nav-width 25)
+                        (global-set-key (kbd "C-x C-n") 'nav-toggle)))))
 
 
 (el-get 'sync)

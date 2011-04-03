@@ -2,7 +2,7 @@
 
 ;; load color theme before doing anything else! (requires emacs-24)
 (when (fboundp 'load-theme)
-  (load-theme 'wombat))
+  (load-theme 'tango))
 ;; tat's better ;)
 
 (defvar coding-hook nil
@@ -99,7 +99,7 @@
   tramp-default-method "ssh"
   tramp-persistency-file-name (concat root-dir "cache/tramp"))
 
-(set-frame-font "Monaco-11")
+(set-frame-font "Monaco-10")
 
 (mouse-avoidance-mode 'cat-and-mouse)
 
