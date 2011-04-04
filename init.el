@@ -19,7 +19,7 @@
 (setq el-get-sources
       '(el-get
         ;; generally useful stuff
-        autopair auto-complete icomplete+ magit session scratch
+        autopair auto-complete icomplete+ session scratch
         yasnippet grep+
         ;; vcs
         ahg magit
