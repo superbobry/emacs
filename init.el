@@ -43,10 +43,10 @@
 (mapc (lambda (name)
         (load (concat root-dir
                       (format "rc/emacs-rc-%s" name)) t))
-      '(auto-insert defuns erlang flymake flyspell haskell ido js lisp
-                    local markup org python yasnippet
+      '(defuns erlang flymake flyspell haskell ido js lisp local markup
+         org python yasnippet
 
-                    bindings))
+         bindings))
 
 
 (setq custom-file (concat root-dir "custom.el"))

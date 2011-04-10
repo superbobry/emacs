@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# contributor: Sergei Lebedev <superbobry@gmail.com>
+# name: *.el
+# --
+;;; ${1:`(file-name-nondirectory (buffer-file-name))`} ---
+
+
+$0
+
+
+;;; $1 ends here

@@ -76,4 +76,12 @@ A place is considered `tab-width' character columns."
   (text-scale-increase 0))
 
 
+(defun make-password (&optional length)
+  (let* ((length (or length 8))
+         (alphabet "12345!@#$%%qwertQWERTasdfgASDFGzxcvbZXCVB")
+         (command (format "echo `< /dev/urandom tr -dc '%s' | head -c%i`"
+                          alphabet length)))
+    (shell-command-to-string command)))
+
+
 ;;; emacs-rc-misc.el ends here
