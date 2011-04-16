@@ -22,14 +22,8 @@
 (global-set-key (kbd "M-<down>") 'move-line-down)
 (global-set-key (kbd "C-<tab>") 'textmate-shift-right)
 (global-set-key (kbd "C-S-<iso-lefttab>") 'textmate-shift-left)
-;; FIXME: screws minibuffer prompt ...
-;; (global-set-key (kbd "<return>") 'newline-maybe-indent)
 
 ;; Misc
-(global-set-key (kbd "C-x c") 'save-buffers-kill-emacs)
-(global-set-key (kbd "C-c C-h") 'hs-hide-block)
-(global-set-key (kbd "C-c C-s") 'hs-show-block)
-
 (when (featurep 'org)
   (global-set-key (kbd "\C-ca") 'org-agenda)
   (global-set-key (kbd "\C-cc") 'org-capture)
@@ -40,9 +34,6 @@
 
 (when (fboundp 'ahg-status)
   (global-set-key (kbd "C-x C-m") 'ahg-status))
-
-(when (fboundp 'undo-tree-visualize)
-  (global-set-key (kbd "C-x C-u") 'undo-tree-visualize))
 
 (when (fboundp 'scratch)
   (global-set-key (kbd "C-x C-\\") 'scratch))

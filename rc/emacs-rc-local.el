@@ -2,7 +2,7 @@
 
 ;; load color theme before doing anything else! (requires emacs-24)
 (when (fboundp 'load-theme)
-  (load-theme 'tango))
+  (load-theme 'misterioso))
 ;; tat's better ;)
 
 (defvar coding-hook nil
@@ -35,7 +35,8 @@
  whitespace-line-column 100
  x-select-enable-clipboard t)
 
-(setq-default tab-width 4
+(setq-default default-directory "~"
+              tab-width 4
               case-fold-search t   ;; case INsensitive search
               indent-tabs-mode nil ;; do not use tabs for indentation
               fill-column 80)      ;; number of chars in line
@@ -104,8 +105,8 @@
 (mouse-avoidance-mode 'cat-and-mouse)
 
 (global-linum-mode 0)   ;; no line number unless i say so ...
-(global-hl-line-mode 0) ;; ... and no line highlighting too
-(blink-cursor-mode -1)  ;; and cut that blinking out, okay?
+(global-hl-line-mode 1) ;; ... and please add line highlighting ...
+(blink-cursor-mode -1)  ;; ... and cut that blinking out, okay?
 
 (setq
  cursor-in-non-selected-windows nil
@@ -157,6 +158,12 @@
         ac-candidate-limit 20
         ac-ignore-case nil)
   (global-auto-complete-mode))
+
+
+;; whenever an external process changes a file underneath emacs, and there
+;; was no unsaved changes in the corresponding buffer, just revert its
+;; content to reflect what's on-disk.
+(global-auto-revert-mode 1)
 
 
 ;;; emacs-rc-local.el ends here
