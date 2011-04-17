@@ -17,11 +17,10 @@
 (global-set-key (kbd "C-c C-j") 'join-line)
 (global-set-key (kbd "<delete>") 'delete-char)
 (global-set-key (kbd "C-z") 'undo)
-(global-set-key (kbd "C-S-z") 'redo)
 (global-set-key (kbd "M-<up>") 'move-line-up)
 (global-set-key (kbd "M-<down>") 'move-line-down)
-(global-set-key (kbd "C-<tab>") 'textmate-shift-right)
-(global-set-key (kbd "C-S-<iso-lefttab>") 'textmate-shift-left)
+(global-set-key (kbd "C-.") 'textmate-shift-right)
+(global-set-key (kbd "C-,") 'textmate-shift-left)
 
 ;; Misc
 (when (featurep 'org)

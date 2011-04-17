@@ -3,8 +3,8 @@
 
 (require 'org)
 
-(setq org-directory (concat (getenv "HOME") "/Documents/org/"))
-(setq org-agenda-files `(,(concat org-directory "gtd.org"))
+(setq org-directory (concat (getenv "HOME") "/Documents/org/")
+      org-agenda-files `(,(concat org-directory "gtd.org"))
       org-agenda-skip-deadline-if-done t
       org-agenda-skip-scheduled-if-done t
       org-completion-use-ido t
@@ -25,19 +25,14 @@
 (require 'org-capture)
 
 (setq org-capture-templates
-      '(("t" "Todo" entry (file+headline "gtd.org" "Tasks")
+      '(("t" "Todo" entry (file "gtd.org")
          "* TODO %^{Brief Description} %^g\n%?\nAdded: %U"
          :prepend t)
-        ("w" "Word" entry (file+headline "" "Words")
-             "** /%^{Word}/ %U :WORD:
-%?
-
-Example:")
-        ("i" "Idea" entry (file+headline "" "Ideas")
+        ("i" "Idea" entry (file "")
          "** %^{Idea} %U :IDEA:%^g\n%?"
          :prepend t)
-        ("b" "Buzz" entry (file+headline "" "Buzz")
-         "** %^{Topic} %T %^g \n%i%?\n"
+        ("b" "Buzz" entry (file "")
+         "** %^{Topic} %T :BUZZ:%^g \n%i%?\n"
          :prepend t)
       ))
 
@@ -57,5 +52,6 @@ Example:")
 
 ;; Weather
 (require 'org-google-weather nil t)
+
 
 ;;; emacs-rc-org.el ends here
