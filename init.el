@@ -41,7 +41,7 @@
         (:name nav
                :after (lambda ()
                         (setq nav-width 25)
-                        (global-set-key (kbd "C-x C-n") 'nav-toggle)))))
+                        (global-set-key (kbd "C-x C-n") 'nav)))))
 
 
 (el-get 'sync)
