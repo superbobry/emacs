@@ -27,7 +27,7 @@
       '(el-get
         ;; generally useful stuff
         autopair auto-complete icomplete+ session scratch
-        yasnippet grep+
+        yasnippet grep+ multi-term
         ;; vcs
         ahg magit
         ;; programming languages
@@ -45,7 +45,6 @@
 
 
 (el-get 'sync)
-
 
 (mapc (lambda (name)
         (load (concat root-dir

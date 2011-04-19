@@ -21,6 +21,10 @@
         (sequence "WAITING(w@/!)" "SOMEDAY(s!)" "|" "CANCELLED(c@/!)"))
       org-use-fast-todo-selection t)
 
+;; auto-fill me please :)
+(add-hook 'org-mode-hook (lambda ()
+                           (auto-fill-mode 1)))
+
 ;; Capture.
 (require 'org-capture)
 

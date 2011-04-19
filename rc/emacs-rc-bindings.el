@@ -37,5 +37,8 @@
 (when (fboundp 'scratch)
   (global-set-key (kbd "C-x C-\\") 'scratch))
 
+(when (featurep 'multi-term)
+  (global-set-key (kbd "M-`") 'multi-term-dedicated-toggle))
+
 
 ;;; emacs-rc-bindings.el ends here
