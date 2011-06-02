@@ -6,10 +6,11 @@
 
 (setq yas/prompt-functions '(yas/dropdown-prompt
                              yas/x-prompt
-                             yas/ido-prompt)
-      yas/snippet-dirs (list (concat root-dir "snippets")))
+                             yas/ido-prompt))
+(add-to-list 'yas/snippet-dirs (concat root-dir "snippets"))
 
 (yas/initialize)
+(yas/reload-all)
 
 
 ;; use <mode>/template snippet for empty files

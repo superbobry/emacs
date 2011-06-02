@@ -26,17 +26,24 @@
 (setq el-get-sources
       '(el-get
         ;; generally useful stuff
-        autopair auto-complete icomplete+ session scratch
-        yasnippet grep+ multi-term
+        autopair auto-complete icomplete+ scratch
+        yasnippet grep+ multi-term highlight-indentation
         ;; vcs
-        ahg magit
+        magit
         ;; programming languages
-        coffee-mode haskell-mode python-mode django-mode js2-mode
-        tuareg-mode quack
+        coffee-mode haskell-mode python-mode tuareg-mode
+        quack
         ;; markup
         auctex markdown-mode org-mode rainbow-mode
         ;; rest
         google-weather
+
+        (:name js2-mode
+               :type git
+               :url "https://github.com/szimek/js2-mode.git"
+               :compile "js2-mode.el"
+               :post-init (lambda ()
+                            (autoload 'js2-mode "js2-mode" nil t)))
 
         (:name nav
                :after (lambda ()
@@ -48,7 +55,7 @@
 
 (mapc (lambda (name)
         (load (concat root-dir
-                      (format "rc/emacs-rc-%s" name)) t))
+                      (format "rc/emacs-rc-%s" name))))
       '(defuns erlang flymake flyspell haskell ido js lisp local markup
          org python yasnippet
 

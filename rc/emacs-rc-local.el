@@ -100,7 +100,7 @@
   tramp-default-method "ssh"
   tramp-persistency-file-name (concat root-dir "cache/tramp"))
 
-(set-frame-font "Monaco-11")
+(set-frame-font "Monaco-13")
 
 (mouse-avoidance-mode 'cat-and-mouse)
 

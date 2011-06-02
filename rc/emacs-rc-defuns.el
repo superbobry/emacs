@@ -26,7 +26,6 @@
   (interactive)
   (run-hooks 'coding-hook))
 
-
 (defun move-line (arg)
   "Moves line up or down, depending on the arg."
   (let ((col (current-column)))

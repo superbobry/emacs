@@ -1,13 +1,13 @@
 ;;; emacs-rc-markup.el ---
 
 
-(require 'markdown-mode)
-(autoload 'markdown-mode "markdown-mode.el"
-  "Major mode for editing Markdown files" t)
-(add-to-list 'auto-mode-alist '("\\.md\\|\\.markdown" . markdown-mode))
+(when (require 'markdown-mode nil t)
+  (autoload 'markdown-mode "markdown-mode.el"
+    "Major mode for editing Markdown files" t)
+  (add-to-list 'auto-mode-alist '("\\.md\\|\\.markdown" . markdown-mode)))
 
-(require 'django-html-mode)
-(add-to-list 'auto-mode-alist '("\\.html\\'" . django-html-mode))
+(when (require 'django-html-mode nil t)
+  (add-to-list 'auto-mode-alist '("\\.html\\'" . django-html-mode)))
 
 (add-hook 'sgml-mode-hook
           (lambda ()
@@ -22,5 +22,6 @@
 (when (require 'po-mode nil t)
   (add-to-list 'auto-mode-alist '("\\.po\\'\\|\\.po\\." . po-mode))
   (autoload 'po-mode "po-mode" "Major mode for translators to edit PO files" t))
+
 
 ;;; emacs-rc-markup.el ends here
