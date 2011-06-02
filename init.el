@@ -38,6 +38,11 @@
         ;; rest
         google-weather
 
+        (:name color-theme-solarized
+               :features (solarized-dark-theme)
+               :after (lambda ()
+                        (load-theme 'solarized-dark)))
+
         (:name js2-mode
                :type git
                :url "https://github.com/szimek/js2-mode.git"

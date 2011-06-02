@@ -1,10 +1,5 @@
 ;;; emacs-rc-local.el ---
 
-;; load color theme before doing anything else! (requires emacs-24)
-(when (fboundp 'load-theme)
-  (load-theme 'misterioso))
-;; tat's better ;)
-
 (defvar coding-hook nil
   "Hook that gets run on activation of any programming mode.")
 
