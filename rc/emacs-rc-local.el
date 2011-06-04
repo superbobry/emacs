@@ -3,6 +3,8 @@
 (defvar coding-hook nil
   "Hook that gets run on activation of any programming mode.")
 
+(load-library "solarized-dark-theme")
+
 (if (null window-system)
     (normal-erase-is-backspace-mode))
 

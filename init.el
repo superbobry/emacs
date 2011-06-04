@@ -13,6 +13,7 @@
 
 (add-to-list 'load-path root-dir)
 (add-to-list 'load-path (concat root-dir "el-get/el-get"))
+(add-to-list 'load-path (concat root-dir "el-get/color-theme-solarized"))
 
 
 (unless (require 'el-get nil t)
@@ -36,12 +37,7 @@
         ;; markup
         auctex markdown-mode org-mode rainbow-mode
         ;; rest
-        google-weather
-
-        (:name color-theme-solarized
-               :features (solarized-dark-theme)
-               :after (lambda ()
-                        (load-theme 'solarized-dark)))
+        google-weather color-theme-solarized
 
         (:name js2-mode
                :type git
@@ -57,6 +53,7 @@
 
 
 (el-get 'sync)
+
 
 (mapc (lambda (name)
         (load (concat root-dir
