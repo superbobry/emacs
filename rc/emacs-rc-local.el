@@ -3,9 +3,8 @@
 (defvar coding-hook nil
   "Hook that gets run on activation of any programming mode.")
 
-(load-library "solarized-dark-theme")
-
 (if (null window-system)
+    (load-theme 'misterioso)
     (normal-erase-is-backspace-mode))
 
 (setq
@@ -13,7 +12,6 @@
  auto-save-list-file-prefix nil
  browse-url-browser-function 'browse-url-generic
  browse-url-generic-program "/usr/bin/chromium"
- color-theme-is-global t
  echo-keystrokes 0.01              ;; see what you type
  inhibit-startup-message t         ;; don't show annoing startup msg
  initial-scratch-message nil

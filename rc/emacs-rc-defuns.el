@@ -18,7 +18,7 @@
 (add-hook 'coding-hook 'autopair-on)
 (add-hook 'coding-hook 'turn-on-whitespace)
 (add-hook 'coding-hook 'add-watchwords)
-(add-hook 'coding-hook 'turn-on-hideshow)
+;; (add-hook 'coding-hook 'turn-on-hideshow)
 (add-hook 'coding-hook 'turn-on-linum)
 
 
@@ -73,14 +73,6 @@ A place is considered `tab-width' character columns."
 (defun text-scale-normal-size ()
   (interactive)
   (text-scale-increase 0))
-
-
-(defun make-password (&optional length)
-  (let* ((length (or length 8))
-         (alphabet "12345!@#$%%qwertQWERTasdfgASDFGzxcvbZXCVB")
-         (command (format "echo `< /dev/urandom tr -dc '%s' | head -c%i`"
-                          alphabet length)))
-    (shell-command-to-string command)))
 
 
 ;;; emacs-rc-misc.el ends here

@@ -13,7 +13,6 @@
 
 (add-to-list 'load-path root-dir)
 (add-to-list 'load-path (concat root-dir "el-get/el-get"))
-(add-to-list 'load-path (concat root-dir "el-get/color-theme-solarized"))
 
 
 (unless (require 'el-get nil t)
@@ -25,21 +24,7 @@
 
 
 (setq el-get-sources
-      '(el-get
-        ;; generally useful stuff
-        autopair auto-complete icomplete+ scratch
-        yasnippet grep+ multi-term highlight-indentation
-        ;; vcs
-        magit
-        ;; programming languages
-        coffee-mode haskell-mode python-mode tuareg-mode
-        quack
-        ;; markup
-        auctex markdown-mode org-mode rainbow-mode
-        ;; rest
-        google-weather color-theme-solarized
-
-        (:name js2-mode
+      '((:name js2-mode
                :type git
                :url "https://github.com/szimek/js2-mode.git"
                :compile "js2-mode.el"
@@ -49,19 +34,33 @@
         (:name nav
                :after (lambda ()
                         (setq nav-width 25)
-                        (global-set-key (kbd "C-x C-n") 'nav)))))
+                        (global-set-key (kbd "C-x C-n") 'nav))))
+      el-get-packages
+      '(el-get
+    	;; generally useful stuff
+        autopair auto-complete icomplete+ scratch
+        grep+ multi-term highlight-indentation
+        ;; vcs
+        magit
+        ;; programming languages
+        coffee-mode haskell-mode python-mode tuareg-mode
+        quack
+        ;; markup
+        auctex markdown-mode org-mode rainbow-mode
+        ;; rest
+        google-weather))
 
 
-(el-get 'sync)
+(el-get 'sync el-get-packages)
 
 
 (mapc (lambda (name)
         (load (concat root-dir
                       (format "rc/emacs-rc-%s" name))))
-      '(defuns erlang flymake flyspell haskell ido js lisp local markup
-         org python yasnippet
+      '(auctex defuns erlang flymake flyspell haskell ido js lisp local
+               markup org python
 
-         bindings))
+               bindings))
 
 
 (setq custom-file (concat root-dir "custom.el"))
