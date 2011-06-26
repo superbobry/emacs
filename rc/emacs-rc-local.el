@@ -1,11 +1,14 @@
 ;;; emacs-rc-local.el ---
 
+
 (defvar coding-hook nil
   "Hook that gets run on activation of any programming mode.")
 
-(if (null window-system)
-    (load-theme 'misterioso)
+(when (null window-system)
     (normal-erase-is-backspace-mode))
+
+(when (window-system)
+  (load-theme 'misterioso))
 
 (setq
  auto-save-interval 512            ;; autosave every 512 keyboard inputs
