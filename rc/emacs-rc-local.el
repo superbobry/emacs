@@ -14,7 +14,7 @@
  auto-save-interval 512            ;; autosave every 512 keyboard inputs
  auto-save-list-file-prefix nil
  browse-url-browser-function 'browse-url-generic
- browse-url-generic-program "/usr/bin/chromium"
+ browse-url-generic-program "/usr/bin/chromium-browser"
  echo-keystrokes 0.01              ;; see what you type
  inhibit-startup-message t         ;; don't show annoing startup msg
  initial-scratch-message nil

@@ -38,7 +38,7 @@
       el-get-packages
       '(el-get
     	;; generally useful stuff
-        autopair auto-complete icomplete+ scratch
+        autopair auto-complete icomplete+ scratch yasnippet
         grep+ multi-term highlight-indentation
         ;; vcs
         magit
@@ -48,7 +48,7 @@
         ;; markup
         auctex markdown-mode org-mode rainbow-mode
         ;; rest
-        google-weather))
+        google-weather twittering-mode))
 
 
 (el-get 'sync el-get-packages)
