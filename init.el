@@ -34,21 +34,30 @@
         (:name nav
                :after (lambda ()
                         (setq nav-width 25)
-                        (global-set-key (kbd "C-x C-n") 'nav))))
-      el-get-packages
-      '(el-get
-    	;; generally useful stuff
-        autopair auto-complete icomplete+ scratch yasnippet
-        grep+ multi-term highlight-indentation
-        ;; vcs
-        magit
-        ;; programming languages
-        coffee-mode haskell-mode python-mode tuareg-mode
-        quack
-        ;; markup
-        auctex markdown-mode org-mode rainbow-mode
-        ;; rest
-        google-weather twittering-mode))
+                        (global-set-key (kbd "C-x C-n") 'nav)))
+
+        (:name calfw
+               :type git
+               :url "https://github.com/kiwanami/emacs-calfw.git"
+               :load-path "."
+               :features ("calfw" "calfw-org" "calfw-ical")))
+
+(setq el-get-packages
+      (append
+       '(el-get
+         ;; generally useful stuff
+         autopair auto-complete icomplete+ scratch yasnippet
+         grep+ multi-term highlight-indentation
+         ;; vcs
+         magit
+         ;; programming languages
+         coffee-mode haskell-mode python-mode tuareg-mode
+         quack
+         ;; markup
+         auctex markdown-mode org-mode rainbow-mode
+         ;; rest
+         google-weather twittering-mode)
+       (mapcar 'el-get-source-name el-get-sources)))
 
 
 (el-get 'sync el-get-packages)
