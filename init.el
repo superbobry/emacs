@@ -34,20 +34,15 @@
         (:name nav
                :after (lambda ()
                         (setq nav-width 25)
-                        (global-set-key (kbd "C-x C-n") 'nav)))
+                        (global-set-key (kbd "C-x C-n") 'nav)))))
 
-        (:name calfw
-               :type git
-               :url "https://github.com/kiwanami/emacs-calfw.git"
-               :load-path "."
-               :features ("calfw" "calfw-org" "calfw-ical")))
 
 (setq el-get-packages
       (append
        '(el-get
          ;; generally useful stuff
          autopair auto-complete icomplete+ scratch yasnippet
-         grep+ multi-term highlight-indentation
+         grep+ multi-term
          ;; vcs
          magit
          ;; programming languages
