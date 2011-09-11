@@ -15,7 +15,6 @@
    '(("\\<\\(FIX\\|FIXME\\|TODO\\|BUG\\|XXX\\):"
       1 font-lock-warning-face t))))
 
-(add-hook 'coding-hook 'autopair-on)
 (add-hook 'coding-hook 'turn-on-whitespace)
 (add-hook 'coding-hook 'add-watchwords)
 ;; (add-hook 'coding-hook 'turn-on-hideshow)

@@ -4,12 +4,12 @@
 (require 'org)
 
 (setq org-directory (concat (getenv "HOME") "/Documents/org/")
-      org-agenda-files `(,(concat org-directory "gtd.org"))
+      org-agenda-files `(,(concat org-directory "gtd.org.gpg"))
       org-agenda-skip-deadline-if-done t
       org-agenda-skip-scheduled-if-done t
       org-completion-use-ido t
       org-deadline-warning-days 7
-      org-default-notes-file (concat org-directory "journal.org")
+      org-default-notes-file (concat org-directory "journal.org.gpg")
       org-hide-leading-stars t
       org-fast-tag-selection-single-key 'expert
       org-footnote-auto-adjust t
@@ -21,9 +21,6 @@
         (sequence "WAITING(w@/!)" "SOMEDAY(s!)" "|" "CANCELLED(c@/!)"))
       org-use-fast-todo-selection t)
 
-;; auto-fill me please :)
-(add-hook 'org-mode-hook (lambda ()
-                           (auto-fill-mode 1)))
 
 ;; Capture.
 (require 'org-capture)

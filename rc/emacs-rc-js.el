@@ -21,7 +21,16 @@
 
 (when (require 'coffee-mode nil t)
   (add-hook 'coffee-mode-hook 'run-coding-hook)
-  (setq coffee-tab-width 2))
+  (add-hook 'coffee-mode-hook
+            '(lambda ()
+               (set (make-local-variable 'tab-width) 2)
+               (setq coffee-args-compile '("-c", "--bare")
+                     coffee-debug-mode t)
+
+               ;; Compile '.coffee' files on every save
+               (and (file-exists-p (buffer-file-name))
+                    (file-exists-p (coffee-compiled-file-name))
+                    (coffee-cos-mode t)))))
 
 
 ;;; emacs-rs-js.el ends here

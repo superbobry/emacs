@@ -30,8 +30,7 @@
  scroll-preserve-screen-position t ;; preserve screen pos with C-v / M-v
  whitespace-style '(trailing lines space-before-tab
                              indentation space-after-tab)
- whitespace-line-column 100
- x-select-enable-clipboard t)
+ whitespace-line-column 100)
 
 (setq-default default-directory "~"
               tab-width 4
@@ -56,6 +55,17 @@
 (setq-default save-place t) ;; activate it for all buffers
 
 (require 'longlines) ;; oh please break those long lines for me ...
+
+(if (>= emacs-major-version 24)
+    (progn
+      (electric-pair-mode t)
+      (electric-indent-mode t)
+      (electric-layout-mode t))
+    ;; autopair mode
+    (when (require 'autopair nil t)
+      (autopair-global-mode)
+      (setq autopair-autowrap t)
+      (setq autopair-blink nil)))
 
 (require 'recentf)
 (setq recentf-save-file (concat root-dir "cache/recentf")
@@ -162,6 +172,9 @@
 ;; was no unsaved changes in the corresponding buffer, just revert its
 ;; content to reflect what's on-disk.
 (global-auto-revert-mode 1)
+
+;; turn on auto-fill in text-mode
+(add-hook 'text-mode-hook 'turn-on-auto-fill)
 
 
 ;;; emacs-rc-local.el ends here

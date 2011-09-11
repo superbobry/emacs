@@ -41,17 +41,15 @@
       (append
        '(el-get
          ;; generally useful stuff
-         autopair auto-complete icomplete+ scratch yasnippet
-         grep+ multi-term
+         autopair auto-complete icomplete+ scratch yasnippet grep+
          ;; vcs
          magit
          ;; programming languages
          coffee-mode haskell-mode python-mode tuareg-mode
-         quack
          ;; markup
          auctex markdown-mode org-mode rainbow-mode
          ;; rest
-         google-weather twittering-mode)
+         google-weather pkgbuild-mode deft)
        (mapcar 'el-get-source-name el-get-sources)))
 
 
