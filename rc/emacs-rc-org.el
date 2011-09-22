@@ -37,22 +37,5 @@
          :prepend t)
       ))
 
-;; Habit.
-(require 'org-habit)
-(add-to-list 'org-modules 'org-habit)
-(setq org-global-properties (quote (("STYLE_ALL" . "habit")))
-      org-habit-graph-column 50)
-
-;; Compatibility issues.
-(require 'windmove)
-
-(add-hook 'org-shiftup-hook 'windmove-up)
-(add-hook 'org-shiftleft-hook 'windmove-left)
-(add-hook 'org-shiftdown-hook 'windmove-down)
-(add-hook 'org-shiftright-hook 'windmove-right)
-
-;; Weather
-(require 'org-google-weather nil t)
-
 
 ;;; emacs-rc-org.el ends here

@@ -30,8 +30,5 @@
 (when (fboundp 'magit-status)
   (global-set-key (kbd "C-x C-g") 'magit-status))
 
-(when (fboundp 'scratch)
-  (global-set-key (kbd "C-x C-\\") 'scratch))
-
 
 ;;; emacs-rc-bindings.el ends here

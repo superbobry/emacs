@@ -29,27 +29,22 @@
                :url "https://github.com/szimek/js2-mode.git"
                :compile "js2-mode.el"
                :post-init (lambda ()
-                            (autoload 'js2-mode "js2-mode" nil t)))
-
-        (:name nav
-               :after (lambda ()
-                        (setq nav-width 25)
-                        (global-set-key (kbd "C-x C-n") 'nav)))))
+                            (autoload 'js2-mode "js2-mode" nil t)))))
 
 
 (setq el-get-packages
       (append
        '(el-get
          ;; generally useful stuff
-         autopair auto-complete icomplete+ scratch yasnippet grep+
+         autopair auto-complete icomplete+ yasnippet
          ;; vcs
          magit
          ;; programming languages
          coffee-mode haskell-mode python-mode tuareg-mode
          ;; markup
-         auctex markdown-mode org-mode rainbow-mode
+         markdown-mode rainbow-mode
          ;; rest
-         google-weather pkgbuild-mode deft)
+         pkgbuild-mode deft)
        (mapcar 'el-get-source-name el-get-sources)))
 
 
@@ -59,8 +54,7 @@
 (mapc (lambda (name)
         (load (concat root-dir
                       (format "rc/emacs-rc-%s" name))))
-      '(auctex defuns erlang flymake flyspell haskell ido js lisp local
-               markup org python cc
+      '(defuns flymake flyspell haskell ido js lisp local markup org python cc
 
                bindings))
 
