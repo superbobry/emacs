@@ -3,13 +3,12 @@
 
 (require 'org)
 
-(setq org-directory (concat (getenv "HOME") "/Documents/org/")
+(setq org-directory (file-name-as-directory "~/Documents/org")
       org-agenda-files `(,(concat org-directory "gtd.org.gpg"))
       org-agenda-skip-deadline-if-done t
       org-agenda-skip-scheduled-if-done t
       org-completion-use-ido t
-      org-deadline-warning-days 7
-      org-default-notes-file (concat org-directory "journal.org.gpg")
+      org-default-notes-file (concat org-directory "gtd.org")
       org-hide-leading-stars t
       org-fast-tag-selection-single-key 'expert
       org-footnote-auto-adjust t
@@ -23,19 +22,18 @@
 
 
 ;; Capture.
-(require 'org-capture)
+(when (require 'org-capture nil 'noerror)
+  (setq org-capture-templates
+        '(("t" "Todo" entry (file "gtd.org")
+           "* TODO %^{Brief Description} %^g\n%?\nAdded: %U"
+           :prepend t))))
 
-(setq org-capture-templates
-      '(("t" "Todo" entry (file "gtd.org")
-         "* TODO %^{Brief Description} %^g\n%?\nAdded: %U"
-         :prepend t)
-        ("i" "Idea" entry (file "")
-         "** %^{Idea} %U :IDEA:%^g\n%?"
-         :prepend t)
-        ("b" "Buzz" entry (file "")
-         "** %^{Topic} %T :BUZZ:%^g \n%i%?\n"
-         :prepend t)
-      ))
+(when (require 'deft nil 'noerror)
+   (setq
+      deft-extension "org"
+      deft-directory (concat org-directory "deft")
+      deft-text-mode 'org-mode)
+   (global-set-key (kbd "<f9>") 'deft))
 
 
 ;;; emacs-rc-org.el ends here
