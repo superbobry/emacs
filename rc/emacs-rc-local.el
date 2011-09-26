@@ -168,8 +168,14 @@
 ;; content to reflect what's on-disk.
 (global-auto-revert-mode 1)
 
-;; turn on auto-fill in text-mode
+;; turn on auto-fill in text-mode.
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
+
+;; mac-os specific hacks.
+(when (string= system-type "darwin")
+  (if (not (getenv "TERM_PROGRAM"))
+      (setenv "PATH"
+              (shell-command-to-string "source $HOME/.zshrc && printf $PATH"))))
 
 
 ;;; emacs-rc-local.el ends here
