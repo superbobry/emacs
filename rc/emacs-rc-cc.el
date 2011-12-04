@@ -6,9 +6,9 @@
 (add-hook 'c-mode-common-hook 'run-coding-hook)
 (add-hook 'c-mode-common-hook
           '(lambda ()
-             (setq tab-width 4
-                   indent-tabs-mode nil)
-             (c-set-style "k&r")
+             (setq c-default-style "linux"
+                   c-basic-offset 4)
+             (c-set-offset 'substatement-open 0)
              (local-set-key [return] 'newline-and-indent)))
 
 
