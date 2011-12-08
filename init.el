@@ -54,7 +54,7 @@
 (mapc (lambda (name)
         (load (concat root-dir
                       (format "rc/emacs-rc-%s" name))))
-      '(defuns flymake flyspell haskell ido js lisp local markup org python cc
+      '(auctex defuns flymake flyspell haskell ido js lisp local markup python cc
 
                bindings))
 
