@@ -55,6 +55,7 @@
         (load (concat root-dir
                       (format "rc/emacs-rc-%s" name))))
       '(auctex defuns flymake flyspell haskell ido js lisp local markup python cc
+               erlang
 
                bindings))
 

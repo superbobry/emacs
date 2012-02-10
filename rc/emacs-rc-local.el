@@ -177,5 +177,9 @@
       (setenv "PATH"
               (shell-command-to-string "source $HOME/.zshrc && printf $PATH"))))
 
+;; linux specific things.
+(when (string= system-type "gnu/linux")
+  (add-to-list 'load-path "/usr/lib/erlang/lib/tools-2.6.6.6/emacs"))
+
 
 ;;; emacs-rc-local.el ends here
