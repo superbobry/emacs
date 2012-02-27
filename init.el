@@ -28,7 +28,7 @@
                :type git
                :url "https://github.com/szimek/js2-mode.git"
                :compile "js2-mode.el"
-               :post-init (lambda ()
+               :post-init (progn
                             (autoload 'js2-mode "js2-mode" nil t)))))
 
 
@@ -40,9 +40,9 @@
          ;; vcs
          magit
          ;; programming languages
-         coffee-mode haskell-mode python-mode tuareg-mode
+         coffee-mode haskell-mode python-mode
          ;; markup
-         markdown-mode rainbow-mode
+         markdown-mode
          ;; rest
          pkgbuild-mode deft)
        (mapcar 'el-get-source-name el-get-sources)))
