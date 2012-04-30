@@ -54,11 +54,10 @@
 (mapc (lambda (name)
         (load (concat root-dir
                       (format "rc/emacs-rc-%s" name))))
-      '(auctex defuns flymake flyspell haskell ido js lisp local markup python cc
-               erlang
+      '(auctex defuns flymake flyspell haskell ido js lisp local markup python
+               cc erlang math
 
                bindings))
-
 
 (setq custom-file (concat root-dir "custom.el"))
 (load custom-file t)

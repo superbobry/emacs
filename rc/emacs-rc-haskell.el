@@ -8,9 +8,12 @@
 
   (add-to-list 'auto-mode-alist  '("\\.hs$" . haskell-mode))
 
+  (setq haskell-mode-hook nil)
   (add-hook 'haskell-mode-hook 'run-coding-hook)
   (add-hook 'haskell-mode-hook
             '(lambda ()
+               (haskell-indentation-mode 1)
+               (haskell-doc-mode 1)
                (setq tab-width 4
                      haskell-indentation-layout-offset 4
                      haskell-indentation-left-offset 4
