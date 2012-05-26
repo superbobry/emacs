@@ -14,22 +14,14 @@
 (add-to-list 'load-path root-dir)
 (add-to-list 'load-path (concat root-dir "el-get/el-get"))
 
-
 (unless (require 'el-get nil t)
   (url-retrieve
-   "https://github.com/dimitri/el-get/raw/master/el-get-install.el"
-   (lambda (s)
-     (end-of-buffer)
-     (eval-print-last-sexp))))
+   "https://raw.github.com/dimitri/el-get/master/el-get-install.el"
+   (lambda (s) (goto-char (point-max)) (eval-print-last-sexp))))
 
-
-(setq el-get-sources
-      '((:name js2-mode
-               :type git
-               :url "https://github.com/szimek/js2-mode.git"
-               :compile "js2-mode.el"
-               :post-init (progn
-                            (autoload 'js2-mode "js2-mode" nil t)))))
+;; A quickfix for the missing `put-clojure-indent' function.
+(unless (functionp 'put-clojure-indent)
+  (defun put-clojure-indent (sym indent)))
 
 
 (setq el-get-packages
@@ -40,7 +32,7 @@
          ;; vcs
          magit
          ;; programming languages
-         coffee-mode haskell-mode python-mode
+         coffee-mode haskell-mode clojure-mode python-mode
          ;; markup
          markdown-mode
          ;; rest
