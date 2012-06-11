@@ -12,7 +12,7 @@
 
 (setq
  auto-save-interval 512            ;; autosave every 512 keyboard inputs
- auto-save-list-file-prefix nil
+ auto-save-list-file-prefix (concat root-dir "cache/auto-save-list/.saves-")
  echo-keystrokes 0.01              ;; see what you type
  inhibit-startup-message t         ;; don't show annoing startup msg
  initial-scratch-message nil
@@ -20,7 +20,7 @@
  mouse-yank-at-point t             ;; paste at cursor, NOT at mouse pointer position
  next-line-add-newlines nil        ;; don't add new lines when scrolling down
  require-final-newline t           ;; end files with a newline
- safe-local-variable-values '((encoding . utf-8) (prompt-to-byte-compile))
+ safe-local-variable-values '((encoding . utf-8))
  scroll-margin 0                   ;; do smooth scrolling, ...
  scroll-conservatively 100000      ;; ... the defaults ...
  scroll-up-aggressively 0          ;; ... are very ...
@@ -45,9 +45,6 @@
       kept-old-versions 5
       delete-old-versions t)
 
-(setq auto-save-list-file-prefix
-  (concat root-dir "cache/auto-save-list/.saves-"))
-
 (require 'saveplace)
 (setq save-place-file (concat root-dir "cache/saveplace"))
 (setq-default save-place t) ;; activate it for all buffers
@@ -55,10 +52,10 @@
 (require 'longlines) ;; oh please break those long lines for me ...
 
 (if (>= emacs-major-version 24)
-    (progn
-      (electric-pair-mode t)
-      (electric-indent-mode t)
-      (electric-layout-mode t))
+    (custom-set-variables
+      '(electric-pair-mode t)
+      '(electric-indent-mode nil)
+      '(electric-layout-mode t))
     ;; autopair mode
     (when (require 'autopair nil t)
       (autopair-global-mode)
@@ -67,8 +64,7 @@
 
 (require 'recentf)
 (setq recentf-save-file (concat root-dir "cache/recentf")
-      recentf-max-saved-items 100
-      recentf-max-menu-items 10)
+      recentf-max-saved-items 200)
 (recentf-mode t)
 
 (require 'desktop)
@@ -176,10 +172,6 @@
   (if (not (getenv "TERM_PROGRAM"))
       (setenv "PATH"
               (shell-command-to-string "source $HOME/.zshrc && printf $PATH"))))
-
-;; linux specific things.
-(when (string= system-type "gnu/linux")
-  (add-to-list 'load-path "/usr/lib/erlang/lib/tools-2.6.6.6/emacs"))
 
 
 ;;; emacs-rc-local.el ends here

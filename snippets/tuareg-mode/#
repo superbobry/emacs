@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# contributor: Sergei Lebedev <superbobry@gmail.com>
+# name: #
+# key: #
+# --
+#${require} "${}";;

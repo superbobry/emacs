@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# contributor: Sergei Lebedev <superbobry@gmail.com>
+# name: \usepackage{}
+# --
+\usepackage{$0}

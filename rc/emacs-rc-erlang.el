@@ -14,11 +14,12 @@
 (defun directory-any-file-glob (path)
   (car (directory-files-glob path)))
 
-(add-to-list 'load-path (concat
-                         (file-name-as-directory
-                          (directory-any-file-glob
-                           (concat erlang-root-dir "/lib/tools-*")))
-                         "emacs"))
+(when (string= system-type "gnu/linux")
+  (add-to-list 'load-path (concat
+                           (file-name-as-directory
+                            (directory-any-file-glob
+                             (concat erlang-root-dir "/lib/tools-*")))
+                           "emacs")))
 
 (when (and (require 'erlang-start nil t)
            (require 'erlang-flymake nil t))
