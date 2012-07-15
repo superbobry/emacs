@@ -132,7 +132,7 @@
 (ido-everywhere t)
 (setq ido-case-fold t                  ;; be case-insensitive
       ido-confirm-unique-completion t  ;; wait for RET, even with unique completion
-      ido-enable-flex-matching t       ;; not, too smart, baby ...
+      ido-enable-flex-matching nil       ;; not, too smart, baby ...
       ido-enable-prefix nil
       ido-create-new-buffer 'always
       ido-use-filename-at-point 'guess
