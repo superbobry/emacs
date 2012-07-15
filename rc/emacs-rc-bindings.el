@@ -6,11 +6,9 @@
 (global-set-key (kbd "C--") 'text-scale-decrease)
 
 ;; File finding
-(when (fboundp 'ibuffer)
-  (global-set-key (kbd "C-x C-b") 'ibuffer))
+(global-set-key (kbd "C-x C-b") 'ibuffer)
 
-(when (fboundp 'recentf-mode)
-  (global-set-key (kbd "C-x f") 'recentf-ido-find-file))
+(global-set-key (kbd "C-x f") 'recentf-ido-find-file)
 
 ;; Editing
 (global-set-key (kbd "C-c C-j") 'join-line)
@@ -20,10 +18,11 @@
 (global-set-key (kbd "M-<down>") 'move-line-down)
 (global-set-key (kbd "C-.") 'textmate-shift-right)
 (global-set-key (kbd "C-,") 'textmate-shift-left)
+(global-set-key (kbd "C-x \\") 'align-regexp)
 
 ;; Misc
 (when (fboundp 'magit-status)
-  (global-set-key (kbd "C-x C-g") 'magit-status))
+  (global-set-key (kbd "C-c g") 'magit-status))
 
 
 ;;; emacs-rc-bindings.el ends here

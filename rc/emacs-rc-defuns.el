@@ -1,30 +1,6 @@
 ;;; emacs-rc-misc.el ---
 
 
-(defun turn-on-whitespace ()
-  (whitespace-mode t)
-  (add-hook 'before-save-hook 'delete-trailing-whitespace))
-
-(defun turn-on-hideshow () (hs-minor-mode t))
-
-(defun turn-on-linum () (linum-mode t))
-
-(defun add-watchwords ()
-  (font-lock-add-keywords
-   nil
-   '(("\\<\\(FIX\\|FIXME\\|TODO\\|BUG\\|XXX\\):"
-      1 font-lock-warning-face t))))
-
-(add-hook 'coding-hook 'turn-on-whitespace)
-(add-hook 'coding-hook 'add-watchwords)
-;; (add-hook 'coding-hook 'turn-on-hideshow)
-(add-hook 'coding-hook 'turn-on-linum)
-
-
-(defun run-coding-hook ()
-  (interactive)
-  (run-hooks 'coding-hook))
-
 (defun move-line (arg)
   "Moves line up or down, depending on the arg."
   (let ((col (current-column)))
@@ -48,6 +24,30 @@
   (let ((file (ido-completing-read "Choose recent file: " recentf-list nil t)))
     (when file
       (find-file file))))
+
+
+;; The next two functions are taken from the awesome 'Emacs Prelude'
+;; project, already menationed elsewhere.
+(defun delete-file-and-buffer ()
+  "Kills the current buffer and deletes the file it is visiting"
+  (interactive)
+  (let ((filename (buffer-file-name)))
+    (when filename
+      (delete-file filename)
+      (message "Deleted file %s" filename)))
+  (kill-buffer))
+
+(defun open-with ()
+  "Simple function that allows us to open the underlying
+file of a buffer in an external program."
+  (interactive)
+  (when buffer-file-name
+    (shell-command (concat
+                    (if (eq system-type 'darwin)
+                        "open"
+                      (read-shell-command "Open current file with: "))
+                    " "
+                    buffer-file-name))))
 
 
 ;; The following two function are taken from textmate.el package

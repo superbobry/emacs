@@ -47,6 +47,7 @@ it)"
     (list checker (list local-file))))
 
 ;; Python
+
 (defun flymake-python-init (&optional checker)
   (flymake-template-init (or checker "pyflakes")))
 

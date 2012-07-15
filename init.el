@@ -1,38 +1,38 @@
 ;;; init.el ---
 
 
-(menu-bar-mode -1)
-(tool-bar-mode -1)
-(scroll-bar-mode -1)
+(defvar bobry-dir (file-name-directory (or (buffer-file-name)
+                                           load-file-name))
+  "The root dir of the Emacs configuration.")
+
+(defvar bobry-snippets-dir (concat bobry-dir "snippets/")
+  "This folder stores custom yasnippet bundles.")
+
+(defvar bobry-cache-dir (concat bobry-dir "cache/")
+  "This folder stores all the automatically generated save/history-files.")
+
+(unless (file-exists-p bobry-cache-dir)
+  (make-directory bobry-cache-dir))
 
 
-(setq
- root-dir (file-name-directory (or (buffer-file-name)
-                                   load-file-name)))
-
-
-(add-to-list 'load-path root-dir)
-(add-to-list 'load-path (concat root-dir "el-get/el-get"))
+(add-to-list 'load-path bobry-dir)
+(add-to-list 'load-path (concat bobry-dir "el-get/el-get"))
 
 (unless (require 'el-get nil t)
   (url-retrieve
    "https://raw.github.com/dimitri/el-get/master/el-get-install.el"
    (lambda (s) (goto-char (point-max)) (eval-print-last-sexp))))
 
-;; A quickfix for the missing `put-clojure-indent' function.
-(unless (functionp 'put-clojure-indent)
-  (defun put-clojure-indent (sym indent)))
-
 
 (setq el-get-packages
       (append
        '(el-get
          ;; generally useful stuff
-         autopair auto-complete icomplete+ yasnippet
+         auto-complete icomplete+ yasnippet volatile-highlights
          ;; vcs
          magit
          ;; programming languages
-         coffee-mode haskell-mode clojure-mode python-mode
+         coffee-mode haskell-mode clojure-mode python-mode ess
          ;; markup
          markdown-mode
          ;; rest
@@ -42,16 +42,21 @@
 
 (el-get 'sync el-get-packages)
 
+;; ... roll out the thing!
+(load "rc/emacs-rc-ui")
+(load "rc/emacs-rc-defuns")
+(load "rc/emacs-rc-languages")
+(load "rc/emacs-rc-markup")
+(load "rc/emacs-rc-editor")
+(load "rc/emacs-rc-flymake")
+(load "rc/emacs-rc-flyspell")
+(load "rc/emacs-rc-bindings")
 
-(mapc (lambda (name)
-        (load (concat root-dir
-                      (format "rc/emacs-rc-%s" name))))
-      '(auctex defuns flymake flyspell haskell ido js lisp local markup python
-               cc erlang math
+;; OS X specific settings
+(when (eq system-type 'darwin)
+  (load "rc/emacs-rc-osx"))
 
-               bindings))
-
-(setq custom-file (concat root-dir "custom.el"))
+(setq custom-file (concat bobry-dir "custom.el"))
 (load custom-file t)
 
 
