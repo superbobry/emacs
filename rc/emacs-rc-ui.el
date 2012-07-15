@@ -23,11 +23,6 @@
 (column-number-mode t)
 (size-indication-mode t)
 
-;; make the fringe (gutter) smaller
-;; the argument is a width in pixels (the default is 8)
-(if (fboundp 'fringe-mode)
-    (fringe-mode 4))
-
 (mouse-avoidance-mode 'cat-and-mouse)
 
 (global-linum-mode 0)   ;; no line number unless i say so ...
