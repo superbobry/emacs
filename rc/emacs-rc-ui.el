@@ -2,7 +2,7 @@
 
 
 (when (window-system)
-  (set-frame-font "Monaco-13")
+  (set-frame-font "Monaco-15")
   (load-theme 'misterioso t))
 
 (tool-bar-mode -1)

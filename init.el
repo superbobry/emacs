@@ -17,6 +17,7 @@
 
 (add-to-list 'load-path bobry-dir)
 (add-to-list 'load-path (concat bobry-dir "el-get/el-get"))
+(add-to-list 'load-path "~/.homebrew/lib/erlang/lib/tools-2.6.7/emacs")
 
 (unless (require 'el-get nil t)
   (url-retrieve
@@ -32,7 +33,7 @@
          ;; vcs
          magit
          ;; programming languages
-         coffee-mode haskell-mode clojure-mode python-mode ess
+         coffee-mode haskell-mode clojure-mode python-mode ;; ess
          ;; markup
          markdown-mode
          ;; rest
@@ -41,6 +42,10 @@
 
 
 (el-get 'sync el-get-packages)
+
+;; OS X specific settings
+(when (eq system-type 'darwin)
+  (load "rc/emacs-rc-osx"))
 
 ;; ... roll out the thing!
 (load "rc/emacs-rc-ui")
@@ -51,10 +56,6 @@
 (load "rc/emacs-rc-flymake")
 (load "rc/emacs-rc-flyspell")
 (load "rc/emacs-rc-bindings")
-
-;; OS X specific settings
-(when (eq system-type 'darwin)
-  (load "rc/emacs-rc-osx"))
 
 (setq custom-file (concat bobry-dir "custom.el"))
 (load custom-file t)

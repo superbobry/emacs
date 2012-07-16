@@ -16,7 +16,7 @@
 (defun highlight-watchwords ()
   (font-lock-add-keywords
    nil
-   `((,watchwords-regexp 1 font-lock-warning-face t)))) 
+   `((,watchwords-regexp 1 font-lock-warning-face t))))
 
 (defun annotate-watchwords ()
   "Put fringe marker on watchwords lines in the curent buffer."
@@ -32,7 +32,7 @@
                                  'display '(left-fringe right-triangle)))))))
 
 (add-hook 'coding-hook 'turn-on-whitespace)
-(add-hook 'coding-hook 'highlight-watchwords) 
+(add-hook 'coding-hook 'highlight-watchwords)
 (add-hook 'coding-hook 'annotate-watchwords)
 (add-hook 'coding-hook 'turn-on-linum)
 
@@ -50,7 +50,10 @@
 
 (require 'em-glob)
 
-(setq erlang-root-dir "/usr/lib/erlang")
+(setq erlang-root-dir
+      (if (eq system-type 'gnu/linux)
+          "/usr/lib/erlang"
+        "~/.homebrew/lib/erlang"))
 
 (add-to-list 'ac-modes 'erlang-mode)
 
@@ -62,17 +65,19 @@
 (defun directory-any-file-glob (path)
   (car (directory-files-glob path)))
 
-(when (string= system-type "gnu/linux")
-  (add-to-list 'load-path (concat
-                           (file-name-as-directory
-                            (directory-any-file-glob
-                             (concat erlang-root-dir "/lib/tools-*")))
-                           "emacs")))
+(add-to-list 'load-path (concat
+                         (file-name-as-directory
+                          (directory-any-file-glob
+                           (concat erlang-root-dir "/lib/tools-*")))
+                         "emacs"))
 
 (when (and (require 'erlang-start nil t)
            (require 'erlang-flymake nil t))
   (add-hook 'erlang-mode-hook 'run-coding-hook)
-  (erlang-flymake-only-on-save))
+
+  ;; FIXME(Sergei): add 'eflymake' to path?
+  (unless (eq system-type 'darwin)
+    (erlang-flymake-only-on-save)))
 
 ;; Haskell
 
