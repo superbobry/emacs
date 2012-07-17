@@ -130,13 +130,13 @@
 (require 'ido)
 (ido-mode 'both)
 (ido-everywhere t)
-(setq ido-case-fold t                  ;; be case-insensitive
-      ido-confirm-unique-completion t  ;; wait for RET, even with unique completion
+(setq ido-case-fold t                    ;; be case-insensitive
+      ido-confirm-unique-completion nil  ;; wait for RET, even with unique completion
       ido-enable-flex-matching nil       ;; not, too smart, baby ...
       ido-enable-prefix nil
       ido-create-new-buffer 'always
-      ido-use-filename-at-point 'guess
-      ido-use-url-at-point 'guess
+      ido-use-filename-at-point nil
+      ido-use-url-at-point nil
       ido-max-prospects 10
       ido-save-directory-list-file (concat bobry-cache-dir "ido.last")
       ido-default-file-method 'selected-window)
