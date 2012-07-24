@@ -2,7 +2,7 @@
 
 
 (custom-set-variables
- '(shell-file-name "$HOME/.homebrew/bin/zsh"))
+ '(shell-file-name "~/.homebrew/bin/zsh"))
 
 (if (not (getenv "TERM_PROGRAM"))
     (setenv "PATH"
