@@ -104,10 +104,13 @@
 (when (require 'typerex nil t)
   (add-hook 'typerex-mode-hook 'run-coding-hook)
   (add-to-list 'auto-mode-alist '("\\.ml[iylp]?" . typerex-mode))
-  (autoload 'typerex-mode "typerex" "Major mode for editing OCaml code" t)
+  (add-to-list 'interpreter-mode-alist '("ocamlrun" . typerex-mode))
+  (add-to-list 'interpreter-mode-alist '("ocaml" . typerex-mode))
+  (autoload 'typerex-mode "typerex" "Major mode for editing Caml code" t)
+
   (setq typerex-in-indent 0
         ocp-syntax-coloring "tuareg_like"
-        ocp-auto-complete nil))
+        ocp-auto-complete t))
 
 ;; Coffee
 

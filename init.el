@@ -17,7 +17,6 @@
 
 (add-to-list 'load-path bobry-dir)
 (add-to-list 'load-path (concat bobry-dir "el-get/el-get"))
-(add-to-list 'load-path "~/.homebrew/lib/erlang/lib/tools-2.6.7/emacs")
 
 (unless (require 'el-get nil t)
   (url-retrieve
