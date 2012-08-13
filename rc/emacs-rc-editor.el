@@ -64,6 +64,7 @@
 (require 'desktop)
 (setq-default desktop-missing-file-warning nil
               desktop-load-locked-desktop t
+              desktop-restore-eager 5
               desktop-path `(,(concat bobry-dir "cache/"))
               desktop-save t)
 (desktop-save-mode t)
