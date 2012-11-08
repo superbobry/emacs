@@ -19,10 +19,20 @@
 (add-to-list 'load-path (concat bobry-dir "el-get/el-get"))
 
 (unless (require 'el-get nil t)
-  (url-retrieve
-   "https://raw.github.com/dimitri/el-get/master/el-get-install.el"
-   (lambda (s) (goto-char (point-max)) (eval-print-last-sexp))))
+  (with-current-buffer
+      (url-retrieve-synchronously
+       "https://raw.github.com/dimitri/el-get/master/el-get-install.el")
+    (goto-char (point-max))
+    (eval-print-last-sexp)))
 
+(setq el-get-sources
+      '((:name golden-ratio
+               :website "https://github.com/roman/golden-ratio.el"
+               :description "Automatic resizing of Emacs windows to the golden ratio."
+               :type github
+               :pkgname "roman/golden-ratio.el"
+               :features "golden-ratio"
+               :after (progn (golden-ratio-enable)))))
 
 (setq el-get-packages
       (append
@@ -32,7 +42,7 @@
          ;; vcs
          magit
          ;; programming languages
-         coffee-mode haskell-mode clojure-mode python-mode ;; ess
+         coffee-mode haskell-mode clojure-mode python-mode ess
          ;; markup
          markdown-mode
          ;; rest
