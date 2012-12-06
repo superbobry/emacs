@@ -34,7 +34,7 @@
                :features "golden-ratio"
                :after (progn (golden-ratio-enable)))))
 
-(setq el-get-packages
+(setq bobry-packages
       (append
        '(el-get
          ;; generally useful stuff
@@ -46,11 +46,11 @@
          ;; markup
          markdown-mode
          ;; rest
-         pkgbuild-mode deft)
+         powerline)
        (mapcar 'el-get-source-name el-get-sources)))
 
 
-(el-get 'sync el-get-packages)
+(el-get 'sync bobry-packages)
 
 ;; OS X specific settings
 (when (eq system-type 'darwin)

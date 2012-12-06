@@ -24,8 +24,7 @@
 
 ;; LaTeX via AucTeX
 
-(when (and (require 'tex-site nil t)
-           (require 'preview-latex))
+(when (and (require 'tex-site nil t))
   (setq TeX-auto-save t
         TeX-parse-self t
         TeX-DVI-via-PDFTeX t)
