@@ -32,7 +32,14 @@
                :type github
                :pkgname "roman/golden-ratio.el"
                :features "golden-ratio"
-               :after (progn (golden-ratio-enable)))))
+               :after (progn (golden-ratio-enable)))
+        (:name color-theme-solarized
+               :description "Emacs highlighting using Ethan Schoonover's Solarized color scheme"
+               :type github
+               :pkgname "sellout/emacs-color-theme-solarized"
+               :prepare (progn
+                          (add-to-list 'custom-theme-load-path default-directory)
+                          (load-theme 'solarized-dark)))))
 
 (setq bobry-packages
       (append
