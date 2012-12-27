@@ -44,7 +44,9 @@
 ;; Python
 
 (when (require 'python-mode nil t)
-  (add-hook 'python-mode-hook 'run-coding-hook))
+  (add-hook 'python-mode-hook 'run-coding-hook)
+  (custom-set-variables
+   '(py-start-run-py-shell nil)))
 
 ;; Erlang
 
