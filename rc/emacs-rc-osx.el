@@ -1,8 +1,7 @@
 ;;; emacs-rc-osx.el ---
 
 
-(custom-set-variables
- '(shell-file-name "~/.homebrew/bin/zsh"))
+(custom-set-variables '(shell-file-name "zsh"))
 
 (when (not (getenv "TERM_PROGRAM"))
   (setenv "PATH"
