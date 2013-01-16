@@ -39,7 +39,9 @@
                :pkgname "sellout/emacs-color-theme-solarized"
                :prepare (progn
                           (add-to-list 'custom-theme-load-path default-directory)
-                          (load-theme 'solarized-dark)))))
+                          (load-theme 'solarized-dark)))
+        (:name sml-mode
+               :type elpa)))
 
 (setq bobry-packages
       (append
