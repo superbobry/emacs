@@ -55,7 +55,7 @@
 (setq erlang-root-dir
       (if (eq system-type 'gnu/linux)
           "/usr/lib/erlang"
-        "~/.homebrew/lib/erlang"))
+        "/usr/local/lib/erlang"))
 
 (add-to-list 'ac-modes 'erlang-mode)
 
@@ -145,7 +145,14 @@
 
 (when (require 'ess-site nil t)
   (setq ess-eval-visibly-p nil
-        ess-ask-for-ess-directory nil))
+        ess-use-tracebug t
+        ess-use-auto-complete t
+        ess-help-own-frame 'one
+        ess-ask-for-ess-directory nil)
+  (setq-default ess-dialect "R")
+  (ess-toggle-underscore nil)
+
+  (add-hook 'ess-mode-hook 'run-coding-hook))
 
 ;; Octave
 
