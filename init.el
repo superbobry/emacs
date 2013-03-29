@@ -40,6 +40,11 @@
                :prepare (progn
                           (add-to-list 'custom-theme-load-path default-directory)
                           (load-theme 'solarized-dark)))
+        (:name cmm-mode
+               :description "An Emacs mode for editing Cmm files"
+               :type github
+               :pkgname "tibbe/cmm-mode"
+               :features "cmm-mode")
         (:name sml-mode
                :type elpa)))
 
@@ -48,6 +53,7 @@
        '(el-get
          ;; generally useful stuff
          auto-complete icomplete+ yasnippet volatile-highlights
+         idle-highlight-mode scratch
          ;; vcs
          magit
          ;; programming languages

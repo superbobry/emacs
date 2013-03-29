@@ -67,18 +67,16 @@
 (defun directory-any-file-glob (path)
   (car (directory-files-glob path)))
 
-(add-to-list 'load-path (concat
-                         (file-name-as-directory
-                          (directory-any-file-glob
-                           (concat erlang-root-dir "/lib/tools-*")))
-                         "emacs"))
+(when (file-exists-p erlang-root-dir)
+  (add-to-list 'load-path (concat
+                           (file-name-as-directory
+                            (directory-any-file-glob
+                             (concat erlang-root-dir "/lib/tools-*")))
+                           "emacs"))
 
-(when (and (require 'erlang-start nil t)
-           (require 'erlang-flymake nil t))
-  (add-hook 'erlang-mode-hook 'run-coding-hook)
-
-  ;; FIXME(Sergei): add 'eflymake' to path?
-  (unless (eq system-type 'darwin)
+  (when (and (require 'erlang-start nil t)
+             (require 'erlang-flymake nil t))
+    (add-hook 'erlang-mode-hook 'run-coding-hook)
     (erlang-flymake-only-on-save)))
 
 ;; Haskell
