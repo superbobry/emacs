@@ -1,9 +1,6 @@
 ;;; emacs-rc-languages.el ---
 
 
-(defvar coding-hook nil
-  "Hook that gets run on activation of any programming mode.")
-
 (defun turn-on-whitespace ()
   (whitespace-mode t)
   (add-hook 'before-save-hook 'delete-trailing-whitespace))
@@ -31,20 +28,15 @@
                      (propertize (format "A")
                                  'display '(left-fringe right-triangle)))))))
 
-(add-hook 'coding-hook 'turn-on-whitespace)
-(add-hook 'coding-hook 'highlight-watchwords)
-(add-hook 'coding-hook 'annotate-watchwords)
-(add-hook 'coding-hook 'turn-on-linum)
-
-(defun run-coding-hook ()
-  (interactive)
-  (run-hooks 'coding-hook))
-
+(add-hook 'prog-mode-hook 'turn-on-whitespace)
+(add-hook 'prog-mode-hook 'highlight-watchwords)
+(add-hook 'prog-mode-hook 'annotate-watchwords)
+(add-hook 'prog-mode-hook 'turn-on-linum)
+(add-hook 'prog-mode-hook 'subword-mode)
 
 ;; Python
 
 (when (require 'python-mode nil t)
-  (add-hook 'python-mode-hook 'run-coding-hook)
   (custom-set-variables
    '(py-start-run-py-shell nil)))
 
@@ -76,7 +68,6 @@
 
   (when (and (require 'erlang-start nil t)
              (require 'erlang-flymake nil t))
-    (add-hook 'erlang-mode-hook 'run-coding-hook)
     (erlang-flymake-only-on-save)))
 
 ;; Haskell
@@ -85,15 +76,19 @@
   (require 'inf-haskell)
   (require 'haskell-checkers)
   (require 'haskell-ghci)
+  (require 'haskell-navigate-imports)
 
   (add-to-list 'auto-mode-alist  '("\\.hs$" . haskell-mode))
 
   (setq haskell-mode-hook nil)
-  (add-hook 'haskell-mode-hook 'run-coding-hook)
   (add-hook 'haskell-mode-hook
             '(lambda ()
                (haskell-indentation-mode 1)
                (haskell-doc-mode 1)
+
+               (local-set-key (kbd "M-[") 'haskell-navigate-imports)
+               (local-set-key (kbd "M-]") 'haskell-navigate-imports-return)
+
                (setq tab-width 4
                      haskell-indentation-layout-offset 4
                      haskell-indentation-left-offset 4
@@ -102,7 +97,6 @@
 ;; OCaml
 
 (when (require 'typerex nil t)
-  (add-hook 'typerex-mode-hook 'run-coding-hook)
   (add-to-list 'auto-mode-alist '("\\.ml[iylp]?" . typerex-mode))
   (add-to-list 'interpreter-mode-alist '("ocamlrun" . typerex-mode))
   (add-to-list 'interpreter-mode-alist '("ocaml" . typerex-mode))
@@ -115,7 +109,6 @@
 ;; Coffee
 
 (when (require 'coffee-mode nil t)
-  (add-hook 'coffee-mode-hook 'run-coding-hook)
   (add-hook 'coffee-mode-hook
             '(lambda ()
                (set (make-local-variable 'tab-width) 2)
@@ -131,7 +124,6 @@
 
 (require 'cc-mode)
 
-(add-hook 'c-mode-common-hook 'run-coding-hook)
 (add-hook 'c-mode-common-hook
           '(lambda ()
              (setq c-default-style "linux"
@@ -148,20 +140,15 @@
         ess-help-own-frame 'one
         ess-ask-for-ess-directory nil)
   (setq-default ess-dialect "R")
-  (ess-toggle-underscore nil)
-
-  (add-hook 'ess-mode-hook 'run-coding-hook))
+  (ess-toggle-underscore nil))
 
 ;; Octave
-
-(add-hook 'octave-mode-hook 'run-coding-hook)
 
 (add-to-list 'auto-mode-alist  '("\\.m$" . octave-mode))
 (add-to-list 'ac-modes 'octave-mode)
 
 ;; Elisp
 
-(add-hook 'emacs-lisp-mode-hook 'run-coding-hook)
 (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
 
 (define-key lisp-mode-shared-map (kbd "RET") 'reindent-then-newline-and-indent)
@@ -178,7 +165,6 @@
   (unless (functionp 'put-clojure-indent)
     (defun put-clojure-indent (sym indent)))
 
-  (add-hook 'clojure-mode-hook 'run-coding-hook)
   (add-hook 'inferior-scheme-mode-hook 'split-window))
 
 (add-to-list 'auto-mode-alist '("\.cljs?$" . clojure-mode))

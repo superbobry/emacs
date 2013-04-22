@@ -45,7 +45,7 @@
                :type github
                :pkgname "tibbe/cmm-mode"
                :features "cmm-mode")
-        (:name sml-mode
+        (:name cl-lib
                :type elpa)))
 
 (setq bobry-packages
@@ -65,6 +65,9 @@
        (mapcar 'el-get-source-name el-get-sources)))
 
 
+(setq custom-file (concat bobry-dir "custom.el"))
+(load custom-file t)
+
 (el-get 'sync bobry-packages)
 
 ;; OS X specific settings
@@ -80,9 +83,6 @@
 (load "rc/emacs-rc-flymake")
 (load "rc/emacs-rc-flyspell")
 (load "rc/emacs-rc-bindings")
-
-(setq custom-file (concat bobry-dir "custom.el"))
-(load custom-file t)
 
 
 ;;; init.el ends here
