@@ -4,17 +4,13 @@
 (custom-set-variables '(shell-file-name "zsh"))
 
 (when (not (getenv "TERM_PROGRAM"))
-  (setenv "PATH"
-          (shell-command-to-string
-           "source $HOME/.zshrc > /dev/null && printf $PATH"))
-  (add-to-list 'exec-path "/usr/local/bin"))
+  (let ((path (shell-command-to-string
+               "source $HOME/.zshrc > /dev/null && printf $PATH")))
+    (setenv "PATH" path)
+    (setq exec-path
+          (append (split-string path ":") exec-path))))
 
 (add-to-list 'load-path "/usr/local/share/emacs/site-lisp")
-
-(with-temp-buffer
-  (insert
-   (shell-command-to-string "ocp-edit-mode emacs -load-global-config"))
-  (eval-buffer))
 
 (let* ((opam-prefix
         (substring (shell-command-to-string "opam config var prefix") 0 -1)))
@@ -22,9 +18,13 @@
    (concat opam-prefix "/share/typerex/ocp-indent/ocp-indent.el"))
 
   (setq ocp-indent-path (concat opam-prefix "/bin/ocp-indent")
-        ocp-indent-config "with_never=true"))
+        ocp-indent-config "with_never=true")
 
-
+  (with-temp-buffer
+    (insert (shell-command-to-string
+             (concat opam-prefix
+                     "/bin/ocp-edit-mode emacs -load-global-config")))
+    (eval-buffer)))
 
 ;; Make sure Emacs uses Mountain Lion fullscreen feature, only avail. since
 ;; Emacs 24.3.

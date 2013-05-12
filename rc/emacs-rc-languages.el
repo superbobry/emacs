@@ -77,6 +77,7 @@
   (require 'haskell-checkers)
   (require 'haskell-ghci)
   (require 'haskell-navigate-imports)
+  (require 'ghc)
 
   (add-to-list 'auto-mode-alist  '("\\.hs$" . haskell-mode))
 
@@ -88,6 +89,8 @@
 
                (local-set-key (kbd "M-[") 'haskell-navigate-imports)
                (local-set-key (kbd "M-]") 'haskell-navigate-imports-return)
+
+               (ghc-init)
 
                (setq tab-width 4
                      haskell-indentation-layout-offset 4

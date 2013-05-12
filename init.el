@@ -45,6 +45,13 @@
                :type github
                :pkgname "tibbe/cmm-mode"
                :features "cmm-mode")
+        (:name auto-complete
+               :website "https://github.com/auto-complete/auto-complete"
+               :description "The most intelligent auto-completion extension."
+               :type github
+               :pkgname "auto-complete/auto-complete"
+               :load "auto-complete.el"
+               :depends (popup fuzzy))
         (:name cl-lib
                :type elpa)))
 
@@ -57,7 +64,7 @@
          ;; vcs
          magit
          ;; programming languages
-         coffee-mode haskell-mode clojure-mode python-mode ess
+         coffee-mode haskell-mode clojure-mode python-mode ess ghc-mod
          ;; markup
          markdown-mode
          ;; rest
