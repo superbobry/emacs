@@ -32,7 +32,7 @@
                :type github
                :pkgname "roman/golden-ratio.el"
                :features "golden-ratio"
-               :after (progn (golden-ratio-enable)))
+               :after (golden-ratio-mode))
         (:name color-theme-solarized
                :description "Emacs highlighting using Ethan Schoonover's Solarized color scheme"
                :type github
