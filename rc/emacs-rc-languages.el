@@ -33,6 +33,7 @@
 (add-hook 'prog-mode-hook 'annotate-watchwords)
 (add-hook 'prog-mode-hook 'turn-on-linum)
 (add-hook 'prog-mode-hook 'subword-mode)
+(add-hook 'prog-mode-hook 'idle-highlight-mode)
 
 ;; Python
 

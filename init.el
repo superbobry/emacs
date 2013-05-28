@@ -59,8 +59,7 @@
       (append
        '(el-get
          ;; generally useful stuff
-         auto-complete icomplete+ yasnippet volatile-highlights
-         idle-highlight-mode scratch
+         auto-complete icomplete+ yasnippet scratch
          ;; vcs
          magit
          ;; programming languages
@@ -68,7 +67,7 @@
          ;; markup
          markdown-mode
          ;; rest
-         powerline)
+         volatile-highlights idle-highlight-mode powerline)
        (mapcar 'el-get-source-name el-get-sources)))
 
 
