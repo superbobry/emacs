@@ -15,9 +15,10 @@
 (delete-selection-mode t)
 
 ;; take care of the whitespace
-(setq whitespace-style '(trailing lines space-before-tab
-                                  indentation space-after-tab)
-      whitespace-line-column fill-column)
+(setq whitespace-style '(face trailing lines-tail
+                              space-before-tab
+                              indentation space-after-tab)
+      whitespace-line-column 80)
 
 ;; nice things
 (setq  next-line-add-newlines nil  ;; don't add new lines when scrolling down
