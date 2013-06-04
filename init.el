@@ -59,7 +59,7 @@
       (append
        '(el-get
          ;; generally useful stuff
-         auto-complete icomplete+ yasnippet scratch
+         auto-complete icomplete+ yasnippet scratch smart-tab
          ;; vcs
          magit
          ;; programming languages

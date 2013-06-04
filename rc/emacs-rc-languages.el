@@ -100,15 +100,22 @@
 
 ;; OCaml
 
-(when (require 'typerex nil t)
-  (add-to-list 'auto-mode-alist '("\\.ml[iylp]?" . typerex-mode))
-  (add-to-list 'interpreter-mode-alist '("ocamlrun" . typerex-mode))
-  (add-to-list 'interpreter-mode-alist '("ocaml" . typerex-mode))
-  (autoload 'typerex-mode "typerex" "Major mode for editing Caml code" t)
+(let* ((opam-prefix
+        (substring (shell-command-to-string "opam config var prefix") 0 -1)))
+  (load-file
+   (concat opam-prefix "/share/typerex/ocp-indent/ocp-indent.el"))
+  (load-file
+    (concat opam-prefix "/share/typerex/ocp-index/ocp-index.el"))
 
-  (setq typerex-in-indent 0
-        ocp-syntax-coloring "tuareg_like"
-        ocp-auto-complete t))
+  (setq ocp-index-path (concat opam-prefix "/bin/ocp-index")
+        ocp-indent-path (concat opam-prefix "/bin/ocp-indent")
+        ocp-indent-config "with_never=true")
+
+  (with-temp-buffer
+    (insert (shell-command-to-string
+             (concat opam-prefix
+                     "/bin/ocp-edit-mode emacs -load-global-config")))
+    (eval-buffer)))
 
 ;; Coffee
 
