@@ -117,6 +117,11 @@
                      "/bin/ocp-edit-mode emacs -load-global-config")))
     (eval-buffer)))
 
+;; Coq
+
+(when (require 'coq nil t)
+  (setq auto-mode-alist (cons '("\.v$" . coq-mode) auto-mode-alist)))
+
 ;; Coffee
 
 (when (require 'coffee-mode nil t)

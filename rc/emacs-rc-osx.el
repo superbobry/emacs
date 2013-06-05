@@ -11,6 +11,7 @@
           (append (split-string path ":") exec-path))))
 
 (add-to-list 'load-path "/usr/local/share/emacs/site-lisp")
+(add-to-list 'load-path "/usr/local/Cellar/coq/8.4pl2/lib/emacs/site-lisp")
 
 ;; Make sure Emacs uses Mountain Lion fullscreen feature, only avail. since
 ;; Emacs 24.3.
