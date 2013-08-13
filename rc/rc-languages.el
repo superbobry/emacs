@@ -1,4 +1,4 @@
-;;; emacs-rc-languages.el ---
+;;; rc-languages.el ---
 
 
 (defun turn-on-whitespace ()
@@ -32,14 +32,16 @@
 (add-hook 'prog-mode-hook 'highlight-watchwords)
 (add-hook 'prog-mode-hook 'annotate-watchwords)
 (add-hook 'prog-mode-hook 'turn-on-linum)
-(add-hook 'prog-mode-hook 'subword-mode)
 (add-hook 'prog-mode-hook 'idle-highlight-mode)
 
 ;; Python
 
-(when (require 'python-mode nil t)
-  (custom-set-variables
-   '(py-start-run-py-shell nil)))
+(require 'python-mode)
+(add-hook 'python-mode-hook (lambda ()
+                              (subword-mode +1)
+                              (electric-indent-mode -1)))
+(custom-set-variables
+ '(py-start-run-py-shell nil))
 
 ;; Erlang
 
@@ -49,8 +51,6 @@
       (if (eq system-type 'gnu/linux)
           "/usr/lib/erlang"
         "/usr/local/lib/erlang"))
-
-(add-to-list 'ac-modes 'erlang-mode)
 
 (defun directory-files-glob (path)
   (directory-files (file-name-directory path)
@@ -67,36 +67,36 @@
                              (concat erlang-root-dir "/lib/tools-*")))
                            "emacs"))
 
-  (when (and (require 'erlang-start nil t)
-             (require 'erlang-flymake nil t))
-    (erlang-flymake-only-on-save)))
+  (require 'erlang-start))
 
 ;; Haskell
 
-(when (load "haskell-site-file.el" t nil nil)
-  (require 'inf-haskell)
-  (require 'haskell-checkers)
-  (require 'haskell-ghci)
-  (require 'haskell-navigate-imports)
-  (require 'ghc)
+(eval-after-load 'haskell-mode
+  '(progn
+     (require 'inf-haskell)
+     (require 'haskell-checkers)
+     (require 'haskell-navigate-imports)
+     (require 'ghc-core)
+     (require 'ghc)
 
-  (add-to-list 'auto-mode-alist  '("\\.hs$" . haskell-mode))
+     (add-hook 'haskell-mode-hook
+               '(lambda ()
+                  (subword-mode +1)
 
-  (setq haskell-mode-hook nil)
-  (add-hook 'haskell-mode-hook
-            '(lambda ()
-               (haskell-indentation-mode 1)
-               (haskell-doc-mode 1)
+                  (if (require 'hi2 nil t)
+                      (turn-on-hi2)
+                    (haskell-indentation-mode 1))
+                  (haskell-doc-mode 1)
 
-               (local-set-key (kbd "M-[") 'haskell-navigate-imports)
-               (local-set-key (kbd "M-]") 'haskell-navigate-imports-return)
+                  (local-set-key (kbd "M-[") 'haskell-navigate-imports)
+                  (local-set-key (kbd "M-]") 'haskell-navigate-imports-return)
 
-               (ghc-init)
+                  (ghc-init)
 
-               (setq tab-width 4
-                     haskell-indentation-layout-offset 4
-                     haskell-indentation-left-offset 4
-                     haskell-indentation-ifte-offset 4))))
+                  (setq tab-width 4
+                        haskell-indentation-layout-offset 4
+                        haskell-indentation-left-offset 4
+                        haskell-indentation-ifte-offset 4)))))
 
 ;; OCaml
 
@@ -117,10 +117,6 @@
                      "/bin/ocp-edit-mode emacs -load-global-config")))
     (eval-buffer)))
 
-;; Coq
-
-(when (require 'coq nil t)
-  (setq auto-mode-alist (cons '("\.v$" . coq-mode) auto-mode-alist)))
 
 ;; Coffee
 
@@ -160,19 +156,28 @@
 
 ;; Octave
 
-(add-to-list 'auto-mode-alist  '("\\.m$" . octave-mode))
-(add-to-list 'ac-modes 'octave-mode)
+(add-to-list 'auto-mode-alist '("\\.m$" . octave-mode))
+
 
 ;; Elisp
 
-(add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
-
 (define-key lisp-mode-shared-map (kbd "RET") 'reindent-then-newline-and-indent)
 
-(add-hook 'after-save-hook ;; compile elisp on save
-          '(lambda ()
-             (when (string-match "\\.el$" (buffer-file-name))
-               (byte-compile-file (buffer-file-name)))))
+(defun recompile-elc-on-save ()
+  (add-hook 'after-save-hook
+            (lambda ()
+              (if (file-exists-p (concat buffer-file-name "c"))
+                  (delete-file (concat buffer-file-name "c"))))
+            nil
+            t))
+
+(add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
+(add-hook 'emacs-lisp-mode-hook 'recompile-elc-on-save)
+
+(eval-after-load "rainbow-mode"
+  '(diminish 'rainbow-mode))
+(eval-after-load "eldoc"
+  '(diminish 'eldoc-mode))
 
 ;; Clojure
 
@@ -186,4 +191,4 @@
 (add-to-list 'auto-mode-alist '("\.cljs?$" . clojure-mode))
 
 
-;;; emacs-rc-languages.el ends here
+;;; rc-languages.el ends here

@@ -1,4 +1,4 @@
-;;; emacs-rc-bindings.el ---
+;;; rc-bindings.el ---
 
 
 ;; Font size
@@ -21,8 +21,7 @@
 (global-set-key (kbd "C-x \\") 'align-regexp)
 
 ;; Misc
-(when (fboundp 'magit-status)
+(when (require 'magit nil t)
   (global-set-key (kbd "C-c g") 'magit-status))
 
-
-;;; emacs-rc-bindings.el ends here
+;;; rc-bindings.el ends here

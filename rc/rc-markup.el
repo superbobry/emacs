@@ -1,4 +1,4 @@
-;;; emacs-rc-markup.el ---
+;;; rc-markup.el ---
 
 
 ;; Markdown
@@ -25,7 +25,11 @@
 ;; LaTeX via AucTeX
 
 (when (and (require 'tex-site nil t))
-  (setq TeX-auto-save t
+  (setq TeX-view-program-list
+        '(("DVI Viewer" "open %o")
+          ("PDF Viewer" "open %o")
+          ("HTML Viewer" "open %o"))
+        TeX-auto-save t
         TeX-parse-self t
         TeX-DVI-via-PDFTeX t)
 
@@ -36,4 +40,4 @@
                                 (outline-minor-mode 1))))
 
 
-;;; emacs-rc-markup.el ends here
+;;; rc-markup.el ends here

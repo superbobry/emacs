@@ -1,4 +1,4 @@
-;;; emacs-rc-editor.el ---
+;;; rc-editor.el ---
 
 ;; Note
 ;; ----
@@ -15,6 +15,7 @@
 (delete-selection-mode t)
 
 ;; take care of the whitespace
+(require 'whitespace)
 (setq whitespace-style '(face trailing lines-tail
                               space-before-tab
                               indentation space-after-tab)
@@ -47,20 +48,20 @@
       uniquify-after-kill-buffer-p t     ;; rename after killing uniquified
       uniquify-ignore-buffers-re "^\\*") ;; don't muck with special buffers
 
-;; saveplace remembers your location in a file when saving files
-(setq save-place-file (concat bobry-cache-dir "saveplace"))
-
 ;; activate it for all buffers
 (setq-default save-place t)
 (require 'saveplace)
 
+;; saveplace remembers your location in a file when saving files
+(setq save-place-file (concat bobry-cache-dir "saveplace"))
+
 ;; savehist keeps track of some history
+(require 'savehist)
 (setq savehist-additional-variables
       '(search ring regexp-search-ring)
       savehist-autosave-interval 60
       savehist-file (concat bobry-cache-dir "savehist"))
 (savehist-mode t)
-(require 'savehist)
 
 (require 'desktop)
 (setq-default desktop-missing-file-warning nil
@@ -109,6 +110,9 @@
 (defadvice windmove-right (before other-window-now activate)
   (when buffer-file-name (save-buffer)))
 
+;; diminish keeps the modeline tidy
+(require 'diminish)
+
 ;; show-paren-mode: subtle highlighting of matching parens (global-mode)
 (require 'paren)
 (show-paren-mode +1)
@@ -117,8 +121,9 @@
 ;; highlight the current line
 (global-hl-line-mode +1)
 
-(when (require 'volatile-highlights nil t)
-  (volatile-highlights-mode t))
+(require 'volatile-highlights)
+(volatile-highlights-mode t)
+(diminish 'volatile-highlights-mode)
 
 ;; tramp, for sudo access
 (require 'tramp)
@@ -130,8 +135,13 @@
 
 ;; ido-mode
 (require 'ido)
+(require 'ido-ubiquitous)
+(require 'flx-ido)
 (ido-mode 'both)
 (ido-everywhere t)
+(ido-ubiquitous-mode +1)
+(flx-ido-mode +1)
+(setq ido-use-faces nil)  ;; disable ido faces to see flx highlights
 (setq ido-case-fold t                    ;; be case-insensitive
       ido-confirm-unique-completion nil  ;; wait for RET, even with unique completion
       ido-enable-flex-matching nil       ;; not, too smart, baby ...
@@ -143,30 +153,28 @@
       ido-save-directory-list-file (concat bobry-cache-dir "ido.last")
       ido-default-file-method 'selected-window)
 
-;; auto-completion in minibuffer
-(icomplete-mode +1)
-(setq icomplete-prospects-height 1     ;; don't spam my minibuffer
-      icomplete-compute-delay 0)       ;; don't wait
-
 ;; enabled auto-fill mode in text-mode and all related modes
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
 
 ;; load yasnippet
-(when (and (require 'yasnippet nil t)
-           (require 'dropdown-list))
-  (add-to-list 'yas/snippet-dirs bobry-snippets-dir)
-  (yas/global-mode 1)
-  (setq yas/prompt-functions '(yas/dropdown-prompt
-                               yas/x-prompt
-                               yas/ido-prompt)))
+(require 'yasnippet)
+(require 'dropdown-list)
+(add-to-list 'yas-snippet-dirs bobry-snippets-dir)
+(yas-global-mode 1)
+(setq yas-prompt-functions '(yas-dropdown-prompt
+                             yas-ido-prompt))
+
+;; load flycheck
+(require 'flycheck)
+(add-hook 'after-init-hook #'global-flycheck-mode)
 
 ;; load auto-complete
-(when (and (require 'auto-complete nil t)
-           (require 'auto-complete-config nil t))
-  (setq ac-comphist-file (concat bobry-cache-dir "ac-comphist.dat")
-        ac-candidate-limit 20
-        ac-ignore-case nil)
-  (global-auto-complete-mode))
+(require 'auto-complete)
+(require 'auto-complete-config)
+(setq ac-comphist-file (concat bobry-cache-dir "ac-comphist.dat")
+      ac-candidate-limit 20
+      ac-ignore-case nil)
+(global-auto-complete-mode)
 
 ;; ediff - don't start another frame
 (require 'ediff)
@@ -184,7 +192,27 @@
 (setq reb-re-syntax 'string)
 
 (require 'eshell)
-(setq eshell-directory-name (concat bobry-cache-dir "eshell/"))
+(setq eshell-directory-name (expand-file-name "eshel/" bobry-cache-dir))
+
+;; better splits
+(require 'golden-ratio)
+(golden-ratio-mode)
+
+;; smex, remember recently and most frequently used commands
+(require 'smex)
+(setq smex-save-file (expand-file-name ".smex-items" bobry-cache-dir))
+(smex-initialize)
+(global-set-key (kbd "M-x") 'smex)
+(global-set-key (kbd "M-X") 'smex-major-mode-commands)
+
+;; make a shell script executable automatically on save
+(add-hook 'after-save-hook
+          'executable-make-buffer-file-executable-if-script-p)
+
+;; sensible undo
+(require 'undo-tree)
+(global-undo-tree-mode)
+(diminish 'undo-tree-mode)
 
 
-;;; emacs-rc-editor.el ends here
+;;; rc-editor.el ends here

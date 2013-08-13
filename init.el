@@ -14,81 +14,28 @@
 (unless (file-exists-p bobry-cache-dir)
   (make-directory bobry-cache-dir))
 
+;; reduce the frequency of garbage collection by making it happen on
+;; each 50MB of allocated data (the default is on every 0.76MB)
+(setq gc-cons-threshold 50000000)
 
 (add-to-list 'load-path bobry-dir)
-(add-to-list 'load-path (concat bobry-dir "el-get/el-get"))
 
-(unless (require 'el-get nil t)
-  (with-current-buffer
-      (url-retrieve-synchronously
-       "https://raw.github.com/dimitri/el-get/master/el-get-install.el")
-    (goto-char (point-max))
-    (eval-print-last-sexp)))
-
-(setq el-get-sources
-      '((:name golden-ratio
-               :website "https://github.com/roman/golden-ratio.el"
-               :description "Automatic resizing of Emacs windows to the golden ratio."
-               :type github
-               :pkgname "roman/golden-ratio.el"
-               :features "golden-ratio"
-               :after (golden-ratio-mode))
-        (:name color-theme-solarized
-               :description "Emacs highlighting using Ethan Schoonover's Solarized color scheme"
-               :type github
-               :pkgname "sellout/emacs-color-theme-solarized"
-               :prepare (progn
-                          (add-to-list 'custom-theme-load-path default-directory)
-                          (load-theme 'solarized-dark)))
-        (:name cmm-mode
-               :description "An Emacs mode for editing Cmm files"
-               :type github
-               :pkgname "tibbe/cmm-mode"
-               :features "cmm-mode")
-        (:name auto-complete
-               :website "https://github.com/auto-complete/auto-complete"
-               :description "The most intelligent auto-completion extension."
-               :type github
-               :pkgname "auto-complete/auto-complete"
-               :load "auto-complete.el"
-               :depends (popup fuzzy))
-        (:name cl-lib
-               :type elpa)))
-
-(setq bobry-packages
-      (append
-       '(el-get
-         ;; generally useful stuff
-         auto-complete icomplete+ yasnippet scratch smart-tab
-         ;; vcs
-         magit
-         ;; programming languages
-         coffee-mode haskell-mode clojure-mode python-mode ess ghc-mod
-         ;; markup
-         markdown-mode
-         ;; rest
-         volatile-highlights idle-highlight-mode powerline)
-       (mapcar 'el-get-source-name el-get-sources)))
-
-
-(setq custom-file (concat bobry-dir "custom.el"))
-(load custom-file t)
-
-(el-get 'sync bobry-packages)
+(load "core/core-packages")
 
 ;; OS X specific settings
 (when (eq system-type 'darwin)
-  (load "rc/emacs-rc-osx"))
+  (load "core/core-osx"))
 
 ;; ... roll out the thing!
-(load "rc/emacs-rc-ui")
-(load "rc/emacs-rc-defuns")
-(load "rc/emacs-rc-languages")
-(load "rc/emacs-rc-markup")
-(load "rc/emacs-rc-editor")
-(load "rc/emacs-rc-flymake")
-(load "rc/emacs-rc-flyspell")
-(load "rc/emacs-rc-bindings")
+(load "rc/rc-ui")
+(load "rc/rc-defuns")
+(load "rc/rc-languages")
+(load "rc/rc-markup")
+(load "rc/rc-editor")
+(load "rc/rc-flyspell")
+(load "rc/rc-bindings")
 
+(setq custom-file (expand-file-name "custom.el" bobry-dir))
+(load custom-file t)
 
 ;;; init.el ends here

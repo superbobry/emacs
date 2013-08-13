@@ -1,4 +1,4 @@
-;;; emacs-rc-flyspell.el ---
+;;; rc-flyspell.el ---
 
 
 (require 'flyspell)
@@ -17,4 +17,4 @@
 (add-hook 'org-mode-hook 'flyspell-mode)
 
 
-;;; emacs-rc-flyspell.el ends here
+;;; rc-flyspell.el ends here

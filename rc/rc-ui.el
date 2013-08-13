@@ -1,8 +1,10 @@
-;;; emacs-rc-ui.el ---
+;;; rc-ui.el ---
 
 
 (when (window-system)
   (set-frame-font "Monaco-15"))
+
+(load-theme 'solarized-dark)
 
 (tool-bar-mode -1)
 (menu-bar-mode -1)
@@ -39,4 +41,4 @@
         kill-buffer-query-functions))
 
 
-;;; emacs-rc-ui.el ends here
+;;; rc-ui.el ends here
