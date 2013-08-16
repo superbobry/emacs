@@ -211,8 +211,9 @@
 
 ;; sensible undo
 (require 'undo-tree)
-(global-undo-tree-mode)
+(global-undo-tree-mode 1)
 (diminish 'undo-tree-mode)
+(defalias 'redo 'undo-tree-redo)
 
 
 ;;; rc-editor.el ends here

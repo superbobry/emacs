@@ -1,4 +1,4 @@
-;;; rc-bindings.el ---
+;;; rc-global-bindings.el ---
 
 
 ;; Font size
@@ -13,15 +13,15 @@
 ;; Editing
 (global-set-key (kbd "C-c C-j") 'join-line)
 (global-set-key (kbd "<delete>") 'delete-char)
-(global-set-key (kbd "C-z") 'undo)
 (global-set-key (kbd "M-<up>") 'move-line-up)
 (global-set-key (kbd "M-<down>") 'move-line-down)
 (global-set-key (kbd "C-.") 'textmate-shift-right)
 (global-set-key (kbd "C-,") 'textmate-shift-left)
 (global-set-key (kbd "C-x \\") 'align-regexp)
+(global-set-key (kbd "C-z") 'undo)
+(global-set-key (kbd "C-S-z") 'redo)
 
 ;; Misc
-(when (require 'magit nil t)
-  (global-set-key (kbd "C-c g") 'magit-status))
+(global-set-key (kbd "C-c g") 'magit-status)
 
-;;; rc-bindings.el ends here
+;;; rc-global-bindings.el ends here

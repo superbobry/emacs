@@ -11,7 +11,7 @@
 
 (defvar bobry-packages
   '(dash flycheck ido-ubiquitous auto-complete hi2 flx-ido
-         magit rainbow-mode smex powerline idle-highlight-mode
+         magit rainbow-mode smex powerline
          scratch golden-ratio volatile-highlights solarized-theme
          coffee-mode haskell-mode clojure-mode python-mode ess ghc
          markdown-mode diminish undo-tree exec-path-from-shell

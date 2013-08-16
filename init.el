@@ -33,7 +33,7 @@
 (load "rc/rc-markup")
 (load "rc/rc-editor")
 (load "rc/rc-flyspell")
-(load "rc/rc-bindings")
+(load "rc/rc-global-bindings")
 
 (setq custom-file (expand-file-name "custom.el" bobry-dir))
 (load custom-file t)

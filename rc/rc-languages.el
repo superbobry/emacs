@@ -32,7 +32,6 @@
 (add-hook 'prog-mode-hook 'highlight-watchwords)
 (add-hook 'prog-mode-hook 'annotate-watchwords)
 (add-hook 'prog-mode-hook 'turn-on-linum)
-(add-hook 'prog-mode-hook 'idle-highlight-mode)
 
 ;; Python
 
@@ -79,10 +78,12 @@
      (require 'ghc-core)
      (require 'ghc)
 
+     (setq haskell-mode-hook nil)
      (add-hook 'haskell-mode-hook
                '(lambda ()
                   (subword-mode +1)
 
+                  (haskell-indent-mode -1)
                   (if (require 'hi2 nil t)
                       (turn-on-hi2)
                     (haskell-indentation-mode 1))
