@@ -197,6 +197,7 @@
 ;; better splits
 (require 'golden-ratio)
 (golden-ratio-mode)
+(diminish 'golden-ratio-mode)
 
 ;; smex, remember recently and most frequently used commands
 (require 'smex)
@@ -213,7 +214,10 @@
 (require 'undo-tree)
 (global-undo-tree-mode 1)
 (diminish 'undo-tree-mode)
-(defalias 'redo 'undo-tree-redo)
+(Defalias 'redo 'undo-tree-redo)
 
+;; my git
+(require 'magit)
+(setq magit-emacsclient-executable nil)
 
 ;;; rc-editor.el ends here
