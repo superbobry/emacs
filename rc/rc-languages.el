@@ -84,9 +84,7 @@
                   (subword-mode +1)
 
                   (haskell-indent-mode -1)
-                  (if (require 'hi2 nil t)
-                      (turn-on-hi2)
-                    (haskell-indentation-mode 1))
+                  (turn-on-hi2)
                   (haskell-doc-mode 1)
 
                   (local-set-key (kbd "M-[") 'haskell-navigate-imports)
@@ -95,9 +93,9 @@
                   (ghc-init)
 
                   (setq tab-width 4
-                        haskell-indentation-layout-offset 4
-                        haskell-indentation-left-offset 4
-                        haskell-indentation-ifte-offset 4)))))
+                        hi2-layout-offset 4
+                        hi2-left-offset 4
+                        hi2-ifte-offset 4)))))
 
 ;; OCaml
 
