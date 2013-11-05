@@ -38,9 +38,6 @@
 ;; content to reflect what's on-disk.
 (global-auto-revert-mode t)
 
-;; smart pairing for all
-(electric-pair-mode t)
-
 ;; meaningful names for buffers with the same name
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'forward
@@ -113,10 +110,10 @@
 ;; diminish keeps the modeline tidy
 (require 'diminish)
 
-;; show-paren-mode: subtle highlighting of matching parens (global-mode)
-(require 'paren)
-(show-paren-mode +1)
-(setq show-paren-style 'parenthesis)
+;; subtle highlighting of matching parens (global-mode)
+(require 'smartparens-config)
+(show-smartparens-global-mode t)
+(smartparens-global-mode 1)
 
 ;; highlight the current line
 (global-hl-line-mode +1)
@@ -214,10 +211,15 @@
 (require 'undo-tree)
 (global-undo-tree-mode 1)
 (diminish 'undo-tree-mode)
-(Defalias 'redo 'undo-tree-redo)
+(defalias 'redo 'undo-tree-redo)
 
 ;; my git
 (require 'magit)
 (setq magit-emacsclient-executable nil)
+
+;; incremental searching
+(require 'anzu)
+(global-anzu-mode +1)
+
 
 ;;; rc-editor.el ends here

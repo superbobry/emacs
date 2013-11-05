@@ -11,11 +11,12 @@
 
 (defvar bobry-packages
   '(dash flycheck ido-ubiquitous auto-complete hi2 flx-ido
-         magit rainbow-mode smex powerline
+         magit rainbow-mode smex powerline auctex
          scratch golden-ratio volatile-highlights solarized-theme
-         coffee-mode haskell-mode clojure-mode python-mode ess ghc
-         markdown-mode diminish undo-tree exec-path-from-shell
-         yasnippet dropdown-list)
+         coffee-mode haskell-mode ghc ghci-completion clojure-mode
+         python-mode ess markdown-mode diminish undo-tree
+         exec-path-from-shell yasnippet dropdown-list
+         anzu smartparens)
   "A list of packages to ensure are installed at launch.")
 
 (mapc #'(lambda (package)

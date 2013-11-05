@@ -16,6 +16,9 @@
   (add-hook 'html-mode-hook 'rainbow-turn-on)
   (add-hook 'css-mode-hook 'rainbow-turn-on))
 
+(sp-with-modes '(html-mode sgml-mode)
+  (sp-local-pair "<" ">"))
+
 ;; gettext
 
 (when (require 'po-mode nil t)
@@ -24,7 +27,7 @@
 
 ;; LaTeX via AucTeX
 
-(when (and (require 'tex-site nil t))
+(when (require 'tex-site nil t)
   (setq TeX-view-program-list
         '(("DVI Viewer" "open %o")
           ("PDF Viewer" "open %o")
@@ -39,5 +42,9 @@
                                 (TeX-PDF-mode 1)
                                 (outline-minor-mode 1))))
 
+(eval-after-load "tex"
+  '(setcdr (assoc "LaTeX" TeX-command-list)
+          '("%`%l%(mode) -shell-escape%' %t"
+          TeX-run-TeX nil (latex-mode doctex-mode) :help "Run LaTeX")))
 
 ;;; rc-markup.el ends here

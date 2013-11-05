@@ -2,7 +2,7 @@
 
 
 (when (window-system)
-  (set-frame-font "Monaco-15"))
+  (set-frame-font "Monaco-14"))
 
 (load-theme 'solarized-dark)
 

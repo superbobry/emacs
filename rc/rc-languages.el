@@ -76,7 +76,17 @@
      (require 'haskell-checkers)
      (require 'haskell-navigate-imports)
      (require 'ghc-core)
-     (require 'ghc)
+
+     (autoload 'ghc-init "ghc" nil t)
+
+     (ac-define-source ghc-mod
+       '((depends ghc)
+         (candidates . (ghc-select-completion-symbol))
+         (symbol . "s")
+         (cache)))
+     (add-to-list 'ac-sources ac-source-ghc-mod)
+
+     (define-key haskell-mode-map (kbd "C-c C-c") 'haskell-compile)
 
      (setq haskell-mode-hook nil)
      (add-hook 'haskell-mode-hook
