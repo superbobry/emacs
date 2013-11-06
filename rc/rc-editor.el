@@ -111,6 +111,7 @@
 (require 'diminish)
 
 ;; subtle highlighting of matching parens (global-mode)
+(require 'smartparens)
 (require 'smartparens-config)
 (show-smartparens-global-mode t)
 (smartparens-global-mode 1)
