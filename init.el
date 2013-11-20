@@ -27,11 +27,11 @@
   (load "core/core-osx"))
 
 ;; ... roll out the thing!
+(load "rc/rc-editor")
 (load "rc/rc-ui")
 (load "rc/rc-defuns")
 (load "rc/rc-languages")
 (load "rc/rc-markup")
-(load "rc/rc-editor")
 (load "rc/rc-flyspell")
 (load "rc/rc-global-bindings")
 

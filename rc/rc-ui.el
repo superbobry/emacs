@@ -4,6 +4,7 @@
 (when (window-system)
   (set-frame-font "Monaco-14"))
 
+(require 'solarized-dark-theme)
 (load-theme 'solarized-dark)
 
 (tool-bar-mode -1)
