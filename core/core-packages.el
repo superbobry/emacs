@@ -10,7 +10,7 @@
 (package-initialize)
 
 (defvar bobry-packages
-  '(dash flycheck ido-ubiquitous auto-complete hi2 flx-ido
+  '(dash flycheck ido-ubiquitous auto-complete ac-math hi2 flx-ido
          magit rainbow-mode smex powerline auctex
          scratch golden-ratio volatile-highlights solarized-theme
          coffee-mode haskell-mode ghc ghci-completion clojure-mode

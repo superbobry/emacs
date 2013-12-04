@@ -47,4 +47,14 @@
           '("%`%l%(mode) -shell-escape%' %t"
           TeX-run-TeX nil (latex-mode doctex-mode) :help "Run LaTeX")))
 
+(require 'ac-math)
+(add-to-list 'ac-modes 'LaTeX-mode)
+(add-hook 'LaTeX-mode-hook
+          '(lambda ()
+             (setq ac-sources
+                   (append '(ac-source-math-unicode
+                             ac-source-math-latex
+                             ac-source-latex-commands)
+                           ac-sources))))
+
 ;;; rc-markup.el ends here

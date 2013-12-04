@@ -169,9 +169,13 @@
 ;; load auto-complete
 (require 'auto-complete)
 (require 'auto-complete-config)
-(setq ac-comphist-file (concat bobry-cache-dir "ac-comphist.dat")
-      ac-candidate-limit 20
-      ac-ignore-case nil)
+(add-to-list 'ac-dictionary-directories (concat bobry-cache-dir "ac-dict"))
+(setq ac-auto-start 4
+      ac-candidate-limit 10
+      ac-ignore-case 'smart
+      ac-fuzzy-enable)
+(setq popup-use-optimized-column-computation nil)
+(ac-config-default)
 (global-auto-complete-mode)
 
 ;; ediff - don't start another frame
