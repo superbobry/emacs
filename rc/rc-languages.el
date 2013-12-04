@@ -109,23 +109,25 @@
 
 ;; OCaml
 
+(add-to-list 'load-path
+             (concat
+              (replace-regexp-in-string
+               "\n$" ""
+               (shell-command-to-string "opam config var share"))
+              "/emacs/site-lisp"))
+
 (let* ((opam-prefix
         (substring (shell-command-to-string "opam config var prefix") 0 -1)))
-  (load-file
-   (concat opam-prefix "/share/typerex/ocp-indent/ocp-indent.el"))
-  (load-file
-    (concat opam-prefix "/share/typerex/ocp-index/ocp-index.el"))
-
-  (setq ocp-index-path (concat opam-prefix "/bin/ocp-index")
-        ocp-indent-path (concat opam-prefix "/bin/ocp-indent")
-        ocp-indent-config "with_never=true")
-
   (with-temp-buffer
     (insert (shell-command-to-string
              (concat opam-prefix
                      "/bin/ocp-edit-mode emacs -load-global-config")))
     (eval-buffer)))
 
+(require 'ocp-indent)
+(require 'ocp-index)
+
+(setq ocp-indent-config "with_never=true")
 
 ;; Coffee
 
