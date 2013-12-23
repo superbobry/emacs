@@ -139,7 +139,7 @@
 (ido-everywhere t)
 (ido-ubiquitous-mode +1)
 (flx-ido-mode +1)
-(setq ido-use-faces nil)  ;; disable ido faces to see flx highlights
+(setq flx-ido-use-faces nil)
 (setq ido-case-fold t                    ;; be case-insensitive
       ido-confirm-unique-completion nil  ;; wait for RET, even with unique completion
       ido-enable-flex-matching nil       ;; not, too smart, baby ...
@@ -148,6 +148,7 @@
       ido-use-filename-at-point nil
       ido-use-url-at-point nil
       ido-max-prospects 10
+      ido-use-faces t
       ido-save-directory-list-file (concat bobry-cache-dir "ido.last")
       ido-default-file-method 'selected-window)
 
