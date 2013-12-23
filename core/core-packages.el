@@ -16,7 +16,7 @@
          coffee-mode haskell-mode ghc ghci-completion clojure-mode
          python-mode ess markdown-mode diminish undo-tree
          exec-path-from-shell yasnippet dropdown-list
-         anzu smartparens)
+         anzu smartparens ag)
   "A list of packages to ensure are installed at launch.")
 
 (mapc #'(lambda (package)
