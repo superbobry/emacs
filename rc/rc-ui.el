@@ -5,7 +5,7 @@
   (set-frame-font "Monaco-14"))
 
 (require 'solarized-dark-theme)
-(load-theme 'solarized-dark)
+(load-theme 'solarized-dark t)
 
 (tool-bar-mode -1)
 (menu-bar-mode -1)
