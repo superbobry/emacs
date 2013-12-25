@@ -126,6 +126,7 @@
 
 (require 'ocp-indent)
 (require 'ocp-index)
+(require 'tuareg)
 (setq ocp-indent-config "with_never=true")
 
 (autoload 'merlin-mode "merlin" "Merlin mode" t)
