@@ -12,7 +12,7 @@
 (defvar bobry-packages
   '(dash flycheck ido-ubiquitous auto-complete ac-math hi2 flx-ido
          magit rainbow-mode smex powerline auctex
-         scratch golden-ratio volatile-highlights solarized-theme
+         scratch golden-ratio volatile-highlights base16-theme
          coffee-mode haskell-mode ghc ghci-completion clojure-mode
          python-mode ess markdown-mode diminish undo-tree
          exec-path-from-shell yasnippet dropdown-list

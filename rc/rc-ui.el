@@ -4,8 +4,7 @@
 (when (window-system)
   (set-frame-font "Monaco-14"))
 
-(require 'solarized-dark-theme)
-(load-theme 'solarized-dark t)
+(require 'base16-eighties-theme)
 
 (tool-bar-mode -1)
 (menu-bar-mode -1)
@@ -41,5 +40,7 @@
   (remq 'process-kill-buffer-query-function
         kill-buffer-query-functions))
 
+(require 'powerline)
+(powerline-default-theme)
 
 ;;; rc-ui.el ends here
