@@ -70,6 +70,10 @@
 
 ;; Haskell
 
+(add-to-list 'load-path
+             (concat bobry-dir "vendor/structured-haskell-mode/elisp"))
+(require 'shm)
+
 (eval-after-load 'haskell-mode
   '(progn
      (require 'inf-haskell)
@@ -94,7 +98,8 @@
                   (subword-mode +1)
 
                   (haskell-indent-mode -1)
-                  (turn-on-hi2)
+                  (hi2-mode)
+                  (structured-haskell-mode)
                   (haskell-doc-mode 1)
 
                   (local-set-key (kbd "M-[") 'haskell-navigate-imports)
