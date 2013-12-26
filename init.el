@@ -38,4 +38,5 @@
 (setq custom-file (expand-file-name "custom.el" bobry-dir))
 (load custom-file t)
 
+
 ;;; init.el ends here
