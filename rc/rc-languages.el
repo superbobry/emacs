@@ -35,12 +35,15 @@
 
 ;; Python
 
-(require 'python-mode)
-(add-hook 'python-mode-hook (lambda ()
-                              (subword-mode +1)
-                              (electric-indent-mode -1)))
-(custom-set-variables
- '(py-start-run-py-shell nil))
+(use-package python-mode
+  :ensure python-mode
+  :commands python-mode
+  :config (progn
+            (add-hook 'python-mode-hook (lambda ()
+                                          (subword-mode +1)
+                                          (electric-indent-mode -1)))
+            (custom-set-variables
+             '(py-start-run-py-shell nil))))
 
 ;; Erlang
 
@@ -70,47 +73,57 @@
 
 ;; Haskell
 
-(add-to-list 'load-path
-             (concat bobry-dir "vendor/structured-haskell-mode/elisp"))
-(require 'shm)
+(use-package haskell-mode
+  :ensure haskell-mode
+  :commands haskell-mode
+  :init (progn
+          (require 'inf-haskell)
+          (require 'haskell-checkers)
+          (require 'haskell-navigate-imports)
 
-(eval-after-load 'haskell-mode
-  '(progn
-     (require 'inf-haskell)
-     (require 'haskell-checkers)
-     (require 'haskell-navigate-imports)
-     (require 'ghc-core)
+          (bind-keys :map haskell-mode-map
+                     ("C-c C-c" . haskell-compile)
+                     ("M-[" . haskell-navigate-imports)
+                     ("M-]" . haskell-navigate-imports-return))
 
-     (autoload 'ghc-init "ghc" nil t)
+          (setq haskell-mode-hook nil)
+          (add-hook 'haskell-mode-hook
+                    '(lambda ()
+                       (subword-mode +1)
+                       (haskell-doc-mode 1)))))
 
-     (ac-define-source ghc-mod
-       '((depends ghc)
-         (candidates . (ghc-select-completion-symbol))
-         (symbol . "s")
-         (cache)))
-     (add-to-list 'ac-sources ac-source-ghc-mod)
+(use-package hi2
+  :ensure hi2
+  :init (progn
+          (add-hook 'haskell-mode-hook
+                    '(lambda ()
+                       (setq tab-width 4
+                             hi2-layout-offset 4
+                             hi2-left-offset 4
+                             hi2-ifte-offset 4)
 
-     (define-key haskell-mode-map (kbd "C-c C-c") 'haskell-compile)
+                       ;; (haskell-indent-mode -1)
+                       (hi2-mode)))))
 
-     (setq haskell-mode-hook nil)
-     (add-hook 'haskell-mode-hook
-               '(lambda ()
-                  (subword-mode +1)
+(use-package ghc
+  :ensure ghc
+  :init (progn
+          (require 'ghc-core)
 
-                  (haskell-indent-mode -1)
-                  (hi2-mode)
-                  (structured-haskell-mode)
-                  (haskell-doc-mode 1)
+          (add-hook 'haskell-mode-hook 'ghc-init)
 
-                  (local-set-key (kbd "M-[") 'haskell-navigate-imports)
-                  (local-set-key (kbd "M-]") 'haskell-navigate-imports-return)
+          (ac-define-source ghc-mod
+            '((depends ghc)
+              (candidates . (ghc-select-completion-symbol))
+              (symbol . "s")
+              (cache)))
+          (add-to-list 'ac-sources ac-source-ghc-mod)))
 
-                  (ghc-init)
+(use-package ghci-completion
+  :ensure ghci-completion
+  :init (progn
+          (add-hook 'inferior-haskell-mode-hook 'turn-on-ghci-completion)))
 
-                  (setq tab-width 4
-                        hi2-layout-offset 4
-                        hi2-left-offset 4
-                        hi2-ifte-offset 4)))))
 
 ;; OCaml
 
@@ -143,43 +156,53 @@
 
 ;; Coffee
 
-(when (require 'coffee-mode nil t)
-  (add-hook 'coffee-mode-hook
-            '(lambda ()
-               (set (make-local-variable 'tab-width) 2)
-               (setq coffee-args-compile '("-c", "--bare")
-                     coffee-debug-mode t)
+(use-package coffee-mode
+  :ensure coffee-mode
+  :commands coffee-mode
+  :init (progn
+          (add-hook 'coffee-mode-hook
+                    '(lambda ()
+                       (set (make-local-variable 'tab-width) 2)
+                       (setq coffee-args-compile '("-c", "--bare")
+                             coffee-debug-mode t)
 
-               ;; Compile '.coffee' files on every save
-               (and (file-exists-p (buffer-file-name))
-                    (file-exists-p (coffee-compiled-file-name))
-                    (coffee-cos-mode t)))))
+                       ;; Compile '.coffee' files on every save
+                       (and (file-exists-p (buffer-file-name))
+                            (file-exists-p (coffee-compiled-file-name))
+                            (coffee-cos-mode t))))))
 
 ;; C, C++
 
-(require 'cc-mode)
-
-(add-hook 'c-mode-common-hook
-          '(lambda ()
-             (setq c-default-style "linux"
-                   c-basic-offset 4)
-             (c-set-offset 'substatement-open 0)
-             (local-set-key [return] 'newline-and-indent)))
+(use-package cc-mode
+  :init (progn
+          (add-hook 'c-mode-common-hook
+                    '(lambda ()
+                       (local-set-key (kbd "RET") 'newline-and-indent)
+                       (setq c-default-style "linux"
+                             c-basic-offset 4)
+                       (c-set-offset 'substatement-open 0)))))
 
 ;; R
 
-(when (require 'ess-site nil t)
-  (setq ess-eval-visibly-p nil
-        ess-use-tracebug t
-        ess-use-auto-complete t
-        ess-help-own-frame 'one
-        ess-ask-for-ess-directory nil)
-  (setq-default ess-dialect "R")
-  (ess-toggle-underscore nil))
+(use-package ess-site
+  :ensure ess
+  :commands R
+  :init (progn
+          ;; TODO: why doesn't use-package require it for us?
+          (require 'ess-site)
+
+          (setq ess-eval-visibly-p nil
+                ess-use-tracebug t
+                ess-use-auto-complete t
+                ess-help-own-frame 'one
+                ess-ask-for-ess-directory nil)
+          (setq-default ess-dialect "R")
+          (ess-toggle-underscore nil)))
 
 ;; Octave
 
-(add-to-list 'auto-mode-alist '("\\.m$" . octave-mode))
+(use-package octave-mode
+  :mode "\\.m$")
 
 
 ;; Elisp
@@ -197,21 +220,22 @@
 (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
 (add-hook 'emacs-lisp-mode-hook 'recompile-elc-on-save)
 
-(eval-after-load "rainbow-mode"
-  '(diminish 'rainbow-mode))
-(eval-after-load "eldoc"
-  '(diminish 'eldoc-mode))
+(use-package eldoc
+  :diminish eldoc-mode)
+
 
 ;; Clojure
 
-(when (require 'clojure-mode nil t)
-  ;; A quickfix for the missing `put-clojure-indent' function.
-  (unless (functionp 'put-clojure-indent)
-    (defun put-clojure-indent (sym indent)))
+(use-package clojure-mode
+  :ensure clojure-mode
+  :commands clojure-mode
+  :mode "\.cljs?$"
+  :init (progn
+          ;; A quickfix for the missing `put-clojure-indent' function.
+          (unless (functionp 'put-clojure-indent)
+            (defun put-clojure-indent (sym indent)))
 
-  (add-hook 'inferior-scheme-mode-hook 'split-window))
-
-(add-to-list 'auto-mode-alist '("\.cljs?$" . clojure-mode))
+          (add-hook 'inferior-mode-hook 'split-window)))
 
 
 ;;; rc-languages.el ends here
