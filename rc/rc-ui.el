@@ -2,9 +2,12 @@
 
 
 (when (window-system)
-  (set-frame-font "Monaco-14"))
+  (let ((font-name "Monaco-14"))
+    (when (find-font (font-spec :name font-name))
+      (set-frame-font font-name))))
 
-(require 'base16-eighties-theme)
+(use-package base16-eighties-theme
+  :ensure base16-theme)
 
 (tool-bar-mode -1)
 (menu-bar-mode -1)

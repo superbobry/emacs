@@ -50,21 +50,21 @@
 (require 'saveplace)
 
 ;; saveplace remembers your location in a file when saving files
-(setq save-place-file (concat bobry-cache-dir "saveplace"))
+(setq save-place-file (local-file-name "cache/saveplace"))
 
 ;; savehist keeps track of some history
 (require 'savehist)
 (setq savehist-additional-variables
       '(search ring regexp-search-ring)
       savehist-autosave-interval 60
-      savehist-file (concat bobry-cache-dir "savehist"))
+      savehist-file (local-file-name "cache/savehist"))
 (savehist-mode t)
 
 (require 'desktop)
 (setq-default desktop-missing-file-warning nil
               desktop-load-locked-desktop t
               desktop-restore-eager 5
-              desktop-path `(,(concat bobry-dir "cache/"))
+              desktop-path `(,(local-file-name "cache"))
               desktop-save t)
 (desktop-save-mode t)
 
@@ -82,7 +82,7 @@
 
 ;; save recent files
 (require 'recentf)
-(setq recentf-save-file (concat bobry-cache-dir "recentf")
+(setq recentf-save-file (local-file-name "cache/recentf")
       recentf-max-saved-items 200
       recentf-max-menu-items 15)
 (recentf-mode t)
@@ -129,7 +129,7 @@
 ;; (sudo -s), ie., zsh for root user
 (setq shell-prompt-pattern "^[^a-zA-Z].*[#$%>] *"
       tramp-default-method "ssh"
-      tramp-temp-buffer-file-name (concat bobry-cache-dir "tramp/"))
+      tramp-temp-buffer-file-name (local-file-name "cache/tramp"))
 
 ;; ido-mode
 (require 'ido)
@@ -149,7 +149,7 @@
       ido-use-url-at-point nil
       ido-max-prospects 10
       ido-use-faces t
-      ido-save-directory-list-file (concat bobry-cache-dir "ido.last")
+      ido-save-directory-list-file (local-file-name "cache/ido.last")
       ido-default-file-method 'selected-window)
 
 ;; enabled auto-fill mode in text-mode and all related modes
@@ -158,7 +158,7 @@
 ;; load yasnippet
 (require 'yasnippet)
 (require 'dropdown-list)
-(add-to-list 'yas-snippet-dirs bobry-snippets-dir)
+(add-to-list 'yas-snippet-dirs (local-file-name "snippets"))
 (yas-global-mode 1)
 (setq yas-prompt-functions '(yas-dropdown-prompt
                              yas-ido-prompt))
@@ -170,7 +170,8 @@
 ;; load auto-complete
 (require 'auto-complete)
 (require 'auto-complete-config)
-(add-to-list 'ac-dictionary-directories (concat bobry-cache-dir "ac-dict"))
+(add-to-list 'ac-dictionary-directories
+             (local-file-name "cache/ac-dict"))
 (setq ac-auto-start 4
       ac-candidate-limit 10
       ac-ignore-case 'smart
@@ -195,7 +196,7 @@
 (setq reb-re-syntax 'string)
 
 (require 'eshell)
-(setq eshell-directory-name (expand-file-name "eshel/" bobry-cache-dir))
+(setq eshell-directory-name (local-file-name "cache/eshel"))
 
 ;; better splits
 (require 'golden-ratio)
@@ -204,7 +205,7 @@
 
 ;; smex, remember recently and most frequently used commands
 (require 'smex)
-(setq smex-save-file (expand-file-name ".smex-items" bobry-cache-dir))
+(setq smex-save-file (local-file-name "cache/.smex-items"))
 (smex-initialize)
 (global-set-key (kbd "M-x") 'smex)
 (global-set-key (kbd "M-X") 'smex-major-mode-commands)

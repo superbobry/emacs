@@ -6,7 +6,7 @@
 (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
 (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/") t)
 
-(setq package-user-dir (expand-file-name "elpa" bobry-dir))
+(setq package-user-dir (local-file-name "elpa"))
 
 (when (not package-archive-contents)
   (package-refresh-contents))

@@ -1,41 +1,38 @@
 ;;; init.el ---
 
 
-(defvar bobry-dir (file-name-directory (or (buffer-file-name)
+(defvar local-dir (file-name-directory (or (buffer-file-name)
                                            load-file-name))
   "The root dir of the Emacs configuration.")
 
-(defvar bobry-snippets-dir (concat bobry-dir "snippets/")
-  "This folder stores custom yasnippet bundles.")
-
-(defvar bobry-cache-dir (concat bobry-dir "cache/")
-  "This folder stores all the automatically generated save/history-files.")
-
-(unless (file-exists-p bobry-cache-dir)
-  (make-directory bobry-cache-dir))
+(defun local-file-name (file-name)
+  (let* ((file-path (expand-file-name file-name local-dir))
+         (parent-dir (file-name-directory file-name)))
+    (unless (or (not parent-dir)
+		(file-exists-p parent-dir))
+      (make-directory parent-dir))
+    file-path))
 
 ;; reduce the frequency of garbage collection by making it happen on
 ;; each 50MB of allocated data (the default is on every 0.76MB)
 (setq gc-cons-threshold 50000000)
 
-(add-to-list 'load-path bobry-dir)
-
-(load "core/core-packages")
+(load (local-file-name "core/core-packages"))
 
 ;; OS X specific settings
 (when (eq system-type 'darwin)
-  (load "core/core-osx"))
+  (load (local-file-name "core/core-osx")))
 
 ;; ... roll out the thing!
-(load "rc/rc-editor")
-(load "rc/rc-ui")
-(load "rc/rc-defuns")
-(load "rc/rc-languages")
-(load "rc/rc-markup")
-(load "rc/rc-flyspell")
-(load "rc/rc-global-bindings")
+(load (local-file-name "rc/rc-editor"))
+(load (local-file-name "rc/rc-ui"))
+(load (local-file-name "rc/rc-defuns"))
+(load (local-file-name "rc/rc-languages"))
+(load (local-file-name "rc/rc-markup"))
+(load (local-file-name "rc/rc-flyspell"))
+(load (local-file-name "rc/rc-global-bindings"))
 
-(setq custom-file (expand-file-name "custom.el" bobry-dir))
+(setq custom-file (local-file-name "custom.el"))
 (load custom-file t)
 
 
