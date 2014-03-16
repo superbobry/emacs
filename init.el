@@ -13,15 +13,8 @@
       (make-directory parent-dir))
     file-path))
 
-;; reduce the frequency of garbage collection by making it happen on
-;; each 50MB of allocated data (the default is on every 0.76MB)
-(setq gc-cons-threshold 50000000)
-
 (load (local-file-name "core/core-packages"))
-
-;; OS X specific settings
-(when (eq system-type 'darwin)
-  (load (local-file-name "core/core-osx")))
+(load (local-file-name "core/core-env"))
 
 ;; ... roll out the thing!
 (load (local-file-name "rc/rc-ui"))

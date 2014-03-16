@@ -40,16 +40,16 @@
 (use-package tex-site
   :ensure auctex
   :init (progn
-          (setq TeX-view-program-list
-                '(("DVI Viewer" "open %o")
-                  ("PDF Viewer" "open %o")
-                  ("HTML Viewer" "open %o"))
-                TeX-auto-save t
+          (when-osx
+              (setq TeX-view-program-list '(("Preview" "open %o"))
+                    TeX-view-program-selection '((output-pdf "Preview"))))
+
+          (setq TeX-auto-save t
                 TeX-parse-self t
                 TeX-DVI-via-PDFTeX t)
 
-          (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
           (add-hook 'LaTeX-mode-hook '(lambda ()
+                                        (LaTeX-math-mode 1)
                                         (TeX-fold-mode 1)
                                         (TeX-PDF-mode 1)
                                         (outline-minor-mode 1)))))
