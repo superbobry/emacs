@@ -7,7 +7,8 @@
       (set-frame-font font-name))))
 
 (use-package base16-eighties-theme
-  :ensure base16-theme)
+  :ensure base16-theme
+  :config (enable-theme 'base16-eighties))
 
 (tool-bar-mode -1)
 (menu-bar-mode -1)
@@ -43,7 +44,10 @@
   (remq 'process-kill-buffer-query-function
         kill-buffer-query-functions))
 
-(require 'powerline)
-(powerline-default-theme)
+;; Disabled until https://github.com/milkypostman/powerline/issues/54
+;; is fixed.
+;; (require 'powerline)
+;; (powerline-center-theme)
+
 
 ;;; rc-ui.el ends here

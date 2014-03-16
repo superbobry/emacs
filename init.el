@@ -9,7 +9,7 @@
   (let* ((file-path (expand-file-name file-name local-dir))
          (parent-dir (file-name-directory file-name)))
     (unless (or (not parent-dir)
-		(file-exists-p parent-dir))
+                (file-exists-p parent-dir))
       (make-directory parent-dir))
     file-path))
 
@@ -24,8 +24,8 @@
   (load (local-file-name "core/core-osx")))
 
 ;; ... roll out the thing!
-(load (local-file-name "rc/rc-editor"))
 (load (local-file-name "rc/rc-ui"))
+(load (local-file-name "rc/rc-editor"))
 (load (local-file-name "rc/rc-defuns"))
 (load (local-file-name "rc/rc-languages"))
 (load (local-file-name "rc/rc-markup"))
