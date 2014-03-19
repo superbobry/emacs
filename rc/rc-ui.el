@@ -46,8 +46,9 @@
 
 ;; Disabled until https://github.com/milkypostman/powerline/issues/54
 ;; is fixed.
-;; (require 'powerline)
-;; (powerline-center-theme)
+(require 'powerline)
+(powerline-reset)
+(powerline-default-theme)
 
 
 ;;; rc-ui.el ends here
