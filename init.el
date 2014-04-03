@@ -19,10 +19,10 @@
 ;; ... roll out the thing!
 (load (local-file-name "rc/rc-ui"))
 (load (local-file-name "rc/rc-editor"))
-(load (local-file-name "rc/rc-defuns"))
 (load (local-file-name "rc/rc-languages"))
 (load (local-file-name "rc/rc-markup"))
 (load (local-file-name "rc/rc-flyspell"))
+(load (local-file-name "rc/rc-defuns"))
 (load (local-file-name "rc/rc-global-bindings"))
 
 (setq custom-file (local-file-name "custom.el"))

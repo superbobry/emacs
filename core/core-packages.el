@@ -20,7 +20,7 @@
          coffee-mode haskell-mode ghc ghci-completion clojure-mode
          python-mode ess markdown-mode diminish undo-tree
          exec-path-from-shell yasnippet dropdown-list
-         anzu smartparens ag projectile use-package)
+         anzu smartparens ag use-package)
   "A list of packages to ensure are installed at launch.")
 
 (mapc #'(lambda (package)

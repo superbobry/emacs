@@ -46,9 +46,11 @@
 
 ;; Disabled until https://github.com/milkypostman/powerline/issues/54
 ;; is fixed.
-(require 'powerline)
-(powerline-reset)
-(powerline-default-theme)
+(use-package powerline
+  :ensure powerline
+  :config (progn
+            (powerline-reset)
+            (powerline-default-theme)))
 
 
 ;;; rc-ui.el ends here

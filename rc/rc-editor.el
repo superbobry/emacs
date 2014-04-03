@@ -22,10 +22,10 @@
       whitespace-line-column 80)
 
 ;; nice things
-(setq  next-line-add-newlines nil  ;; don't add new lines when scrolling down
-       require-final-newline t     ;; end files with a newline
-       mouse-yank-at-point t       ;; yank at cursor, NOT at mouse position
-       kill-whole-line t)
+(setq next-line-add-newlines nil  ;; don't add new lines when scrolling down
+      require-final-newline t     ;; end files with a newline
+      mouse-yank-at-point t       ;; yank at cursor, NOT at mouse position
+      kill-whole-line t)
 
 ;; store all backup and autosave files in the tmp dir
 (setq backup-directory-alist
@@ -63,7 +63,7 @@
 (require 'desktop)
 (setq-default desktop-missing-file-warning nil
               desktop-load-locked-desktop t
-              desktop-restore-eager 5
+              desktop-restore-eager 0
               desktop-path `(,(local-file-name "cache"))
               desktop-save t)
 (desktop-save-mode t)

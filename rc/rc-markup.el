@@ -44,6 +44,8 @@
               (setq TeX-view-program-list '(("Preview" "open %o"))
                     TeX-view-program-selection '((output-pdf "Preview"))))
 
+          (require 'texmathp)
+
           (setq TeX-auto-save t
                 TeX-parse-self t
                 TeX-DVI-via-PDFTeX t)
