@@ -6,10 +6,6 @@
     (when (find-font (font-spec :name font-name))
       (set-frame-font font-name))))
 
-(use-package base16-eighties-theme
-  :ensure base16-theme
-  :config (enable-theme 'base16-eighties))
-
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
@@ -44,13 +40,15 @@
   (remq 'process-kill-buffer-query-function
         kill-buffer-query-functions))
 
-;; Disabled until https://github.com/milkypostman/powerline/issues/54
-;; is fixed.
-(use-package powerline
-  :ensure powerline
-  :config (progn
-            (powerline-reset)
-            (powerline-default-theme)))
+(use-package smart-mode-line
+  :ensure smart-mode-line
+  :init (progn
+          (setq sml/theme 'dark)
+          (sml/setup)))
+
+(use-package base16-eighties-theme
+  :ensure base16-theme
+  :config (enable-theme 'base16-eighties))
 
 
 ;;; rc-ui.el ends here

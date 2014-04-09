@@ -14,13 +14,8 @@
 (package-initialize)
 
 (defvar bobry-packages
-  '(dash flycheck ido-ubiquitous auto-complete ac-math hi2 flx-ido
-         magit rainbow-mode smex powerline auctex
-         scratch golden-ratio volatile-highlights base16-theme
-         coffee-mode haskell-mode ghc ghci-completion clojure-mode
-         python-mode ess markdown-mode diminish undo-tree
-         exec-path-from-shell yasnippet dropdown-list
-         anzu smartparens ag use-package)
+  '(dash ido-ubiquitous flx-ido scratch diminish exec-path-from-shell
+         yasnippet dropdown-list use-package)
   "A list of packages to ensure are installed at launch.")
 
 (mapc #'(lambda (package)

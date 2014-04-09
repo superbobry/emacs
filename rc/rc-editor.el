@@ -119,9 +119,11 @@
 ;; highlight the current line
 (global-hl-line-mode +1)
 
-(require 'volatile-highlights)
-(volatile-highlights-mode t)
-(diminish 'volatile-highlights-mode)
+(use-package volatile-highlights
+  :ensure volatile-highlights
+  :init (progn
+          (volatile-highlights-mode t)
+          (diminish 'volatile-highlights-mode)))
 
 ;; tramp, for sudo access
 (require 'tramp)
@@ -164,21 +166,14 @@
                              yas-ido-prompt))
 
 ;; load flycheck
-(require 'flycheck)
-(add-hook 'after-init-hook #'global-flycheck-mode)
+(use-package flycheck
+  :ensure flycheck
+  :init (add-hook 'after-init-hook #'global-flycheck-mode))
 
 ;; load auto-complete
-(require 'auto-complete)
-(require 'auto-complete-config)
-(add-to-list 'ac-dictionary-directories
-             (local-file-name "cache/ac-dict"))
-(setq ac-auto-start 4
-      ac-candidate-limit 10
-      ac-ignore-case 'smart
-      ac-fuzzy-enable)
-(setq popup-use-optimized-column-computation nil)
-(ac-config-default)
-(global-auto-complete-mode)
+(use-package company
+  :ensure company
+  :init (global-company-mode))
 
 ;; ediff - don't start another frame
 (require 'ediff)
@@ -199,34 +194,63 @@
 (setq eshell-directory-name (local-file-name "cache/eshel"))
 
 ;; better splits
-(require 'golden-ratio)
-(golden-ratio-mode)
-(diminish 'golden-ratio-mode)
+(use-package golden-ratio
+  :ensure golden-ratio
+  :init (progn
+          (golden-ratio-mode)
+          (diminish 'golden-ratio-mode)))
 
 ;; smex, remember recently and most frequently used commands
-(require 'smex)
-(setq smex-save-file (local-file-name "cache/.smex-items"))
-(smex-initialize)
-(global-set-key (kbd "M-x") 'smex)
-(global-set-key (kbd "M-X") 'smex-major-mode-commands)
+(use-package smex
+  :ensure smex
+  :bind (("M-x" . smex)
+         ("M-X" . smex-major-mode-commands))
+  :init (progn
+          (setq smex-save-file (local-file-name "cache/.smex-items"))
+          (smex-initialize)))
 
 ;; make a shell script executable automatically on save
 (add-hook 'after-save-hook
           'executable-make-buffer-file-executable-if-script-p)
 
 ;; sensible undo
-(require 'undo-tree)
-(global-undo-tree-mode 1)
-(diminish 'undo-tree-mode)
-(defalias 'redo 'undo-tree-redo)
+(use-package undo-tree
+  :ensure undo-tree
+  :commands undo-tree
+  :init (progn
+          (global-undo-tree-mode 1)
+          (diminish 'undo-tree-mode)
+          (defalias 'redo 'undo-tree-redo)))
 
 ;; my git
-(require 'magit)
-(setq magit-emacsclient-executable nil)
+(use-package magit
+  :ensure magit
+  :commands magit-status
+  :init (setq magit-emacsclient-executable nil))
 
 ;; incremental searching
-(require 'anzu)
-(global-anzu-mode +1)
+(use-package anzu
+  :ensure anzu
+  :init (global-anzu-mode +1))
+
+;; better grep-find
+(use-package ag
+  :ensure ag
+  :commands ag
+  :config (setq ag-highlight-search t
+                ag-reuse-window t))
+
+;; fix me already!
+(use-package fixmee
+  :ensure fixmee
+  :init (global-fixmee-mode 1))
+
+
+;; view large files easily
+(use-package vlf
+  :ensure vlf
+  :commands vlf
+  :init (require 'vlf-integrate))
 
 
 ;;; rc-editor.el ends here

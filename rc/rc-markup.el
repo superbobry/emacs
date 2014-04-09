@@ -56,17 +56,5 @@
                                         (TeX-PDF-mode 1)
                                         (outline-minor-mode 1)))))
 
-(use-package ac-math
-  :ensure ac-math
-  :init (progn
-          (add-to-list 'ac-modes 'LaTeX-mode)
-          (add-hook 'LaTeX-mode-hook
-                    '(lambda ()
-                       (setq ac-sources
-                             (append '(ac-source-math-unicode
-                                       ac-source-math-latex
-                                       ac-source-latex-commands)
-                                     ac-sources))))))
-
 
 ;;; rc-markup.el ends here

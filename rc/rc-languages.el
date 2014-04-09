@@ -7,30 +7,7 @@
 
 (defun turn-on-linum () (linum-mode t))
 
-(defvar watchwords-regexp
-  "\\<\\(NOTE\\|FIXME\\|TODO\\|BUG\\|XXX\\)")
-
-(defun highlight-watchwords ()
-  (font-lock-add-keywords
-   nil
-   `((,watchwords-regexp 1 font-lock-warning-face t))))
-
-(defun annotate-watchwords ()
-  "Put fringe marker on watchwords lines in the curent buffer."
-  (interactive)
-  (remove-overlays)
-  (save-excursion
-    (goto-char (point-min))
-    (while (re-search-forward watchwords-regexp nil t)
-      (let ((overlay (make-overlay (- (point) 5) (point))))
-        (overlay-put overlay
-                     'before-string
-                     (propertize (format "A")
-                                 'display '(left-fringe right-triangle)))))))
-
 (add-hook 'prog-mode-hook 'turn-on-whitespace)
-(add-hook 'prog-mode-hook 'highlight-watchwords)
-(add-hook 'prog-mode-hook 'annotate-watchwords)
 (add-hook 'prog-mode-hook 'turn-on-linum)
 
 ;; Python
@@ -44,6 +21,10 @@
                                           (electric-indent-mode -1)))
             (custom-set-variables
              '(py-start-run-py-shell nil))))
+
+(use-package cython-mode
+  :ensure cython-mode
+  :commands cython-mode)
 
 ;; Erlang
 
@@ -105,20 +86,6 @@
                        ;; (haskell-indent-mode -1)
                        (hi2-mode)))))
 
-(use-package ghc
-  :ensure ghc
-  :init (progn
-          (require 'ghc-core)
-
-          (add-hook 'haskell-mode-hook 'ghc-init)
-
-          (ac-define-source ghc-mod
-            '((depends ghc)
-              (candidates . (ghc-select-completion-symbol))
-              (symbol . "s")
-              (cache)))
-          (add-to-list 'ac-sources ac-source-ghc-mod)))
-
 (use-package ghci-completion
   :ensure ghci-completion
   :init (progn
@@ -144,16 +111,11 @@
       (eval-buffer)))
 
   (require 'ocp-indent)
-  (require 'ocp-index)
+  ;; only supports autocomplete :(
+  ;; (require 'ocp-index)
   (require 'tuareg)
-  (setq ocp-indent-config "with_never=true")
+  (setq ocp-indent-config "with_never=true"))
 
-  (autoload 'merlin-mode "merlin" "Merlin mode" t)
-  (add-hook 'tuareg-mode-hook 'merlin-mode)
-  (add-hook 'caml-mode-hook 'merlin-mode)
-  (eval-after-load 'merlin
-    '(progn (define-key merlin-mode-map (kbd "C-<up>") nil)
-            (define-key merlin-mode-map (kbd "C-<down>") nil))))
 
 ;; Coffee
 
