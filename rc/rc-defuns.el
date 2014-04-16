@@ -1,22 +1,22 @@
 ;;; rc-misc.el ---
 
-
-(defun move-line (arg)
-  "Moves line up or down, depending on the arg."
-  (let ((col (current-column)))
-    (save-excursion
-      (forward-line)
-      (transpose-lines arg))
-    (if (eql arg 1) (forward-line))
-    (move-to-column col)))
+;; The following two functions are from
+;; http://emacsredux.com/blog/2013/04/02/move-current-line-up-or-down
 
 (defun move-line-up ()
+  "Move up the current line."
   (interactive)
-  (move-line -1))
+  (transpose-lines 1)
+  (forward-line -2)
+  (indent-according-to-mode))
 
 (defun move-line-down ()
+  "Move down the current line."
   (interactive)
-  (move-line 1))
+  (forward-line 1)
+  (transpose-lines 1)
+  (forward-line -1)
+  (indent-according-to-mode))
 
 (defun recentf-ido-find-file ()
   "Find a recent file using ido."

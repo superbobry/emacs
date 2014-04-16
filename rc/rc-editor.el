@@ -243,8 +243,9 @@
 ;; fix me already!
 (use-package fixmee
   :ensure fixmee
-  :init (global-fixmee-mode 1))
-
+  :init (progn
+          (global-fixmee-mode 1)
+          (diminish 'fixmee-mode)))
 
 ;; view large files easily
 (use-package vlf
