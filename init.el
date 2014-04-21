@@ -1,13 +1,12 @@
 ;;; init.el ---
 
 
-(defvar local-dir (file-name-directory (or (buffer-file-name)
-                                           load-file-name))
+(defvar local-dir (file-name-directory user-init-file)
   "The root dir of the Emacs configuration.")
 
 (defun local-file-name (file-name)
   (let* ((file-path (expand-file-name file-name local-dir))
-         (parent-dir (file-name-directory file-name)))
+         (parent-dir (file-name-directory file-path)))
     (unless (or (not parent-dir)
                 (file-exists-p parent-dir))
       (make-directory parent-dir))
