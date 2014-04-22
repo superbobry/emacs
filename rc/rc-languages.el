@@ -14,13 +14,13 @@
 
 (use-package python-mode
   :ensure python-mode
+  :mode ("\\.py\\'" . python-mode)
   :commands python-mode
   :config (progn
+            (add-hook 'python-mode-hook (lambda () (run-hooks 'prog-mode-hook)))
             (add-hook 'python-mode-hook (lambda ()
                                           (subword-mode +1)
-                                          (electric-indent-mode -1)))
-            (custom-set-variables
-             '(py-start-run-py-shell nil))))
+                                          (electric-indent-mode -1)))))
 
 (use-package cython-mode
   :ensure cython-mode
@@ -57,39 +57,39 @@
 (use-package haskell-mode
   :ensure haskell-mode
   :commands haskell-mode
-  :init (progn
-          (require 'inf-haskell)
-          (require 'haskell-checkers)
-          (require 'haskell-navigate-imports)
+  :config (progn
+            (require 'inf-haskell)
+            (require 'haskell-compile)
+            (require 'haskell-checkers)
+            (require 'haskell-navigate-imports)
 
-          (bind-keys :map haskell-mode-map
-                     ("C-c C-c" . haskell-compile)
-                     ("M-[" . haskell-navigate-imports)
-                     ("M-]" . haskell-navigate-imports-return))
+            (bind-keys :map haskell-mode-map
+                       ("C-c C-c" . haskell-compile)
+                       ("M-[" . haskell-navigate-imports)
+                       ("M-]" . haskell-navigate-imports-return))
 
-          (setq haskell-mode-hook nil)
-          (add-hook 'haskell-mode-hook
-                    '(lambda ()
-                       (subword-mode +1)
-                       (haskell-doc-mode 1)))))
+            (setq haskell-mode-hook nil)
+            (add-hook 'haskell-mode-hook
+                      '(lambda ()
+                         (subword-mode +1)
+                         (haskell-doc-mode 1)))))
 
 (use-package hi2
   :ensure hi2
-  :init (progn
-          (add-hook 'haskell-mode-hook
-                    '(lambda ()
-                       (setq tab-width 4
-                             hi2-layout-offset 4
-                             hi2-left-offset 4
-                             hi2-ifte-offset 4)
+  :config (progn
+            (add-hook 'haskell-mode-hook
+                      '(lambda ()
+                         (setq tab-width 4
+                               hi2-layout-offset 4
+                               hi2-left-offset 4
+                               hi2-ifte-offset 4)
 
-                       ;; (haskell-indent-mode -1)
-                       (hi2-mode)))))
+                         ;; (haskell-indent-mode -1)
+                         (hi2-mode)))))
 
 (use-package ghci-completion
   :ensure ghci-completion
-  :init (progn
-          (add-hook 'inferior-haskell-mode-hook 'turn-on-ghci-completion)))
+  :init (add-hook 'inferior-haskell-mode-hook 'turn-on-ghci-completion))
 
 
 ;; OCaml
@@ -122,45 +122,43 @@
 (use-package coffee-mode
   :ensure coffee-mode
   :commands coffee-mode
-  :init (progn
-          (add-hook 'coffee-mode-hook
-                    '(lambda ()
-                       (set (make-local-variable 'tab-width) 2)
-                       (setq coffee-args-compile '("-c", "--bare")
-                             coffee-debug-mode t)
+  :init (add-hook 'coffee-mode-hook
+                  '(lambda ()
+                     (set (make-local-variable 'tab-width) 2)
+                     (setq coffee-args-compile '("-c", "--bare")
+                           coffee-debug-mode t)
 
-                       ;; Compile '.coffee' files on every save
-                       (and (file-exists-p (buffer-file-name))
-                            (file-exists-p (coffee-compiled-file-name))
-                            (coffee-cos-mode t))))))
+                     ;; Compile '.coffee' files on every save
+                     (and (file-exists-p (buffer-file-name))
+                          (file-exists-p (coffee-compiled-file-name))
+                          (coffee-cos-mode t)))))
 
 ;; C, C++
 
 (use-package cc-mode
-  :init (progn
-          (add-hook 'c-mode-common-hook
-                    '(lambda ()
-                       (local-set-key (kbd "RET") 'newline-and-indent)
-                       (setq c-default-style "linux"
-                             c-basic-offset 4)
-                       (c-set-offset 'substatement-open 0)))))
+  :init (add-hook 'c-mode-common-hook
+                  '(lambda ()
+                     (local-set-key (kbd "RET") 'newline-and-indent)
+                     (setq c-default-style "linux"
+                           c-basic-offset 4)
+                     (c-set-offset 'substatement-open 0))))
 
 ;; R
 
 (use-package ess-site
   :ensure ess
   :commands R
-  :init (progn
-          ;; TODO: why doesn't use-package require it for us?
-          (require 'ess-site)
+  :config (progn
+            ;; TODO: why doesn't use-package require it for us?
+            (require 'ess-site)
 
-          (setq ess-eval-visibly-p nil
-                ess-use-tracebug t
-                ess-use-auto-complete t
-                ess-help-own-frame 'one
-                ess-ask-for-ess-directory nil)
-          (setq-default ess-dialect "R")
-          (ess-toggle-underscore nil)))
+            (setq ess-eval-visibly-p nil
+                  ess-use-tracebug t
+                  ess-use-auto-complete t
+                  ess-help-own-frame 'one
+                  ess-ask-for-ess-directory nil)
+            (setq-default ess-dialect "R")
+            (ess-toggle-underscore nil)))
 
 ;; Octave
 
@@ -185,20 +183,6 @@
 
 (use-package eldoc
   :diminish eldoc-mode)
-
-
-;; Clojure
-
-(use-package clojure-mode
-  :ensure clojure-mode
-  :commands clojure-mode
-  :mode "\.cljs?$"
-  :init (progn
-          ;; A quickfix for the missing `put-clojure-indent' function.
-          (unless (functionp 'put-clojure-indent)
-            (defun put-clojure-indent (sym indent)))
-
-          (add-hook 'inferior-mode-hook 'split-window)))
 
 
 ;;; rc-languages.el ends here
