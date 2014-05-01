@@ -18,9 +18,14 @@
   :commands python-mode
   :config (progn
             (add-hook 'python-mode-hook (lambda () (run-hooks 'prog-mode-hook)))
-            (add-hook 'python-mode-hook (lambda ()
-                                          (subword-mode +1)
-                                          (electric-indent-mode -1)))))
+            (add-hook 'python-mode-hook
+                      (lambda ()
+                        ;; See https://github.com/company-mode/company-mode/issues/105
+                        ;; for details on this nasty bug.
+                        (remove-hook 'completion-at-point-functions
+                                     'py-shell-complete t)
+                        (subword-mode +1)
+                        (electric-indent-mode -1)))))
 
 (use-package cython-mode
   :ensure cython-mode
