@@ -73,7 +73,6 @@
                        ("M-[" . haskell-navigate-imports)
                        ("M-]" . haskell-navigate-imports-return))
 
-            (setq haskell-mode-hook nil)
             (add-hook 'haskell-mode-hook
                       '(lambda ()
                          (subword-mode +1)
