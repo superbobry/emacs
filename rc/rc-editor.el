@@ -226,6 +226,7 @@
 (use-package magit
   :ensure magit
   :commands magit-status
+  :bind ("C-c g" . magit-status)
   :init (setq magit-emacsclient-executable nil))
 
 ;; incremental searching
@@ -252,6 +253,11 @@
   :ensure vlf
   :commands vlf
   :init (require 'vlf-integrate))
+
+
+(use-package expand-region
+  :ensure expand-region
+  :bind ("C-=" . er/expand-region))
 
 
 ;;; rc-editor.el ends here
