@@ -29,7 +29,12 @@
 
 (use-package cython-mode
   :ensure cython-mode
-  :commands cython-mode)
+  :commands cython-mode
+  :config (add-hook 'cython-mode-hook
+                    (lambda ()
+                      ;; same bug for cython, damit!
+                      (remove-hook 'completion-at-point-functions
+                                   'py-shell-complete t))))
 
 ;; Erlang
 
