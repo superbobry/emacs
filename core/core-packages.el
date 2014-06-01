@@ -14,8 +14,7 @@
 (package-initialize)
 
 (defvar bobry-packages
-  '(dash ido-ubiquitous flx-ido diminish exec-path-from-shell
-         yasnippet dropdown-list use-package)
+  '(dash diminish exec-path-from-shell yasnippet dropdown-list use-package)
   "A list of packages to ensure are installed at launch.")
 
 (mapc #'(lambda (package)

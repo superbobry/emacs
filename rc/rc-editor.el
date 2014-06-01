@@ -111,19 +111,19 @@
 (require 'diminish)
 
 ;; subtle highlighting of matching parens (global-mode)
-(require 'smartparens)
-(require 'smartparens-config)
-(show-smartparens-global-mode t)
-(smartparens-global-mode 1)
+(use-package smartparens
+  :ensure smartparens
+  :init (progn
+          (show-smartparens-global-mode t)
+          (smartparens-global-mode 1)))
 
 ;; highlight the current line
 (global-hl-line-mode +1)
 
 (use-package volatile-highlights
   :ensure volatile-highlights
-  :init (progn
-          (volatile-highlights-mode t)
-          (diminish 'volatile-highlights-mode)))
+  :diminish volatile-highlights-mode
+  :init (volatile-highlights-mode t))
 
 ;; tramp, for sudo access
 (require 'tramp)
@@ -135,13 +135,8 @@
 
 ;; ido-mode
 (require 'ido)
-(require 'ido-ubiquitous)
-(require 'flx-ido)
 (ido-mode 'both)
 (ido-everywhere t)
-(ido-ubiquitous-mode +1)
-(flx-ido-mode +1)
-(setq flx-ido-use-faces nil)
 (setq ido-case-fold t                    ;; be case-insensitive
       ido-confirm-unique-completion nil  ;; wait for RET, even with unique completion
       ido-enable-flex-matching nil       ;; not, too smart, baby ...
@@ -153,6 +148,16 @@
       ido-use-faces t
       ido-save-directory-list-file (local-file-name "cache/ido.last")
       ido-default-file-method 'selected-window)
+
+(use-package ido-ubiquitous
+  :ensure ido-ubiquitous
+  :config (ido-ubiquitous-mode +1))
+
+(use-package flx-ido
+  :ensure flx-ido
+  :init (progn
+          (flx-ido-mode +1)
+          (setq flx-ido-use-faces nil)))
 
 ;; enabled auto-fill mode in text-mode and all related modes
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
@@ -196,9 +201,8 @@
 ;; better splits
 (use-package golden-ratio
   :ensure golden-ratio
-  :init (progn
-          (golden-ratio-mode)
-          (diminish 'golden-ratio-mode)))
+  :diminish golden-ratio-mode
+  :init (golden-ratio-mode))
 
 ;; smex, remember recently and most frequently used commands
 (use-package smex
@@ -216,10 +220,10 @@
 ;; sensible undo
 (use-package undo-tree
   :ensure undo-tree
+  :diminish undo-tree-mode
   :commands undo-tree
   :init (progn
           (global-undo-tree-mode 1)
-          (diminish 'undo-tree-mode)
           (defalias 'redo 'undo-tree-redo)))
 
 ;; my git
@@ -244,9 +248,8 @@
 ;; fix me already!
 (use-package fixmee
   :ensure fixmee
-  :init (progn
-          (global-fixmee-mode 1)
-          (diminish 'fixmee-mode)))
+  :diminish fixmee-mode
+  :init (global-fixmee-mode 1))
 
 ;; view large files easily
 (use-package vlf
@@ -254,7 +257,7 @@
   :commands vlf
   :init (require 'vlf-integrate))
 
-
+;; semantic region expansion
 (use-package expand-region
   :ensure expand-region
   :bind ("C-=" . er/expand-region))
