@@ -12,6 +12,8 @@
       (make-directory parent-dir))
     file-path))
 
+(setq load-prefer-newer t)
+
 (load (local-file-name "core/core-packages"))
 (load (local-file-name "core/core-env"))
 

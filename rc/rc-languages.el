@@ -157,17 +157,17 @@
 (use-package ess-site
   :ensure ess
   :commands R
-  :config (progn
-            ;; TODO: why doesn't use-package require it for us?
-            (require 'ess-site)
+  :init (progn
+          ;; TODO: why doesn't use-package require it for us?
+          (require 'ess-site)
 
-            (setq ess-eval-visibly-p nil
-                  ess-use-tracebug t
-                  ess-use-auto-complete t
-                  ess-help-own-frame 'one
-                  ess-ask-for-ess-directory nil)
-            (setq-default ess-dialect "R")
-            (ess-toggle-underscore nil)))
+          (setq ess-eval-visibly-p nil
+                ess-use-tracebug t
+                ess-use-auto-complete t
+                ess-help-own-frame 'one
+                ess-ask-for-ess-directory nil)
+          (setq-default ess-dialect "R")
+          (ess-toggle-underscore t)))
 
 ;; Octave
 

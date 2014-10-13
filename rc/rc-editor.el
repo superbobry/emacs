@@ -9,7 +9,7 @@
               tab-width 4           ;; but maintain correct appearance
               case-fold-search t    ;; case INsensitive search
               default-directory "~"
-              fill-column 100)
+              fill-column 80)
 
 ;; delete the selection with a keypress
 (delete-selection-mode t)
@@ -163,6 +163,9 @@
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
 
 ;; load yasnippet
+;; (use-package yasnippet
+;;   :ensure yasnippet dropdown-list))
+
 (require 'yasnippet)
 (require 'dropdown-list)
 (add-to-list 'yas-snippet-dirs (local-file-name "snippets"))
