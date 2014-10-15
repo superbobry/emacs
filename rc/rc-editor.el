@@ -266,4 +266,8 @@
   :bind ("C-=" . er/expand-region))
 
 
+(when (functionp 'global-prettify-symbols-mode)
+  (global-prettify-symbols-mode 1))
+
+
 ;;; rc-editor.el ends here

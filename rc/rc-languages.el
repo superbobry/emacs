@@ -93,7 +93,7 @@
                                hi2-left-offset 4
                                hi2-ifte-offset 4)
 
-                         ;; (haskell-indent-mode -1)
+                         (haskell-indent-mode -1)
                          (hi2-mode)))))
 
 (use-package ghci-completion
@@ -103,27 +103,21 @@
 
 ;; OCaml
 
-(when (executable-find "opam")
-  (add-to-list 'load-path
-               (concat
-                (replace-regexp-in-string
-                 "\n$" ""
-                 (shell-command-to-string "opam config var share"))
-                "/emacs/site-lisp"))
+(use-package tuareg
+  :ensure tuareg
+  :commands tuareg-mode
+  :config
+  (when (executable-find "opam")
+    (add-to-list 'load-path
+                 (concat
+                  (replace-regexp-in-string
+                   "\n$" ""
+                   (shell-command-to-string "opam config var share"))
+                  "/emacs/site-lisp"))
 
-  (let* ((opam-prefix
-          (substring (shell-command-to-string "opam config var prefix") 0 -1)))
-    (with-temp-buffer
-      (insert (shell-command-to-string
-               (concat opam-prefix
-                       "/bin/ocp-edit-mode emacs -load-global-config")))
-      (eval-buffer)))
-
-  (require 'ocp-indent)
-  ;; only supports autocomplete :(
-  ;; (require 'ocp-index)
-  (require 'tuareg)
-  (setq ocp-indent-config "with_never=true"))
+    (require 'ocp-indent)
+    (require 'ocp-index)
+    (setq ocp-indent-config "with_never=true")))
 
 
 ;; Coffee
