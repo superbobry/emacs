@@ -4,7 +4,7 @@
 (require 'package)
 
 (add-to-list 'package-archives
-             '("melpa-stable" . "http://melpa.milkbox.net/packages/")
+             '("melpa" . "http://melpa.milkbox.net/packages/")
              t)
 (add-to-list 'package-archives
              '("marmalade" . "http://marmalade-repo.org/packages/")
@@ -18,7 +18,7 @@
 (package-initialize)
 
 (defvar bobry-packages
-  '(dash diminish exec-path-from-shell dropdown-list use-package)
+  '(dash diminish exec-path-from-shell use-package)
   "A list of packages to ensure are installed at launch.")
 
 (mapc #'(lambda (package)
