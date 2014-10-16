@@ -254,6 +254,12 @@
   :bind ("C-=" . er/expand-region))
 
 
+(use-package move-text
+  :ensure move-text
+  :bind (("C-S-<up>" . move-text-up)
+         ("C-S-<down>" . move-text-down)))
+
+
 (when (functionp 'global-prettify-symbols-mode)
   (global-prettify-symbols-mode 1))
 
