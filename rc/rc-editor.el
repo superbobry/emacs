@@ -224,6 +224,10 @@
   :commands magit-status
   :bind ("C-c g" . magit-status))
 
+(use-package git-timemachine
+  :ensure git-timemachine
+  :commands git-timemachine)
+
 ;; incremental searching
 (use-package anzu
   :ensure anzu
