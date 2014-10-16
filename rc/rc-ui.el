@@ -2,6 +2,7 @@
 
 
 (when (window-system)
+  (x-focus-frame nil)
   (let ((font-name "Monaco-14"))
     (when (find-font (font-spec :name font-name))
       (set-frame-font font-name))))

@@ -1,8 +1,0 @@
-# -*- mode: snippet -*-
-# contributor: Sergei Lebedev <superbobry@gmail.com>
-# name: -*- coding: ... -*-
-# key: co
-# --
-# -*- coding: ${utf-8} -*-
-
-$0

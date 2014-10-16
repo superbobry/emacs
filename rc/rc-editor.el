@@ -162,17 +162,6 @@
 ;; enabled auto-fill mode in text-mode and all related modes
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
 
-;; load yasnippet
-;; (use-package yasnippet
-;;   :ensure yasnippet dropdown-list))
-
-(require 'yasnippet)
-(require 'dropdown-list)
-(add-to-list 'yas-snippet-dirs (local-file-name "snippets"))
-(yas-global-mode 1)
-(setq yas-prompt-functions '(yas-dropdown-prompt
-                             yas-ido-prompt))
-
 ;; load flycheck
 (use-package flycheck
   :ensure flycheck
@@ -199,7 +188,7 @@
 (setq reb-re-syntax 'string)
 
 (require 'eshell)
-(setq eshell-directory-name (local-file-name "cache/eshel"))
+(setq eshell-directory-name (local-file-name "cache/eshell"))
 
 ;; better splits
 (use-package golden-ratio
@@ -233,8 +222,7 @@
 (use-package magit
   :ensure magit
   :commands magit-status
-  :bind ("C-c g" . magit-status)
-  :init (setq magit-emacsclient-executable nil))
+  :bind ("C-c g" . magit-status))
 
 ;; incremental searching
 (use-package anzu

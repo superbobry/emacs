@@ -1,5 +1,0 @@
-# -*- mode: snippet -*-
-# contributor: Sergei Lebedev <superbobry@gmail.com>
-# name: <link stylesheet="..." />
-# --
-<link rel="${1:stylesheet}" href="${2:url}"${4: media="${5:screen}"} />

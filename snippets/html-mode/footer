@@ -1,7 +1,0 @@
-# -*- mode: snippet -*-
-# contributor: Sergei Lebedev <superbobry@gmail.com>
-# name: <footer>...</footer>
-# --
-<footer>
-  $0
-</footer>
