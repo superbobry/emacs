@@ -1,7 +1,7 @@
 ;;; init.el ---
 
 
-(defvar local-dir (file-name-directory user-init-file)
+(defvar local-dir user-emacs-directory
   "The root dir of the Emacs configuration.")
 
 (defun local-file-name (file-name)
