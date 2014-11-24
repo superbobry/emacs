@@ -43,13 +43,13 @@
 
 (use-package smart-mode-line
   :ensure smart-mode-line
-  :init (progn
-          (setq sml/theme 'dark)
-          (sml/setup)))
+  :init (setq sml/theme 'respectful))
 
-(use-package base16-eighties-theme
-  :ensure base16-theme
-  :config (enable-theme 'base16-eighties))
+(use-package solarized-theme
+  :ensure solarized-theme
+  :config (progn
+            (enable-theme 'solarized-dark)
+            (sml/setup)))
 
 
 ;;; rc-ui.el ends here
