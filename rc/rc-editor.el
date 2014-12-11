@@ -264,8 +264,4 @@
          ("C-S-<down>" . move-text-down)))
 
 
-(when (functionp 'global-prettify-symbols-mode)
-  (global-prettify-symbols-mode 1))
-
-
 ;;; rc-editor.el ends here
