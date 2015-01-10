@@ -117,7 +117,19 @@
 
     (require 'ocp-indent)
     (require 'ocp-index)
-    (setq ocp-indent-config "with_never=true")))
+    (setq ocp-indent-config "with_never=true")
+
+    (when (require 'merlin nil t)
+      (add-hook 'tuareg-mode-hook 'merlin-mode t)
+      (add-hook 'caml-mode-hook 'merlin-mode t)
+      (setq merlin-command 'opam))))
+
+
+(use-package flycheck-ocaml
+  :ensure flycheck-ocaml
+  :config (with-eval-after-load 'merlin
+            (setq merlin-error-after-save nil)
+            (flycheck-ocaml-setup)))
 
 
 ;; Coffee
@@ -145,6 +157,9 @@
                      (setq c-default-style "linux"
                            c-basic-offset 4)
                      (c-set-offset 'substatement-open 0))))
+
+(use-package cmake-mode
+  :ensure cmake-mode)
 
 ;; R
 

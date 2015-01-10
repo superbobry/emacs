@@ -112,18 +112,19 @@
 
 ;; subtle highlighting of matching parens (global-mode)
 (use-package smartparens
-  :ensure smartparens
-  :init (progn
-          (show-smartparens-global-mode t)
-          (smartparens-global-mode 1)))
+  :ensure t
+  :defer t
+  :config (progn
+            (show-smartparens-global-mode t)
+            (smartparens-global-mode 1)))
 
 ;; highlight the current line
 (global-hl-line-mode +1)
 
 (use-package volatile-highlights
-  :ensure volatile-highlights
-  :diminish volatile-highlights-mode
-  :init (volatile-highlights-mode t))
+  :ensure t
+  :config (volatile-highlights-mode t)
+  :diminish volatile-highlights-mode)
 
 ;; tramp, for sudo access
 (require 'tramp)
@@ -150,27 +151,29 @@
       ido-default-file-method 'selected-window)
 
 (use-package ido-ubiquitous
-  :ensure ido-ubiquitous
+  :ensure t
   :config (ido-ubiquitous-mode +1))
 
 (use-package flx-ido
-  :ensure flx-ido
-  :init (progn
-          (flx-ido-mode +1)
-          (setq flx-ido-use-faces nil)))
+  :ensure t
+  :config (progn
+            (flx-ido-mode +1)
+            (setq flx-ido-use-faces nil)))
 
 ;; enabled auto-fill mode in text-mode and all related modes
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
 
 ;; load flycheck
 (use-package flycheck
-  :ensure flycheck
-  :init (add-hook 'after-init-hook #'global-flycheck-mode))
+  :ensure t
+  :defer t
+  :config (add-hook 'after-init-hook #'global-flycheck-mode))
 
 ;; load auto-complete
 (use-package company
-  :ensure company
-  :init (global-company-mode))
+  :ensure t
+  :defer t
+  :idle (global-company-mode))
 
 ;; ediff - don't start another frame
 (require 'ediff)
@@ -192,18 +195,18 @@
 
 ;; better splits
 (use-package golden-ratio
-  :ensure golden-ratio
-  :diminish golden-ratio-mode
-  :init (golden-ratio-mode))
+  :ensure t
+  :init (golden-ratio-mode)
+  :diminish golden-ratio-mode)
 
 ;; smex, remember recently and most frequently used commands
 (use-package smex
-  :ensure smex
+  :ensure t
   :bind (("M-x" . smex)
          ("M-X" . smex-major-mode-commands))
-  :init (progn
-          (setq smex-save-file (local-file-name "cache/.smex-items"))
-          (smex-initialize)))
+  :config (progn
+            (setq smex-save-file (local-file-name "cache/.smex-items"))
+            (smex-initialize)))
 
 ;; make a shell script executable automatically on save
 (add-hook 'after-save-hook
@@ -211,55 +214,58 @@
 
 ;; sensible undo
 (use-package undo-tree
-  :ensure undo-tree
-  :diminish undo-tree-mode
+  :ensure t
   :commands undo-tree
-  :init (progn
-          (global-undo-tree-mode 1)
-          (defalias 'redo 'undo-tree-redo)))
+  :config (progn
+            (global-undo-tree-mode 1)
+            (defalias 'redo 'undo-tree-redo))
+  :diminish undo-tree-mode)
 
 ;; my git
 (use-package magit
-  :ensure magit
+  :ensure t
   :commands magit-status
   :bind ("C-c g" . magit-status))
 
 (use-package git-timemachine
-  :ensure git-timemachine
+  :ensure t
+  :defer t
   :commands git-timemachine)
 
 ;; incremental searching
 (use-package anzu
-  :ensure anzu
+  :ensure t
   :init (global-anzu-mode +1))
 
 ;; better grep-find
 (use-package ag
-  :ensure ag
+  :ensure t
+  :defer t
   :commands ag
-  :config (setq ag-highlight-search t
-                ag-reuse-window t))
+  :idle (setq ag-highlight-search t
+              ag-reuse-window t))
 
 ;; fix me already!
 (use-package fixmee
-  :ensure fixmee
+  :ensure t
   :diminish fixmee-mode
   :init (global-fixmee-mode 1))
 
 ;; view large files easily
 (use-package vlf
-  :ensure vlf
+  :ensure t
+  :defer t
   :commands vlf
-  :init (require 'vlf-integrate))
+  :idle (require 'vlf-integrate))
 
 ;; semantic region expansion
 (use-package expand-region
-  :ensure expand-region
+  :ensure t
   :bind ("C-=" . er/expand-region))
 
 
 (use-package move-text
-  :ensure move-text
+  :ensure t
   :bind (("C-S-<up>" . move-text-up)
          ("C-S-<down>" . move-text-down)))
 

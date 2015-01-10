@@ -42,13 +42,14 @@
         kill-buffer-query-functions))
 
 (use-package smart-mode-line
-  :ensure smart-mode-line
-  :init (setq sml/theme 'respectful))
+  :ensure t
+  :init (setq sml/theme 'respectful
+              sml/no-confirm-load-theme t))
 
 (use-package solarized-theme
-  :ensure solarized-theme
+  :ensure t
   :config (progn
-            (enable-theme 'solarized-dark)
+            (load-theme 'solarized-dark t)
             (sml/setup)))
 
 
