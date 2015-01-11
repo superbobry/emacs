@@ -10,10 +10,11 @@
 (add-hook 'prog-mode-hook 'turn-on-whitespace)
 (add-hook 'prog-mode-hook 'turn-on-linum)
 
+
 ;; Python
 
 (use-package python-mode
-  :ensure python-mode
+  :ensure t
   :mode ("\\.py\\'" . python-mode)
   :commands python-mode
   :config (progn
@@ -28,13 +29,14 @@
                         (electric-indent-mode -1)))))
 
 (use-package cython-mode
-  :ensure cython-mode
+  :ensure t
   :commands cython-mode
   :config (add-hook 'cython-mode-hook
                     (lambda ()
                       ;; same bug for cython, damit!
                       (remove-hook 'completion-at-point-functions
                                    'py-shell-complete t))))
+
 
 ;; Erlang
 
@@ -61,6 +63,7 @@
                            "emacs"))
 
   (require 'erlang-start))
+
 
 ;; Haskell
 
@@ -104,7 +107,7 @@
 ;; OCaml
 
 (use-package tuareg
-  :ensure tuareg
+  :ensure t
   :commands tuareg-mode
   :config
   (when (executable-find "opam")
@@ -135,7 +138,7 @@
 ;; Coffee
 
 (use-package coffee-mode
-  :ensure coffee-mode
+  :ensure t
   :commands coffee-mode
   :init (add-hook 'coffee-mode-hook
                   '(lambda ()
@@ -148,6 +151,7 @@
                           (file-exists-p (coffee-compiled-file-name))
                           (coffee-cos-mode t)))))
 
+
 ;; C, C++
 
 (use-package cc-mode
@@ -159,7 +163,8 @@
                      (c-set-offset 'substatement-open 0))))
 
 (use-package cmake-mode
-  :ensure cmake-mode)
+  :ensure t)
+
 
 ;; R
 
