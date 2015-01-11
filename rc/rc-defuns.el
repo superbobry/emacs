@@ -1,12 +1,5 @@
 ;;; rc-misc.el ---
 
-(defun recentf-ido-find-file ()
-  "Find a recent file using ido."
-  (interactive)
-  (let ((file (ido-completing-read "Choose recent file: " recentf-list nil t)))
-    (when file
-      (find-file file))))
-
 
 ;; The next three functions are taken from the awesome 'Emacs Prelude'
 ;; project, already mentioned elsewhere.
@@ -44,25 +37,6 @@ file of a buffer in an external program."
          (t
           (rename-file filename new-name t)
           (set-visited-file-name new-name t t)))))))
-
-;; The following two function are taken from textmate.el package
-;; by defunkt.
-(defun textmate-shift-right (&optional arg)
-  "Shift the line or region to the ARG places to the right.
-
-A place is considered `tab-width' character columns."
-  (interactive)
-  (let ((deactivate-mark nil)
-        (beg (or (and mark-active (region-beginning))
-                 (line-beginning-position)))
-        (end (or (and mark-active (region-end)) (line-end-position))))
-    (indent-rigidly beg end (* (or arg 1) tab-width))))
-
-(defun textmate-shift-left (&optional arg)
-  "Shift the line or region to the ARG places to the left."
-  (interactive)
-  (textmate-shift-right (* -1 (or arg 1))))
-
 
 (defun text-scale-normal-size ()
   (interactive)

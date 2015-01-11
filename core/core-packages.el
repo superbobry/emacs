@@ -18,7 +18,7 @@
 (package-initialize)
 
 (defvar bobry-packages
-  '(dash diminish exec-path-from-shell use-package)
+  '(diminish exec-path-from-shell use-package)
   "A list of packages to ensure are installed at launch.")
 
 (mapc #'(lambda (package)
