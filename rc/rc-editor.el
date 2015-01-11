@@ -134,32 +134,6 @@
       tramp-default-method "ssh"
       tramp-temp-buffer-file-name (local-file-name "cache/tramp"))
 
-;; ido-mode
-(require 'ido)
-(ido-mode 'both)
-(ido-everywhere t)
-(setq ido-case-fold t                    ;; be case-insensitive
-      ido-confirm-unique-completion nil  ;; wait for RET, even with unique completion
-      ido-enable-flex-matching nil       ;; not, too smart, baby ...
-      ido-enable-prefix nil
-      ido-create-new-buffer 'always
-      ido-use-filename-at-point nil
-      ido-use-url-at-point nil
-      ido-max-prospects 10
-      ido-use-faces t
-      ido-save-directory-list-file (local-file-name "cache/ido.last")
-      ido-default-file-method 'selected-window)
-
-(use-package ido-ubiquitous
-  :ensure t
-  :config (ido-ubiquitous-mode +1))
-
-(use-package flx-ido
-  :ensure t
-  :config (progn
-            (flx-ido-mode +1)
-            (setq flx-ido-use-faces nil)))
-
 ;; enabled auto-fill mode in text-mode and all related modes
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
 
@@ -199,14 +173,38 @@
   :init (golden-ratio-mode)
   :diminish golden-ratio-mode)
 
-;; smex, remember recently and most frequently used commands
-(use-package smex
+(use-package helm
   :ensure t
-  :bind (("M-x" . smex)
-         ("M-X" . smex-major-mode-commands))
-  :config (progn
-            (setq smex-save-file (local-file-name "cache/.smex-items"))
-            (smex-initialize)))
+  :init
+  (progn
+    (require 'helm-config)
+    (setq helm-split-window-in-side-p t
+          helm-buffers-fuzzy-matching t
+          helm-recentf-fuzzy-match t
+          helm-move-to-line-cycle-in-source t
+          helm-ff-search-library-in-sexp t
+          helm-ff-file-name-history-use-recentf t)
+    ;; The default "C-x c" is quite close to "C-x C-c", which quits Emacs.
+    ;; Changed to "C-c h". Note: We must set "C-c h" globally, because we
+    ;; cannot change `helm-command-prefix-key' once `helm-config' is loaded.
+    ;; (c) Emacs Prelude
+    (global-set-key (kbd "C-c h") 'helm-command-prefix)
+    (global-unset-key (kbd "C-x c"))
+
+    (helm-mode))
+  :diminish helm-mode
+  :bind (("C-c h" . helm-mini)
+         ("C-h a" . helm-apropos)
+         ("C-x f" . helm-recentf)
+         ("C-x C-b" . helm-buffers-list)
+         ("C-x C-f" . helm-find-files)
+         ("M-y" . helm-show-kill-ring)
+         ("M-x" . helm-M-x)))
+
+(use-package helm-descbinds
+  :ensure t
+  :bind ("C-h b" . helm-descbinds))
+
 
 ;; make a shell script executable automatically on save
 (add-hook 'after-save-hook
@@ -217,7 +215,9 @@
   :ensure t
   :commands undo-tree
   :config (progn
-            (global-undo-tree-mode 1)
+            (global-undo-tree-mode)
+            (setq undo-tree-visualizer-timestamps t
+                  undo-tree-visualizer-diff t)
             (defalias 'redo 'undo-tree-redo))
   :diminish undo-tree-mode)
 
@@ -237,7 +237,7 @@
   :ensure t
   :init (global-anzu-mode +1))
 
-;; better grep-find
+;; better grep-find (consider helm-ag)
 (use-package ag
   :ensure t
   :defer t

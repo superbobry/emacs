@@ -1,12 +1,6 @@
 ;;; rc-global-bindings.el ---
 
 
-;; File finding
-(global-set-key (kbd "C-x C-b") 'ibuffer)
-
-(global-set-key (kbd "C-x f") 'recentf-ido-find-file)
-
-;; Editing
 (global-set-key (kbd "C-c C-j") 'join-line)
 (global-set-key (kbd "<delete>") 'delete-char)
 (global-set-key (kbd "C-.") 'textmate-shift-right)
