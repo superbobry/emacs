@@ -256,7 +256,7 @@
   :ensure t
   :defer t
   :commands vlf
-  :idle (require 'vlf-integrate))
+  :idle (require 'vlf-setup))
 
 ;; semantic region expansion
 (use-package expand-region
