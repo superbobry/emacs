@@ -206,6 +206,19 @@
   :bind ("C-h b" . helm-descbinds))
 
 
+(use-package projectile
+  :ensure t
+  :init
+  (progn
+    (setq projectile-keymap-prefix (kbd "C-c p")
+          projectile-completion-system 'helm)
+    (projectile-global-mode))
+  :diminish projectile-mode)
+
+(use-package helm-projectile
+  :ensure t
+  :init (helm-projectile-on))
+
 ;; make a shell script executable automatically on save
 (add-hook 'after-save-hook
           'executable-make-buffer-file-executable-if-script-p)
@@ -217,8 +230,14 @@
   :config (progn
             (global-undo-tree-mode)
             (setq undo-tree-visualizer-timestamps t
-                  undo-tree-visualizer-diff t)
-            (defalias 'redo 'undo-tree-redo))
+                  undo-tree-visualizer-diff t
+                  undo-tree-auto-save-history t)
+            (defalias 'redo 'undo-tree-redo)
+
+            (defadvice undo-tree-make-history-save-file-name
+                (after undo-tree activate)
+              (setq ad-return-value (concat ad-return-value ".gz")))))
+)
   :diminish undo-tree-mode)
 
 ;; my git
