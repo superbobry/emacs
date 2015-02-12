@@ -179,6 +179,7 @@
   (progn
     (require 'helm-config)
     (setq helm-split-window-in-side-p t
+          helm-M-x-fuzzy-match t
           helm-buffers-fuzzy-matching t
           helm-recentf-fuzzy-match t
           helm-move-to-line-cycle-in-source t
@@ -226,7 +227,7 @@
 ;; sensible undo
 (use-package undo-tree
   :ensure t
-  :commands undo-tree
+  :commands undo-tree-visualize
   :config (progn
             (global-undo-tree-mode)
             (setq undo-tree-visualizer-timestamps t
@@ -236,7 +237,11 @@
 
             (defadvice undo-tree-make-history-save-file-name
                 (after undo-tree activate)
-              (setq ad-return-value (concat ad-return-value ".gz"))))
+              (setq ad-return-value (concat ad-return-value ".gz")))
+
+            (custom-set-variables
+             '(undo-tree-history-directory-alist
+               (quote (("." . "~/.emacs.d/undo/"))))))
   :diminish undo-tree-mode)
 
 ;; my git
