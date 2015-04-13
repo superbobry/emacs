@@ -4,18 +4,16 @@
 (require 'package)
 
 (add-to-list 'package-archives
-             '("melpa" . "http://melpa.milkbox.net/packages/")
-             t)
+             '("melpa-stable" . "http://stable.melpa.org/packages/") t)
 (add-to-list 'package-archives
-             '("marmalade" . "http://marmalade-repo.org/packages/")
-             t)
+             '("marmalade" . "http://marmalade-repo.org/packages/") t)
 
 (setq package-user-dir (local-file-name "elpa"))
 
+(package-initialize)
+
 (when (not package-archive-contents)
   (package-refresh-contents))
-
-(package-initialize)
 
 (defvar bobry-packages
   '(diminish exec-path-from-shell use-package)

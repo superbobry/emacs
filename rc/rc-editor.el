@@ -170,8 +170,8 @@
 ;; better splits
 (use-package golden-ratio
   :ensure t
-  :init (golden-ratio-mode)
-  :diminish golden-ratio-mode)
+  :diminish golden-ratio
+  :init (golden-ratio))
 
 (use-package helm
   :ensure t
@@ -206,6 +206,9 @@
   :ensure t
   :bind ("C-h b" . helm-descbinds))
 
+(use-package discover-my-major
+  :ensure t
+  :bind ("C-h C-m" . discover-my-major))
 
 (use-package projectile
   :ensure t
@@ -269,10 +272,10 @@
               ag-reuse-window t))
 
 ;; fix me already!
-(use-package fixmee
-  :ensure t
-  :diminish fixmee-mode
-  :init (global-fixmee-mode 1))
+;;(use-package fixmee
+;;  :ensure t
+;;  :diminish fixmee-mode
+;;  :init (global-fixmee-mode 1))
 
 ;; view large files easily
 (use-package vlf
