@@ -197,6 +197,7 @@
   :bind (("C-c h" . helm-mini)
          ("C-h a" . helm-apropos)
          ("C-x f" . helm-recentf)
+         ("C-x b" . helm-for-files)
          ("C-x C-b" . helm-buffers-list)
          ("C-x C-f" . helm-find-files)
          ("M-y" . helm-show-kill-ring)
@@ -231,12 +232,12 @@
 (use-package undo-tree
   :ensure t
   :commands undo-tree-visualize
+  :bind ("C-S-z" . undo-tree-redo)
   :config (progn
             (global-undo-tree-mode)
             (setq undo-tree-visualizer-timestamps t
                   undo-tree-visualizer-diff t
                   undo-tree-auto-save-history t)
-            (defalias 'redo 'undo-tree-redo)
 
             (defadvice undo-tree-make-history-save-file-name
                 (after undo-tree activate)
