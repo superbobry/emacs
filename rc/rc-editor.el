@@ -171,7 +171,7 @@
 (use-package golden-ratio
   :ensure t
   :diminish golden-ratio
-  :init (golden-ratio))
+  :init (golden-ratio-mode))
 
 (use-package helm
   :ensure t
@@ -184,7 +184,8 @@
           helm-recentf-fuzzy-match t
           helm-move-to-line-cycle-in-source t
           helm-ff-search-library-in-sexp t
-          helm-ff-file-name-history-use-recentf t)
+          helm-ff-file-name-history-use-recentf t
+          helm-echo-input-in-header-line t)
     ;; The default "C-x c" is quite close to "C-x C-c", which quits Emacs.
     ;; Changed to "C-c h". Note: We must set "C-c h" globally, because we
     ;; cannot change `helm-command-prefix-key' once `helm-config' is loaded.
@@ -193,6 +194,18 @@
     (global-unset-key (kbd "C-x c"))
 
     (helm-mode))
+  :config (progn
+            (defun helm-hide-minibuffer-maybe ()
+              (when (with-helm-buffer helm-echo-input-in-header-line)
+                (let ((ov (make-overlay (point-min) (point-max) nil nil t)))
+                  (overlay-put ov 'window (selected-window))
+                  (overlay-put ov 'face
+                               (let ((bg-color (face-background 'default nil)))
+                                 `(:background ,bg-color
+                                               :foreground ,bg-color)))
+                  (setq-local cursor-type nil))))
+
+            (add-hook 'helm-minibuffer-set-up-hook 'helm-hide-minibuffer-maybe))
   :diminish helm-mode
   :bind (("C-c h" . helm-mini)
          ("C-h a" . helm-apropos)
@@ -202,10 +215,6 @@
          ("C-x C-f" . helm-find-files)
          ("M-y" . helm-show-kill-ring)
          ("M-x" . helm-M-x)))
-
-(use-package helm-descbinds
-  :ensure t
-  :bind ("C-h b" . helm-descbinds))
 
 (use-package discover-my-major
   :ensure t
@@ -222,7 +231,16 @@
 
 (use-package helm-projectile
   :ensure t
-  :init (helm-projectile-on))
+  :init (progn
+          (helm-projectile-on)
+          (setq helm-for-files-preferred-list
+                '(helm-source-buffers-list
+                  helm-source-projectile-files-list
+                  helm-source-recentf
+                  helm-source-bookmarks
+                  helm-source-file-cache
+                  helm-source-files-in-current-dir
+                  helm-source-locate))))
 
 ;; make a shell script executable automatically on save
 (add-hook 'after-save-hook
