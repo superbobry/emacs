@@ -128,11 +128,11 @@
       (setq merlin-command 'opam))))
 
 
-(use-package flycheck-ocaml
-  :ensure flycheck-ocaml
-  :config (with-eval-after-load 'merlin
-            (setq merlin-error-after-save nil)
-            (flycheck-ocaml-setup)))
+;; (use-package flycheck-ocaml
+;;   :ensure flycheck-ocaml
+;;   :config (with-eval-after-load 'merlin
+;;             (setq merlin-error-after-save nil)
+;;             (flycheck-ocaml-setup)))
 
 
 ;; Coffee

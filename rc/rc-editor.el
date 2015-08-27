@@ -111,12 +111,12 @@
 (require 'diminish)
 
 ;; subtle highlighting of matching parens (global-mode)
-(use-package smartparens
-  :ensure t
+(use-package smartparens-config
+  :ensure smartparens
   :defer t
-  :config (progn
-            (show-smartparens-global-mode t)
-            (smartparens-global-mode 1)))
+  :config (show-smartparens-global-mode t))
+
+(add-hook 'prog-mode-hook 'turn-on-smartparens-mode)
 
 ;; highlight the current line
 (global-hl-line-mode +1)
@@ -147,7 +147,7 @@
 (use-package company
   :ensure t
   :defer t
-  :idle (global-company-mode))
+  :init (global-company-mode))
 
 ;; ediff - don't start another frame
 (require 'ediff)
@@ -194,20 +194,9 @@
     (global-unset-key (kbd "C-x c"))
 
     (helm-mode))
-  :config (progn
-            (defun helm-hide-minibuffer-maybe ()
-              (when (with-helm-buffer helm-echo-input-in-header-line)
-                (let ((ov (make-overlay (point-min) (point-max) nil nil t)))
-                  (overlay-put ov 'window (selected-window))
-                  (overlay-put ov 'face
-                               (let ((bg-color (face-background 'default nil)))
-                                 `(:background ,bg-color
-                                               :foreground ,bg-color)))
-                  (setq-local cursor-type nil))))
-
-            (add-hook 'helm-minibuffer-set-up-hook 'helm-hide-minibuffer-maybe))
   :diminish helm-mode
   :bind (("C-c h" . helm-mini)
+         ("C-c i" . helm-imenu)
          ("C-h a" . helm-apropos)
          ("C-x f" . helm-recentf)
          ("C-x b" . helm-for-files)
@@ -229,18 +218,18 @@
     (projectile-global-mode))
   :diminish projectile-mode)
 
-(use-package helm-projectile
-  :ensure t
-  :init (progn
-          (helm-projectile-on)
-          (setq helm-for-files-preferred-list
-                '(helm-source-buffers-list
-                  helm-source-projectile-files-list
-                  helm-source-recentf
-                  helm-source-bookmarks
-                  helm-source-file-cache
-                  helm-source-files-in-current-dir
-                  helm-source-locate))))
+;; (use-package helm-projectile
+;;   :ensure t
+;;   :init (progn
+;;           (helm-projectile-on)
+;;           (setq helm-for-files-preferred-list
+;;                 '(helm-source-buffers-list
+;;                   helm-source-projectile-files-list
+;;                   helm-source-recentf
+;;                   helm-source-bookmarks
+;;                   helm-source-file-cache
+;;                   helm-source-files-in-current-dir
+;;                   helm-source-locate))))
 
 ;; make a shell script executable automatically on save
 (add-hook 'after-save-hook
@@ -270,7 +259,8 @@
 (use-package magit
   :ensure t
   :commands magit-status
-  :bind ("C-c g" . magit-status))
+  :bind ("C-c g" . magit-status)
+  :config (setq async-bytecomp-allowed-packages nil))
 
 (use-package git-timemachine
   :ensure t
@@ -287,21 +277,20 @@
   :ensure t
   :defer t
   :commands ag
-  :idle (setq ag-highlight-search t
+  :init (setq ag-highlight-search t
               ag-reuse-window t))
 
 ;; fix me already!
 ;;(use-package fixmee
-;;  :ensure t
-;;  :diminish fixmee-mode
-;;  :init (global-fixmee-mode 1))
+;; :ensure t
+;; :diminish fixmee-mode
+;; :init (global-fixmee-mode 1))
 
 ;; view large files easily
-(use-package vlf
-  :ensure t
+(use-package vlf-setup
+  :ensure vlf
   :defer t
-  :commands vlf
-  :idle (require 'vlf-setup))
+  :commands vlf)
 
 ;; semantic region expansion
 (use-package expand-region

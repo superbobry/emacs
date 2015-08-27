@@ -24,7 +24,10 @@
             (package-install package)))
       bobry-packages)
 
-(require 'use-package)
+(eval-when-compile
+  (require 'use-package))
 
+(require 'diminish)
+(require 'bind-key)
 
 ;;; core-packages.el ends here
