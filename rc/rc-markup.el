@@ -41,7 +41,7 @@
   :ensure auctex
   :init (progn
           (when-osx
-              (setq TeX-view-program-list '(("Preview" "open %o"))
+              (setq TeX-view-program-list '(("Preview" "open -a Skim %o"))
                     TeX-view-program-selection '((output-pdf "Preview"))))
 
           (require 'texmathp)
