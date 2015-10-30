@@ -114,7 +114,13 @@
 (use-package smartparens-config
   :ensure smartparens
   :defer t
-  :config (show-smartparens-global-mode t))
+  :init (progn
+          (show-smartparens-global-mode)
+          (set-face-foreground 'show-paren-match "white")))
+
+(use-package rainbow-delimiters
+  :ensure t
+  :config (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
 
 (add-hook 'prog-mode-hook 'turn-on-smartparens-mode)
 

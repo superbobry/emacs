@@ -27,7 +27,7 @@
 
 (mouse-avoidance-mode 'cat-and-mouse)
 
-(setq visible-bell 1)
+(setq ring-bell-function 'ignore)
 
 (global-linum-mode 0)   ;; no line number unless i say so ...
 (blink-cursor-mode -1)  ;; ... and cut out that blinking, okay?
