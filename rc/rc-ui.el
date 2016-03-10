@@ -48,10 +48,10 @@
   :init (setq sml/theme 'respectful
               sml/no-confirm-load-theme t))
 
-(use-package solarized-theme
+(use-package zenburn-theme
   :ensure t
   :config (progn
-            (load-theme 'solarized-dark t)
+            (load-theme 'zenburn t)
             (sml/setup)))
 
 

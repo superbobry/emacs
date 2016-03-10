@@ -176,8 +176,9 @@
 ;; better splits
 (use-package golden-ratio
   :ensure t
-  :diminish golden-ratio
-  :init (golden-ratio-mode))
+  :diminish golden-ratio-mode
+  :init (progn (golden-ratio-mode)
+               (setq golden-ratio-auto-scale t)))
 
 (use-package helm
   :ensure t
@@ -224,18 +225,18 @@
     (projectile-global-mode))
   :diminish projectile-mode)
 
-;; (use-package helm-projectile
-;;   :ensure t
-;;   :init (progn
-;;           (helm-projectile-on)
-;;           (setq helm-for-files-preferred-list
-;;                 '(helm-source-buffers-list
-;;                   helm-source-projectile-files-list
-;;                   helm-source-recentf
-;;                   helm-source-bookmarks
-;;                   helm-source-file-cache
-;;                   helm-source-files-in-current-dir
-;;                   helm-source-locate))))
+(use-package helm-projectile
+  :ensure t
+  :init (progn
+          (helm-projectile-on)
+          (setq helm-for-files-preferred-list
+                '(helm-source-buffers-list
+                  helm-source-projectile-files-list
+                  helm-source-recentf
+                  helm-source-bookmarks
+                  helm-source-file-cache
+                  helm-source-files-in-current-dir
+                  helm-source-locate))))
 
 ;; make a shell script executable automatically on save
 (add-hook 'after-save-hook
@@ -276,6 +277,7 @@
 ;; incremental searching
 (use-package anzu
   :ensure t
+  :diminish anzu-mode
   :init (global-anzu-mode +1))
 
 ;; better grep-find (consider helm-ag)
@@ -303,11 +305,13 @@
   :ensure t
   :bind ("C-=" . er/expand-region))
 
-
 (use-package move-text
   :ensure t
   :bind (("C-S-<up>" . move-text-up)
          ("C-S-<down>" . move-text-down)))
 
+(use-package which-key
+  :ensure t
+  :config (which-key-mode))
 
 ;;; rc-editor.el ends here

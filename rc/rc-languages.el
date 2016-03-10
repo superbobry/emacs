@@ -5,10 +5,11 @@
   (whitespace-mode t)
   (add-hook 'before-save-hook 'delete-trailing-whitespace))
 
-(defun turn-on-linum () (linum-mode t))
-
 (add-hook 'prog-mode-hook 'turn-on-whitespace)
-(add-hook 'prog-mode-hook 'turn-on-linum)
+
+(use-package nlinum
+  :ensure t
+  :config (add-hook 'prog-mode-hook '(lambda () (nlinum-mode t))))
 
 
 ;; Python
@@ -26,7 +27,9 @@
                         (remove-hook 'completion-at-point-functions
                                      'py-shell-complete t)
                         (subword-mode +1)
-                        (electric-indent-mode -1)))))
+                        (electric-indent-mode -1)
+
+                        (setq-local eldoc-documentation-function nil)))))
 
 (use-package cython-mode
   :ensure t
