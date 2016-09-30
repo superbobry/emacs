@@ -11,6 +11,12 @@
               default-directory "~"
               fill-column 80)
 
+;; All things UTF-8.
+(prefer-coding-system 'utf-8)
+(set-default-coding-systems 'utf-8)
+(set-terminal-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8)
+
 ;; delete the selection with a keypress
 (delete-selection-mode t)
 
@@ -220,8 +226,9 @@
   :ensure t
   :init
   (progn
-    (setq projectile-keymap-prefix (kbd "C-c p")
-          projectile-completion-system 'helm)
+    (setq projectile-completion-system 'helm
+          projectile-create-missing-test-files t
+          projectile-switch-project-action #'projectile-commander)
     (projectile-global-mode))
   :diminish projectile-mode)
 
@@ -267,7 +274,11 @@
   :ensure t
   :commands magit-status
   :bind ("C-c g" . magit-status)
-  :config (setq async-bytecomp-allowed-packages nil))
+  :config (progn
+            (setq async-bytecomp-allowed-packages nil)
+
+            (use-package magithub
+              :ensure t)))
 
 (use-package git-timemachine
   :ensure t
@@ -288,12 +299,6 @@
   :init (setq ag-highlight-search t
               ag-reuse-window t))
 
-;; fix me already!
-;;(use-package fixmee
-;; :ensure t
-;; :diminish fixmee-mode
-;; :init (global-fixmee-mode 1))
-
 ;; view large files easily
 (use-package vlf-setup
   :ensure vlf
@@ -313,5 +318,9 @@
 (use-package which-key
   :ensure t
   :config (which-key-mode))
+
+(use-package dumb-jump
+  :ensure t
+  :config (dumb-jump-mode))
 
 ;;; rc-editor.el ends here

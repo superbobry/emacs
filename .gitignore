@@ -1,3 +1,4 @@
+.DS_Store
 .svn
 .hg
 auto-save-list/
@@ -8,6 +9,13 @@ ac-comphist.dat
 tramp
 
 *.elc
-/bookmarks
-/url/cookies
+*.data
+bookmarks
+abbrev_defs
+url/cookies
 elpa
+undo
+var
+request
+projectile.cache
+projectile-bookmarks.eld

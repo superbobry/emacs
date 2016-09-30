@@ -71,7 +71,8 @@
 ;; Haskell
 
 (use-package haskell-mode
-  :ensure haskell-mode
+  :ensure t
+  :defer t
   :commands haskell-mode
   :config (progn
             (require 'inf-haskell)
@@ -84,23 +85,11 @@
                        ("M-[" . haskell-navigate-imports)
                        ("M-]" . haskell-navigate-imports-return))
 
+            ;; TODO: hident, maybe?
             (add-hook 'haskell-mode-hook
                       '(lambda ()
                          (subword-mode +1)
                          (haskell-doc-mode 1)))))
-
-(use-package hi2
-  :ensure hi2
-  :config (progn
-            (add-hook 'haskell-mode-hook
-                      '(lambda ()
-                         (setq tab-width 4
-                               hi2-layout-offset 4
-                               hi2-left-offset 4
-                               hi2-ifte-offset 4)
-
-                         (haskell-indent-mode -1)
-                         (hi2-mode)))))
 
 (use-package ghci-completion
   :ensure ghci-completion
@@ -122,7 +111,6 @@
                   "/emacs/site-lisp"))
 
     (require 'ocp-indent)
-    (require 'ocp-index)
     (setq ocp-indent-config "with_never=true")
 
     (when (require 'merlin nil t)
@@ -131,28 +119,13 @@
       (setq merlin-command 'opam))))
 
 
-;; (use-package flycheck-ocaml
-;;   :ensure flycheck-ocaml
-;;   :config (with-eval-after-load 'merlin
-;;             (setq merlin-error-after-save nil)
-;;             (flycheck-ocaml-setup)))
+;; JavaScript
 
-
-;; Coffee
-
-(use-package coffee-mode
+(use-package tern
   :ensure t
-  :commands coffee-mode
-  :init (add-hook 'coffee-mode-hook
-                  '(lambda ()
-                     (set (make-local-variable 'tab-width) 2)
-                     (setq coffee-args-compile '("-c", "--bare")
-                           coffee-debug-mode t)
-
-                     ;; Compile '.coffee' files on every save
-                     (and (file-exists-p (buffer-file-name))
-                          (file-exists-p (coffee-compiled-file-name))
-                          (coffee-cos-mode t)))))
+  :defer t
+  :commands tern-mode
+  :init (add-hook 'js-mode-hook (lambda () (tern-mode t))))
 
 
 ;; C, C++
@@ -166,13 +139,15 @@
                      (c-set-offset 'substatement-open 0))))
 
 (use-package cmake-mode
-  :ensure t)
+  :ensure t
+  :defer t)
 
 
 ;; R
 
 (use-package ess-site
-  :ensure ess
+  :ensure t
+  :defer t
   :commands R
   :init (progn
           ;; TODO: why doesn't use-package require it for us?
@@ -185,11 +160,6 @@
                 ess-ask-for-ess-directory nil)
           (setq-default ess-dialect "R")
           (ess-toggle-underscore t)))
-
-;; Octave
-
-(use-package octave-mode
-  :mode "\\.m$")
 
 
 ;; Elisp

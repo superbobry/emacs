@@ -4,7 +4,7 @@
 ;; Markdown
 
 (use-package markdown-mode
-  :ensure markdown-mode
+  :ensure t
   :commands markdown-mode
   :mode "\\.md\\|\\.markdown")
 
@@ -13,22 +13,17 @@
 (add-hook 'sgml-mode-hook (lambda () (setq tab-width 2)))
 
 (use-package rainbow-mode
-  :ensure rainbow-mode
+  :ensure t
+  :defer t
   :diminish rainbow-mode
   :config (progn
             (add-hook 'html-mode-hook 'rainbow-turn-on)
             (add-hook 'css-mode-hook 'rainbow-turn-on)))
 
 (use-package smartparens
-  :ensure smartparens
+  :ensure t
   :init (sp-with-modes '(html-mode sgml-mode)
           (sp-local-pair "<" ">")))
-
-;; gettext
-
-(when (require 'po-mode nil t)
-  (add-to-list 'auto-mode-alist '("\\.po\\'\\|\\.po\\." . po-mode))
-  (autoload 'po-mode "po-mode" "Major mode for translators to edit PO files" t))
 
 ;; LaTeX via AucTeX
 
@@ -39,6 +34,7 @@
 
 (use-package tex-site
   :ensure auctex
+  :defer t
   :init (progn
           (when-osx
               (setq TeX-view-program-list '(("Preview" "open -a Skim %o"))
