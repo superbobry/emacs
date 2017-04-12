@@ -77,7 +77,6 @@
   :config (progn
             (require 'inf-haskell)
             (require 'haskell-compile)
-            (require 'haskell-checkers)
             (require 'haskell-navigate-imports)
 
             (bind-keys :map haskell-mode-map
@@ -146,7 +145,7 @@
 ;; R
 
 (use-package ess-site
-  :ensure t
+  :ensure ess
   :defer t
   :commands R
   :init (progn
