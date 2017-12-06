@@ -26,6 +26,8 @@
                         ;; for details on this nasty bug.
                         (remove-hook 'completion-at-point-functions
                                      'py-shell-complete t)
+                        (remove-hook 'completion-at-point-functions
+                                     'py-fast-complete t)
                         (subword-mode +1)
                         (electric-indent-mode -1)
 

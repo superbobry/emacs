@@ -31,7 +31,8 @@
 (setq next-line-add-newlines nil  ;; don't add new lines when scrolling down
       require-final-newline t     ;; end files with a newline
       mouse-yank-at-point t       ;; yank at cursor, NOT at mouse position
-      kill-whole-line t)
+      kill-whole-line t
+      bidi-display-reordering nil)
 
 ;; store all backup and autosave files in the tmp dir
 (setq backup-directory-alist
