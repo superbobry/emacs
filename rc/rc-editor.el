@@ -276,10 +276,7 @@
   :commands magit-status
   :bind ("C-c g" . magit-status)
   :config (progn
-            (setq async-bytecomp-allowed-packages nil)
-
-            (use-package magithub
-              :ensure t)))
+            (setq async-bytecomp-allowed-packages nil)))
 
 (use-package git-timemachine
   :ensure t
