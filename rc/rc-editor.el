@@ -321,4 +321,7 @@
   :ensure t
   :config (dumb-jump-mode))
 
+(use-package define-word
+  :ensure t)
+
 ;;; rc-editor.el ends here
