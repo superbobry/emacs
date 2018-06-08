@@ -14,5 +14,6 @@
   (declare (indent 1) (debug t))
   (list 'if (eq system-type 'darwin) (cons 'progn body)))
 
+(setenv "LANG" "en_GB.UTF-8")
 
 ;;; core-env.el ends here

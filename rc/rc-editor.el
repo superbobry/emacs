@@ -324,4 +324,18 @@
 (use-package define-word
   :ensure t)
 
+(use-package pretty-mode
+  :ensure t
+  :config
+  (progn
+    (global-pretty-mode t)
+
+    (pretty-deactivate-groups
+     '(:equality :ordering :ordering-double :ordering-triple
+                 :arrows :arrows-twoheaded :punctuation
+                 :logic :sets :arithmetic-nary))
+
+    (pretty-activate-groups
+     '(:sub-and-superscripts :greek))))
+
 ;;; rc-editor.el ends here
