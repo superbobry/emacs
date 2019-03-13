@@ -12,6 +12,7 @@
       (message "Deleted file %s" filename)))
   (kill-buffer))
 
+
 (defun rename-file-and-buffer ()
   "Rename the current buffer and file it is visiting."
   (interactive)
@@ -25,22 +26,10 @@
           (rename-file filename new-name t)
           (set-visited-file-name new-name t t)))))))
 
-(defun open-with ()
-  "Simple function that allows us to open the underlying
-file of a buffer in an external program."
-  (interactive)
-  (when buffer-file-name
-    (shell-command (concat
-                    (if (eq system-type 'darwin)
-                        "open"
-                      (read-shell-command "Open current file with: "))
-                    " "
-                    buffer-file-name))))
 
 (defun text-scale-normal-size ()
   (interactive)
   (text-scale-increase 0))
-
 
 
 ;;; rc-misc.el ends here

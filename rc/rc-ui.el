@@ -3,7 +3,7 @@
 
 (when (window-system)
   (x-focus-frame nil)
-  (let ((font-name "Fira Code-14"))
+  (let ((font-name "Fira Code-12"))
     (when (find-font (font-spec :name font-name))
       (set-frame-font font-name))))
 

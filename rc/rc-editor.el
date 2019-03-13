@@ -187,37 +187,59 @@
   :init (progn (golden-ratio-mode)
                (setq golden-ratio-auto-scale t)))
 
-(use-package helm
+(use-package ivy
   :ensure t
   :init
   (progn
-    (require 'helm-config)
-    (setq helm-split-window-in-side-p t
-          helm-M-x-fuzzy-match t
-          helm-buffers-fuzzy-matching t
-          helm-recentf-fuzzy-match t
-          helm-move-to-line-cycle-in-source t
-          helm-ff-search-library-in-sexp t
-          helm-ff-file-name-history-use-recentf t
-          helm-echo-input-in-header-line t)
-    ;; The default "C-x c" is quite close to "C-x C-c", which quits Emacs.
-    ;; Changed to "C-c h". Note: We must set "C-c h" globally, because we
-    ;; cannot change `helm-command-prefix-key' once `helm-config' is loaded.
-    ;; (c) Emacs Prelude
-    (global-set-key (kbd "C-c h") 'helm-command-prefix)
-    (global-unset-key (kbd "C-x c"))
+    (ivy-mode 1)
+    (setq ivy-use-virtual-buffers t
+          ivy-display-style 'fancy)))
 
-    (helm-mode))
-  :diminish helm-mode
-  :bind (("C-c h" . helm-mini)
-         ("C-c i" . helm-imenu)
-         ("C-h a" . helm-apropos)
-         ("C-x f" . helm-recentf)
-         ("C-x b" . helm-for-files)
-         ("C-x C-b" . helm-buffers-list)
-         ("C-x C-f" . helm-find-files)
-         ("M-y" . helm-show-kill-ring)
-         ("M-x" . helm-M-x)))
+(use-package counsel
+  :ensure t
+  :bind
+  (("C-c i" . counsel-imenu)
+   ("C-h a" . counsel-apropos)
+   ("C-x f" . counsel-recentf)
+   ("C-x C-f" . counsel-find-file)
+   ("M-y" . counsel-yank-pop)
+   ("M-x" . counsel-M-x)))
+
+(use-package swiper
+  :ensure t
+  :bind ("C-s" . swiper))
+
+;; (use-package helm
+;;   :ensure t
+;;   :init
+;;   (progn
+;;     (require 'helm-config)
+;;     (setq helm-split-window-in-side-p t
+;;           helm-M-x-fuzzy-match t
+;;           helm-buffers-fuzzy-matching t
+;;           helm-recentf-fuzzy-match t
+;;           helm-move-to-line-cycle-in-source t
+;;           helm-ff-search-library-in-sexp t
+;;           helm-ff-file-name-history-use-recentf t
+;;           helm-echo-input-in-header-line t)
+;;     ;; The default "C-x c" is quite close to "C-x C-c", which quits Emacs.
+;;     ;; Changed to "C-c h". Note: We must set "C-c h" globally, because we
+;;     ;; cannot change `helm-command-prefix-key' once `helm-config' is loaded.
+;;     ;; (c) Emacs Prelude
+;;     (global-set-key (kbd "C-c h") 'helm-command-prefix)
+;;     (global-unset-key (kbd "C-x c"))
+
+;;     (helm-mode))
+;;   :diminish helm-mode
+;;   :bind (("C-c h" . helm-mini)
+;;          ("C-c i" . helm-imenu)
+;;          ("C-h a" . helm-apropos)
+;;          ("C-x f" . helm-recentf)
+;;          ("C-x b" . helm-for-files)
+;;          ("C-x C-b" . helm-buffers-list)
+;;          ("C-x C-f" . helm-find-files)
+;;          ("M-y" . helm-show-kill-ring)
+;;          ("M-x" . helm-M-x)))
 
 (use-package discover-my-major
   :ensure t
@@ -227,24 +249,30 @@
   :ensure t
   :init
   (progn
-    (setq projectile-completion-system 'helm
+    (setq projectile-completion-system 'ivy
           projectile-create-missing-test-files t
           projectile-switch-project-action #'projectile-commander)
+    (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
     (projectile-global-mode))
   :diminish projectile-mode)
 
-(use-package helm-projectile
+(use-package counsel-projectile
   :ensure t
   :init (progn
-          (helm-projectile-on)
-          (setq helm-for-files-preferred-list
-                '(helm-source-buffers-list
-                  helm-source-projectile-files-list
-                  helm-source-recentf
-                  helm-source-bookmarks
-                  helm-source-file-cache
-                  helm-source-files-in-current-dir
-                  helm-source-locate))))
+          (counsel-projectile-mode)))
+
+;; (use-package helm-projectile
+;;   :ensure t
+;;   :init (progn
+;;           (helm-projectile-on)
+;;           (setq helm-for-files-preferred-list
+;;                 '(helm-source-buffers-list
+;;                   helm-source-projectile-files-list
+;;                   helm-source-recentf
+;;                   helm-source-bookmarks
+;;                   helm-source-file-cache
+;;                   helm-source-files-in-current-dir
+;;                   helm-source-locate))))
 
 ;; make a shell script executable automatically on save
 (add-hook 'after-save-hook
@@ -284,18 +312,18 @@
   :commands git-timemachine)
 
 ;; incremental searching
-(use-package anzu
-  :ensure t
-  :diminish anzu-mode
-  :init (global-anzu-mode +1))
+;; (use-package anzu
+;;   :ensure t
+;;   :diminish anzu-mode
+;;   :init (global-anzu-mode +1))
 
 ;; better grep-find (consider helm-ag)
-(use-package ag
-  :ensure t
-  :defer t
-  :commands ag
-  :init (setq ag-highlight-search t
-              ag-reuse-window t))
+;; (use-package ag
+;;   :ensure t
+;;   :defer t
+;;   :commands ag
+;;   :init (setq ag-highlight-search t
+;;               ag-reuse-window t))
 
 ;; view large files easily
 (use-package vlf-setup
@@ -316,10 +344,6 @@
 (use-package which-key
   :ensure t
   :config (which-key-mode))
-
-(use-package dumb-jump
-  :ensure t
-  :config (dumb-jump-mode))
 
 (use-package define-word
   :ensure t)

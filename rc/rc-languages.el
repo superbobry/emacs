@@ -6,10 +6,7 @@
   (add-hook 'before-save-hook 'delete-trailing-whitespace))
 
 (add-hook 'prog-mode-hook 'turn-on-whitespace)
-
-(use-package nlinum
-  :ensure t
-  :config (add-hook 'prog-mode-hook '(lambda () (nlinum-mode t))))
+(add-hook 'prog-mode-hook 'display-line-numbers-mode)
 
 
 ;; Python
@@ -151,16 +148,13 @@
   :defer t
   :commands R
   :init (progn
-          ;; TODO: why doesn't use-package require it for us?
-          (require 'ess-site)
-
           (setq ess-eval-visibly-p nil
                 ess-use-tracebug t
                 ess-use-auto-complete t
                 ess-help-own-frame 'one
                 ess-ask-for-ess-directory nil)
           (setq-default ess-dialect "R")
-          (ess-toggle-underscore t)))
+          (setq ess-insert-assign nil)))
 
 
 ;; Elisp
