@@ -173,14 +173,9 @@
 (add-hook 'after-save-hook
           'executable-make-buffer-file-executable-if-script-p)
 
-;; saner regex syntax
 (require 're-builder)
 (setq reb-re-syntax 'string)
 
-(require 'eshell)
-(setq eshell-directory-name (local-file-name "cache/eshell"))
-
-;; better splits
 (use-package golden-ratio
   :ensure t
   :diminish golden-ratio-mode
@@ -189,57 +184,48 @@
 
 (use-package ivy
   :ensure t
-  :init
+  :diminish ivy-mode
+  :bind
+  (:map ivy-minibuffer-map
+        ("C-w" . ivy-yank-word))
+  :config
   (progn
     (ivy-mode 1)
     (setq ivy-use-virtual-buffers t
-          ivy-display-style 'fancy)))
+          ivy-use-selectable-prompt t
+          ivy-re-builders-alist '((t . ivy--regex-fuzzy)))
+
+    (with-eval-after-load 'projectile
+      (setq projectile-completion-system 'ivy))
+
+    (with-eval-after-load 'magit
+      (setq magit-completing-read-function 'ivy-completing-read))
+
+    ;; Enhance fuzzy matching
+    (use-package flx
+      :ensure t)
+
+    ;; Enhance M-x
+    (use-package amx
+      :ensure t)))
 
 (use-package counsel
   :ensure t
+  :diminish counsel-mode
   :bind
   (("C-c i" . counsel-imenu)
    ("C-h a" . counsel-apropos)
    ("C-x f" . counsel-recentf)
    ("C-x C-f" . counsel-find-file)
    ("M-y" . counsel-yank-pop)
-   ("M-x" . counsel-M-x)))
+   ("M-x" . counsel-M-x))
+  :config (setq counsel-find-file-at-point t))
 
 (use-package swiper
   :ensure t
-  :bind ("C-s" . swiper))
-
-;; (use-package helm
-;;   :ensure t
-;;   :init
-;;   (progn
-;;     (require 'helm-config)
-;;     (setq helm-split-window-in-side-p t
-;;           helm-M-x-fuzzy-match t
-;;           helm-buffers-fuzzy-matching t
-;;           helm-recentf-fuzzy-match t
-;;           helm-move-to-line-cycle-in-source t
-;;           helm-ff-search-library-in-sexp t
-;;           helm-ff-file-name-history-use-recentf t
-;;           helm-echo-input-in-header-line t)
-;;     ;; The default "C-x c" is quite close to "C-x C-c", which quits Emacs.
-;;     ;; Changed to "C-c h". Note: We must set "C-c h" globally, because we
-;;     ;; cannot change `helm-command-prefix-key' once `helm-config' is loaded.
-;;     ;; (c) Emacs Prelude
-;;     (global-set-key (kbd "C-c h") 'helm-command-prefix)
-;;     (global-unset-key (kbd "C-x c"))
-
-;;     (helm-mode))
-;;   :diminish helm-mode
-;;   :bind (("C-c h" . helm-mini)
-;;          ("C-c i" . helm-imenu)
-;;          ("C-h a" . helm-apropos)
-;;          ("C-x f" . helm-recentf)
-;;          ("C-x b" . helm-for-files)
-;;          ("C-x C-b" . helm-buffers-list)
-;;          ("C-x C-f" . helm-find-files)
-;;          ("M-y" . helm-show-kill-ring)
-;;          ("M-x" . helm-M-x)))
+  :bind ("C-s" . swiper)
+  :config (progn
+            (setq swiper-action-recenter t)))
 
 (use-package discover-my-major
   :ensure t
@@ -252,27 +238,14 @@
     (setq projectile-completion-system 'ivy
           projectile-create-missing-test-files t
           projectile-switch-project-action #'projectile-commander)
-    (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
-    (projectile-global-mode))
+    (projectile-mode)
+    (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
   :diminish projectile-mode)
 
 (use-package counsel-projectile
   :ensure t
   :init (progn
           (counsel-projectile-mode)))
-
-;; (use-package helm-projectile
-;;   :ensure t
-;;   :init (progn
-;;           (helm-projectile-on)
-;;           (setq helm-for-files-preferred-list
-;;                 '(helm-source-buffers-list
-;;                   helm-source-projectile-files-list
-;;                   helm-source-recentf
-;;                   helm-source-bookmarks
-;;                   helm-source-file-cache
-;;                   helm-source-files-in-current-dir
-;;                   helm-source-locate))))
 
 ;; make a shell script executable automatically on save
 (add-hook 'after-save-hook

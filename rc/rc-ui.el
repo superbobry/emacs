@@ -50,16 +50,22 @@
   (remq 'process-kill-buffer-query-function
         kill-buffer-query-functions))
 
-(use-package smart-mode-line
-  :ensure t
-  :init (setq sml/theme 'respectful
-              sml/no-confirm-load-theme t))
+(use-package all-the-icons
+  :ensure t)
 
-(use-package zenburn-theme
+;; M-x all-the-icons-install-fonts
+(use-package doom-modeline
+  :ensure t
+  :hook (after-init . doom-modeline-mode))
+
+(use-package doom-themes
   :ensure t
   :config (progn
-            (load-theme 'zenburn t)
-            (sml/setup)))
+            (load-theme 'doom-one t)))
 
+(use-package solaire-mode
+  :ensure t
+  :config (progn
+            (add-hook 'change-major-mode-hook #'turn-on-solaire-mode)))
 
 ;;; rc-ui.el ends here
