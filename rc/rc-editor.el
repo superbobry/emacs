@@ -117,12 +117,19 @@
 ;; diminish keeps the modeline tidy
 (require 'diminish)
 
+(use-package auto-package-update
+  :ensure t
+  :config
+  (setq auto-package-update-delete-old-versions t)
+  (setq auto-package-update-hide-results t)
+  (auto-package-update-maybe))
+
 ;; subtle highlighting of matching parens (global-mode)
 (use-package smartparens-config
   :ensure smartparens
   :defer t
   :init (progn
-          (show-smartparens-global-mode)
+          (smartparens-global-mode 1)
           (set-face-foreground 'show-paren-match "white")))
 
 (use-package rainbow-delimiters
@@ -161,6 +168,26 @@
   :ensure t
   :defer t
   :init (global-company-mode))
+
+(use-package company-box
+  :ensure t
+  :pin "melpa"
+  :hook (company-mode . company-box-mode))
+
+(use-package lsp-mode
+  :ensure t
+  :config
+  (setq lsp-enable-snippet nil))
+
+(use-package lsp-ui
+  :after lsp-mode
+  :ensure t
+  :commands lsp-ui-mode)
+
+(use-package company-lsp
+  :after lsp-mode
+  :ensure t
+  :commands company-lsp)
 
 ;; ediff - don't start another frame
 (require 'ediff)

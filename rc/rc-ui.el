@@ -61,7 +61,7 @@
 (use-package doom-themes
   :ensure t
   :config (progn
-            (load-theme 'doom-one t)))
+            (load-theme 'doom-vibrant t)))
 
 (use-package solaire-mode
   :ensure t
