@@ -7,8 +7,6 @@
              '("melpa-stable" . "https://stable.melpa.org/packages/") t)
 (add-to-list 'package-archives
              '("melpa" . "https://melpa.org/packages/") t)
-(add-to-list 'package-archives
-             '("marmalade" . "http://marmalade-repo.org/packages/") t)
 
 (setq package-user-dir (local-file-name "elpa"))
 
@@ -29,7 +27,7 @@
 (eval-when-compile
   (require 'use-package))
 
-(setq use-package-always-pin "melpa-stable")
+(setq use-package-always-pin "melpa")
 
 (require 'diminish)
 (require 'bind-key)

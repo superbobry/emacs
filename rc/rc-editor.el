@@ -28,7 +28,7 @@
       whitespace-line-column 80)
 
 ;; nice things
-(setq next-line-add-newlines nil  ;; don't add new lines when scrolling down
+(setq next-line-add-newlines nil    ;; don't add new lines when scrolling down
       require-final-newline t     ;; end files with a newline
       mouse-yank-at-point t       ;; yank at cursor, NOT at mouse position
       kill-whole-line t

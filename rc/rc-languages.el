@@ -7,6 +7,7 @@
 
 (add-hook 'prog-mode-hook 'turn-on-whitespace)
 (add-hook 'prog-mode-hook 'display-line-numbers-mode)
+(add-hook 'prog-mode-hook 'pixel-scroll-mode)
 
 
 ;; Python
@@ -115,16 +116,6 @@
       (add-hook 'tuareg-mode-hook 'merlin-mode t)
       (add-hook 'caml-mode-hook 'merlin-mode t)
       (setq merlin-command 'opam))))
-
-
-;; JavaScript
-
-(use-package tern
-  :ensure t
-  :defer t
-  :commands tern-mode
-  :init (add-hook 'js-mode-hook (lambda () (tern-mode t))))
-
 
 ;; C, C++
 
