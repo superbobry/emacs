@@ -38,10 +38,6 @@
   :ensure auctex
   :defer t
   :init (progn
-          (when-osx
-              (setq TeX-view-program-list '(("Preview" "open -a Skim %o"))
-                    TeX-view-program-selection '((output-pdf "Preview"))))
-
           (require 'texmathp)
 
           (setq TeX-auto-save t
@@ -53,30 +49,6 @@
                                         (TeX-fold-mode 1)
                                         (TeX-PDF-mode 1)
                                         (outline-minor-mode 1)))))
-
-
-;; Org
-
-(use-package org-mode
-  :defer t
-  :bind (("C-c c" . org-capture)
-         ("C-c a" . org-agenda))
-  :init
-  (setq org-agenda-files '("~/Dropbox/inbox.org"
-                           "~/Dropbox/gtd.org"
-                           "~/Dropbox/tickler.org")
-        org-capture-templates
-        '(("t" "Todo [inbox]" entry
-           (file+headline "~/Dropbox/inbox.org" "Tasks")
-           "* TODO %i%?")
-          ("T" "Tickler" entry
-           (file+headline "~/Dropbox/tickler.org" "Tickler")
-           "* %i%? \n %U"))
-        org-refile-targets '(("~/Dropbox/gtd.org" :maxlevel . 3)
-                             ("~/Dropbox/someday.org" :level . 1)
-                             ("~/Dropbox/tickler.org" :maxlevel . 2))
-        org-todo-keywords
-        '((sequence "TODO(t)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)"))))
 
 
 ;;; rc-markup.el ends here
