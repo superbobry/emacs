@@ -36,7 +36,7 @@
 
 (setq ring-bell-function 'ignore)
 
-(global-linum-mode 0)   ;; no line number unless i say so ...
+(global-display-line-numbers-mode 0)
 (blink-cursor-mode -1)  ;; ... and cut out that blinking, okay?
 
 (setq cursor-in-non-selected-windows nil
