@@ -3,13 +3,14 @@
 
 (when (window-system)
   (x-focus-frame nil)
-  (let ((font-name "Fira Code-12"))
+  (let ((font-name "Fira Code-14"))
     (when (find-font (font-spec :name font-name))
       (set-frame-font font-name))))
 
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
+(tab-bar-mode t)
 
 ;; disable startup screen and *scratch* message
 (setq inhibit-startup-screen t
@@ -50,21 +51,21 @@
   (remq 'process-kill-buffer-query-function
         kill-buffer-query-functions))
 
-(use-package all-the-icons
-  :ensure t)
+(use-package nerd-icons)
 
 ;; M-x all-the-icons-install-fonts
 (use-package doom-modeline
-  :ensure t
   :hook (after-init . doom-modeline-mode))
 
 (use-package doom-themes
-  :ensure t
-  :config (progn
-            (load-theme 'doom-vibrant t)))
+  :config
+  (setq doom-themes-enable-bold t
+        doom-themes-enable-italic nil)
+  (load-theme 'doom-one-light t)
+  (doom-themes-treemacs-config)
+  (doom-themes-org-config))
 
 (use-package solaire-mode
-  :ensure t
   :config (progn
             (add-hook 'change-major-mode-hook #'turn-on-solaire-mode)))
 

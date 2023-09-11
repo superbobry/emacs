@@ -4,7 +4,6 @@
 ;; Markdown
 
 (use-package markdown-mode
-  :ensure t
   :mode (("README\\.md\\'" . gfm-mode)
          ("\\.md\\'" . markdown-mode)
          ("\\.markdown\\'" . markdown-mode))
@@ -14,16 +13,7 @@
 
 (add-hook 'sgml-mode-hook (lambda () (setq tab-width 2)))
 
-(use-package rainbow-mode
-  :ensure t
-  :defer t
-  :diminish rainbow-mode
-  :config (progn
-            (add-hook 'html-mode-hook 'rainbow-turn-on)
-            (add-hook 'css-mode-hook 'rainbow-turn-on)))
-
 (use-package smartparens
-  :ensure t
   :init (sp-with-modes '(html-mode sgml-mode)
           (sp-local-pair "<" ">")))
 

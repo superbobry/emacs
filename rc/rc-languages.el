@@ -13,7 +13,6 @@
 ;; Python
 
 (use-package python-mode
-  :ensure t
   :mode ("\\.py\\'" . python-mode)
   :commands python-mode
   :config (progn
@@ -31,8 +30,17 @@
 
                         (setq-local eldoc-documentation-function nil)))))
 
+(with-eval-after-load 'treemacs
+  (defun treemacs-ignore-__pycache__ (file _)
+    (string= file "__pycache__"))
+  (push #'treemacs-ignore-__pycache__ treemacs-ignored-file-predicates))
+
+(use-package lsp-pyright
+  :hook (python-mode . (lambda ()
+                          (require 'lsp-pyright)
+                          (lsp-deferred))))
+
 (use-package cython-mode
-  :ensure t
   :commands cython-mode
   :config (add-hook 'cython-mode-hook
                     (lambda ()
@@ -71,7 +79,6 @@
 ;; Haskell
 
 (use-package haskell-mode
-  :ensure t
   :defer t
   :commands haskell-mode
   :config (progn
@@ -97,25 +104,25 @@
 
 ;; OCaml
 
+(use-package opam
+  :before tuareg
+  :config
+  (opam-init))
+
 (use-package tuareg
-  :ensure t
   :commands tuareg-mode
+  :hook (tuareg-mode . lsp)
   :config
   (when (executable-find "opam")
     (add-to-list 'load-path
                  (concat
                   (replace-regexp-in-string
                    "\n$" ""
-                   (shell-command-to-string "opam config var share"))
+                   (shell-command-to-string "opam var share"))
                   "/emacs/site-lisp"))
 
     (require 'ocp-indent)
-    (setq ocp-indent-config "with_never=true")
-
-    (when (require 'merlin nil t)
-      (add-hook 'tuareg-mode-hook 'merlin-mode t)
-      (add-hook 'caml-mode-hook 'merlin-mode t)
-      (setq merlin-command 'opam))))
+    (setq ocp-indent-config "with_never=true")))
 
 ;; C, C++
 
@@ -128,7 +135,6 @@
                      (c-set-offset 'substatement-open 0))))
 
 (use-package cmake-mode
-  :ensure t
   :defer t)
 
 

@@ -44,6 +44,7 @@
 ;; was no unsaved changes in the corresponding buffer, just revert its
 ;; content to reflect what's on-disk.
 (global-auto-revert-mode t)
+(setq global-auto-revert-non-file-buffers t)
 
 ;; meaningful names for buffers with the same name
 (require 'uniquify)
@@ -118,7 +119,6 @@
 (require 'diminish)
 
 (use-package auto-package-update
-  :ensure t
   :config
   (setq auto-package-update-delete-old-versions t)
   (setq auto-package-update-hide-results t)
@@ -133,7 +133,6 @@
           (set-face-foreground 'show-paren-match "white")))
 
 (use-package rainbow-delimiters
-  :ensure t
   :config (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
 
 (add-hook 'prog-mode-hook 'turn-on-smartparens-mode)
@@ -142,7 +141,6 @@
 (global-hl-line-mode +1)
 
 (use-package volatile-highlights
-  :ensure t
   :config (volatile-highlights-mode t)
   :diminish volatile-highlights-mode)
 
@@ -159,35 +157,67 @@
 
 ;; load flycheck
 (use-package flycheck
-  :ensure t
   :defer t
   :config (add-hook 'after-init-hook #'global-flycheck-mode))
 
 ;; load auto-complete
 (use-package company
-  :ensure t
   :defer t
-  :init (global-company-mode))
+  :init (global-company-mode)
+  :custom
+  (company-minumum-prefix-length 1)
+  (company-idle-delay 0.0))
 
 (use-package company-box
-  :ensure t
   :pin "melpa"
-  :hook (company-mode . company-box-mode))
+  :hook (company-mode . company-box-mode)
+  :custom
+  (company-box-icons-alist 'company-box-icons-all-the-icons))
 
 (use-package lsp-mode
-  :ensure t
+  :commands (lsp lsp-deferred)
+  :hook (prog-mode . lsp-enable-imenu)
+  :init
+  (setq lsp-enable-snippet nil
+        lsp-keymap-prefix "C-c l"
+
+        lsp-headerline-breadcrumb-segments '(symbols)
+        lsp-headerline-breadcrumb-icons-enable nil)
   :config
-  (setq lsp-enable-snippet nil))
+  (lsp-enable-which-key-integration t)
+  :custom
+  (lsp-headerline-breadcrumb-enable t)
+  (lsp-enable-imenu t))
 
 (use-package lsp-ui
   :after lsp-mode
-  :ensure t
   :commands lsp-ui-mode)
 
-(use-package company-lsp
+(use-package treemacs
+  :hook (emacs-startup . treemacs)
+  :init
+  (setq treemacs-position 'right)
+  :config
+  (treemacs-follow-mode t)
+  (treemacs-filewatch-mode t)
+  (treemacs-add-and-display-current-project-exclusively)
+  (treemacs-hide-gitignored-files-mode t)
+  (treemacs-toggle-show-dotfiles))
+
+(use-package treemacs-nerd-icons
+  :config
+  (treemacs-load-theme "nerd-icons"))
+
+(use-package treemacs-magit
+  :after (treemacs magit))
+
+(use-package treemacs-projectile
+  :after (treemacs projectile))
+
+(use-package lsp-treemacs
   :after lsp-mode
-  :ensure t
-  :commands company-lsp)
+  :config
+  (lsp-treemacs-sync-mode 1))
 
 ;; ediff - don't start another frame
 (require 'ediff)
@@ -203,14 +233,12 @@
 (require 're-builder)
 (setq reb-re-syntax 'string)
 
-(use-package golden-ratio
-  :ensure t
-  :diminish golden-ratio-mode
-  :init (progn (golden-ratio-mode)
-               (setq golden-ratio-auto-scale t)))
+;; (use-package golden-ratio
+;;   :diminish golden-ratio-mode
+;;   :init (progn (golden-ratio-mode)
+;;                (setq golden-ratio-auto-scale t)))
 
 (use-package ivy
-  :ensure t
   :diminish ivy-mode
   :bind
   (:map ivy-minibuffer-map
@@ -220,24 +248,24 @@
     (ivy-mode 1)
     (setq ivy-use-virtual-buffers t
           ivy-use-selectable-prompt t
-          ivy-re-builders-alist '((t . ivy--regex-fuzzy)))
+          ivy-re-builders-alist '((swiper . ivy--regex-plus)
+                                  (t      . ivy--regex-fuzzy)))
 
     (with-eval-after-load 'projectile
       (setq projectile-completion-system 'ivy))
 
     (with-eval-after-load 'magit
-      (setq magit-completing-read-function 'ivy-completing-read))
+      (setq magit-completing-read-function 'ivy-completing-read))))
 
-    ;; Enhance fuzzy matching
-    (use-package flx
-      :ensure t)
+;; Enhance fuzzy matching
+(use-package flx
+  :before ivy)
 
-    ;; Enhance M-x
-    (use-package amx
-      :ensure t)))
+;; Enhance M-x
+(use-package amx
+  :after ivy)
 
 (use-package counsel
-  :ensure t
   :diminish counsel-mode
   :bind
   (("C-c i" . counsel-imenu)
@@ -249,77 +277,60 @@
   :config (setq counsel-find-file-at-point t))
 
 (use-package swiper
-  :ensure t
   :bind ("C-s" . swiper)
   :config (progn
             (setq swiper-action-recenter t)))
 
+(use-package helpful
+  :bind
+  ([remap describe-function] . counsel-describe-function)
+  ([remap describe-command] . helpful-command)
+  ([remap describe-variable] . counsel-describe-variable)
+  ([remap describe-key] . helpful-key)
+  :custom
+  (counsel-describe-function-function #'helpful-callable)
+  (counsel-describe-variable-function #'helpful-variable))
+
 (use-package discover-my-major
-  :ensure t
   :bind ("C-h C-m" . discover-my-major))
 
 (use-package projectile
-  :ensure t
+  :diminish projectile-mode
+  :bind-keymap ("C-c p" . projectile-command-map)
   :init
-  (progn
-    (setq projectile-completion-system 'ivy
-          projectile-create-missing-test-files t
-          projectile-switch-project-action #'projectile-commander)
-    (projectile-mode)
-    (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
-  :diminish projectile-mode)
+  (setq projectile-create-missing-test-files t
+        projectile-switch-project-action #'projectile-commander))
 
 (use-package counsel-projectile
-  :ensure t
-  :init (progn
-          (counsel-projectile-mode)))
+  :init (counsel-projectile-mode))
 
 ;; make a shell script executable automatically on save
 (add-hook 'after-save-hook
           'executable-make-buffer-file-executable-if-script-p)
 
 ;; sensible undo
-(use-package undo-tree
-  :ensure t
+(use-package undo-fu
   :commands undo-tree-visualize
-  :bind ("C-S-z" . undo-tree-redo)
-  :config (progn
-            (global-undo-tree-mode)
-            (setq undo-tree-visualizer-timestamps t
-                  undo-tree-visualizer-diff t
-                  undo-tree-auto-save-history t)
-
-            (defadvice undo-tree-make-history-save-file-name
-                (after undo-tree activate)
-              (setq ad-return-value (concat ad-return-value ".gz")))
-
-            (custom-set-variables
-             '(undo-tree-history-directory-alist
-               (quote (("." . "~/.emacs.d/undo/"))))))
-  :diminish undo-tree-mode)
+  :bind (("C-S--" . undo-fu-only-undo)
+         ("C-S-z" . undo-fu-only-redo)))
 
 ;; my git
 (use-package magit
-  :ensure t
-  :commands magit-status
   :bind ("C-c g" . magit-status)
-  :config (progn
-            (setq async-bytecomp-allowed-packages nil)))
+  :config
+  (setq async-bytecomp-allowed-packages nil))
 
 (use-package git-timemachine
-  :ensure t
   :defer t
   :commands git-timemachine)
 
 ;; incremental searching
 ;; (use-package anzu
-;;   :ensure t
 ;;   :diminish anzu-mode
 ;;   :init (global-anzu-mode +1))
 
 ;; better grep-find (consider helm-ag)
 ;; (use-package ag
-;;   :ensure t
 ;;   :defer t
 ;;   :commands ag
 ;;   :init (setq ag-highlight-search t
@@ -333,23 +344,16 @@
 
 ;; semantic region expansion
 (use-package expand-region
-  :ensure t
   :bind ("C-=" . er/expand-region))
 
 (use-package move-text
-  :ensure t
   :bind (("C-S-<up>" . move-text-up)
          ("C-S-<down>" . move-text-down)))
 
 (use-package which-key
-  :ensure t
   :config (which-key-mode))
 
-(use-package define-word
-  :ensure t)
-
 (use-package pretty-mode
-  :ensure t
   :config
   (progn
     (global-pretty-mode t)
