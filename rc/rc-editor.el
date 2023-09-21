@@ -249,7 +249,8 @@
     (setq ivy-use-virtual-buffers t
           ivy-use-selectable-prompt t
           ivy-re-builders-alist '((swiper . ivy--regex-plus)
-                                  (t      . ivy--regex-fuzzy)))
+                                  (counsel-ag . ivy--regex-plus)
+                                  (t . ivy--regex-fuzzy)))
 
     (with-eval-after-load 'projectile
       (setq projectile-completion-system 'ivy))
