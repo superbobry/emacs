@@ -10,7 +10,7 @@
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
-(tab-bar-mode t)
+(global-tab-line-mode t)
 
 ;; disable startup screen and *scratch* message
 (setq inhibit-startup-screen t
@@ -20,9 +20,6 @@
 (setq scroll-margin 0
       scroll-conservatively 100000
       scroll-preserve-screen-position 1)
-
-;; prevent screen tearing
-(setq redisplay-dont-pause t)
 
 ;; speedup cursor movemenet
 ;; https://emacs.stackexchange.com/a/28746

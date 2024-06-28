@@ -122,7 +122,11 @@
                   "/emacs/site-lisp"))
 
     (require 'ocp-indent)
-    (setq ocp-indent-config "with_never=true")))
+    (setq ocp-indent-config "with_never=true")
+    (autoload 'merlin-mode "merlin" nil t nil)
+    (add-hook 'tuareg-mode-hook 'merlin-mode t)
+    (add-hook 'caml-mode-hook 'merlin-mode t)
+    (setq merlin-command 'opam)))
 
 ;; C, C++
 

@@ -319,8 +319,6 @@
   :config
   (setq async-bytecomp-allowed-packages nil))
 
-(use-package forge)
-
 (use-package git-timemachine
   :defer t
   :commands git-timemachine)
