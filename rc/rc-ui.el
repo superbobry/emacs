@@ -3,7 +3,7 @@
 
 (when (window-system)
   (x-focus-frame nil)
-  (let ((font-name "Fira Code-14"))
+  (let ((font-name "Fira Code-15"))
     (when (find-font (font-spec :name font-name))
       (set-frame-font font-name))))
 
@@ -53,7 +53,12 @@
 
 (use-package nerd-icons)
 
-;; M-x all-the-icons-install-fonts
+(use-package fira-code-mode
+  :hook prog-mode
+  :custom (fira-code-mode-disabled-ligatures '("[]" "#{" "#(" "#_" "#_(" "x"))
+  :config
+  (fira-code-mode-set-font))
+
 (use-package doom-modeline
   :hook (after-init . doom-modeline-mode))
 

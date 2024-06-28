@@ -95,25 +95,18 @@
       recentf-max-menu-items 15)
 (recentf-mode t)
 
+(require 'epa-file)
+(epa-file-enable)
+(setq auth-sources '("~/.authinfo.gpg"))
+
 ;; use shift + arrow keys to switch between visible buffers
 (require 'windmove)
 (windmove-default-keybindings)
 (setq windmove-wrap-around t)
 
-;; automatically save buffers associated with files on buffer switch
-;; and on windows switch
-(defadvice switch-to-buffer (before save-buffer-now activate)
-  (when buffer-file-name (save-buffer)))
-(defadvice other-window (before other-window-now activate)
-  (when buffer-file-name (save-buffer)))
-(defadvice windmove-up (before other-window-now activate)
-  (when buffer-file-name (save-buffer)))
-(defadvice windmove-down (before other-window-now activate)
-  (when buffer-file-name (save-buffer)))
-(defadvice windmove-left (before other-window-now activate)
-  (when buffer-file-name (save-buffer)))
-(defadvice windmove-right (before other-window-now activate)
-  (when buffer-file-name (save-buffer)))
+(use-package super-save
+  :config
+  (super-save-mode +1))
 
 ;; diminish keeps the modeline tidy
 (require 'diminish)
@@ -179,15 +172,16 @@
   :hook (prog-mode . lsp-enable-imenu)
   :init
   (setq lsp-enable-snippet nil
-        lsp-keymap-prefix "C-c l"
 
         lsp-headerline-breadcrumb-segments '(symbols)
         lsp-headerline-breadcrumb-icons-enable nil)
   :config
   (lsp-enable-which-key-integration t)
+  (define-key lsp-mode-map (kbd "C-c l") lsp-command-map)
   :custom
   (lsp-headerline-breadcrumb-enable t)
-  (lsp-enable-imenu t))
+  (lsp-enable-imenu t)
+  (lsp-keymap-prefix "C-c l"))
 
 (use-package lsp-ui
   :after lsp-mode
@@ -222,6 +216,10 @@
 ;; ediff - don't start another frame
 (require 'ediff)
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
+
+(use-package diff-hl
+  :config
+  (global-diff-hl-mode))
 
 ;; clean up obsolete buffers automatically
 (require 'midnight)
@@ -321,6 +319,8 @@
   :config
   (setq async-bytecomp-allowed-packages nil))
 
+(use-package forge)
+
 (use-package git-timemachine
   :defer t
   :commands git-timemachine)
@@ -354,17 +354,8 @@
 (use-package which-key
   :config (which-key-mode))
 
-(use-package pretty-mode
-  :config
-  (progn
-    (global-pretty-mode t)
-
-    (pretty-deactivate-groups
-     '(:equality :ordering :ordering-double :ordering-triple
-                 :arrows :arrows-twoheaded :punctuation
-                 :logic :sets :arithmetic-nary))
-
-    (pretty-activate-groups
-     '(:sub-and-superscripts :greek))))
+(use-package multiple-cursors
+  :bind (("M-s-<down>" . mc/mark-next-like-this)
+         ("M-s-<up>" . mc/mark-previous-like-this)))
 
 ;;; rc-editor.el ends here
