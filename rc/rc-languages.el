@@ -111,7 +111,6 @@
 
 (use-package tuareg
   :commands tuareg-mode
-  :hook (tuareg-mode . lsp)
   :config
   (when (executable-find "opam")
     (add-to-list 'load-path
@@ -122,11 +121,15 @@
                   "/emacs/site-lisp"))
 
     (require 'ocp-indent)
+    (require 'dune)
     (setq ocp-indent-config "with_never=true")
     (autoload 'merlin-mode "merlin" nil t nil)
     (add-hook 'tuareg-mode-hook 'merlin-mode t)
     (add-hook 'caml-mode-hook 'merlin-mode t)
-    (setq merlin-command 'opam)))
+    (setq merlin-command 'opam)
+    (with-eval-after-load 'company
+      (add-to-list 'company-backends 'merlin-company-backend))
+    (add-hook 'merlin-mode-hook 'company-mode)))
 
 ;; C, C++
 

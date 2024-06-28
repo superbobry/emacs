@@ -56,6 +56,8 @@
   :config
   (fira-code-mode-set-font))
 
+(global-prettify-symbols-mode -1)
+
 (use-package doom-modeline
   :hook (after-init . doom-modeline-mode))
 

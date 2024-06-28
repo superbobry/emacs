@@ -162,10 +162,7 @@
   (company-idle-delay 0.0))
 
 (use-package company-box
-  :pin "melpa"
-  :hook (company-mode . company-box-mode)
-  :custom
-  (company-box-icons-alist 'company-box-icons-all-the-icons))
+  :hook (company-mode . company-box-mode))
 
 (use-package lsp-mode
   :commands (lsp lsp-deferred)
