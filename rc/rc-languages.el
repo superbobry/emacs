@@ -7,17 +7,16 @@
 
 (add-hook 'prog-mode-hook 'turn-on-whitespace)
 (add-hook 'prog-mode-hook 'display-line-numbers-mode)
-(add-hook 'prog-mode-hook 'pixel-scroll-mode)
 
 
 ;; Python
 
-(use-package python-mode
-  :mode ("\\.py\\'" . python-mode)
-  :commands python-mode
+(use-package python
+  :mode ("\\.py\\'" . python-ts-mode)
+  :commands python-ts-mode
   :config (progn
-            (add-hook 'python-mode-hook (lambda () (run-hooks 'prog-mode-hook)))
-            (add-hook 'python-mode-hook
+            (add-hook 'python-ts-mode-hook (lambda () (run-hooks 'prog-mode-hook)))
+            (add-hook 'python-ts-mode-hook
                       (lambda ()
                         ;; See https://github.com/company-mode/company-mode/issues/105
                         ;; for details on this nasty bug.
@@ -28,17 +27,14 @@
                         (subword-mode +1)
                         (electric-indent-mode -1)
 
-                        (setq-local eldoc-documentation-function nil)))))
+                        (setq-local eldoc-documentation-function nil)))
+            (add-hook 'python-ts-mode-hook 'eglot-ensure)))
 
 (with-eval-after-load 'treemacs
   (defun treemacs-ignore-__pycache__ (file _)
     (string= file "__pycache__"))
   (push #'treemacs-ignore-__pycache__ treemacs-ignored-file-predicates))
 
-(use-package lsp-pyright
-  :hook (python-mode . (lambda ()
-                          (require 'lsp-pyright)
-                          (lsp-deferred))))
 
 (use-package cython-mode
   :commands cython-mode
@@ -51,7 +47,7 @@
 
 ;; Erlang
 
-(require 'em-glob)
+(require 'em-glob nil t)
 
 (setq erlang-root-dir
       (if (eq system-type 'gnu/linux)
@@ -61,19 +57,18 @@
 (defun directory-files-glob (path)
   (directory-files (file-name-directory path)
                    t
-                   (eshell-glob-regexp (file-name-nondirectory path))))
+                   (if (fboundp 'eshell-glob-regexp)
+                       (eshell-glob-regexp (file-name-nondirectory path))
+                     (file-name-nondirectory path))))
 
 (defun directory-any-file-glob (path)
-  (car (directory-files-glob path)))
+  (car-safe (directory-files-glob path)))
 
 (when (file-exists-p erlang-root-dir)
-  (add-to-list 'load-path (concat
-                           (file-name-as-directory
-                            (directory-any-file-glob
-                             (concat erlang-root-dir "/lib/tools-*")))
-                           "emacs"))
-
-  (require 'erlang-start))
+  (let ((erlang-tools-dir (directory-any-file-glob (concat erlang-root-dir "/lib/tools-*"))))
+    (when erlang-tools-dir
+      (add-to-list 'load-path (concat (file-name-as-directory erlang-tools-dir) "emacs"))
+      (require 'erlang-start nil t))))
 
 
 ;; Haskell
@@ -82,9 +77,9 @@
   :defer t
   :commands haskell-mode
   :config (progn
-            (require 'inf-haskell)
-            (require 'haskell-compile)
-            (require 'haskell-navigate-imports)
+            (require 'inf-haskell nil t)
+            (require 'haskell-compile nil t)
+            (require 'haskell-navigate-imports nil t)
 
             (bind-keys :map haskell-mode-map
                        ("C-c C-c" . haskell-compile)
@@ -105,7 +100,6 @@
 ;; OCaml
 
 (use-package opam
-  :before tuareg
   :config
   (opam-init))
 
@@ -120,8 +114,8 @@
                    (shell-command-to-string "opam var share"))
                   "/emacs/site-lisp"))
 
-    (require 'ocp-indent)
-    (require 'dune)
+    (require 'ocp-indent nil t)
+    (require 'dune nil t)
     (setq ocp-indent-config "with_never=true")
     (autoload 'merlin-mode "merlin" nil t nil)
     (add-hook 'tuareg-mode-hook 'merlin-mode t)
@@ -133,16 +127,24 @@
 
 ;; C, C++
 
-(use-package cc-mode
-  :init (add-hook 'c-mode-common-hook
+(use-package c-ts-mode
+  :mode ("\\.c\\'" . c-ts-mode)
+  :mode ("\\.cpp\\'" . c++-ts-mode)
+  :mode ("\\.h\\'" . c-or-c++-ts-mode)
+  :mode ("\\.hpp\\'" . c-or-c++-ts-mode)
+  :init (add-hook 'c-ts-base-mode-hook
                   '(lambda ()
                      (local-set-key (kbd "RET") 'newline-and-indent)
-                     (setq c-default-style "linux"
-                           c-basic-offset 4)
-                     (c-set-offset 'substatement-open 0))))
+                     (setq-default c-ts-mode-indent-style 'linux
+                                   c-ts-mode-indent-offset 4)
+                     (eglot-ensure))))
 
 (use-package cmake-mode
   :defer t)
+
+;; Bazel
+(use-package bazel
+  :mode ("\\(BUILD\\|WORKSPACE\\|\\.\\(BUILD\\|bazel\\|bzl\\)\\)\\'" . bazel-mode))
 
 
 ;; R

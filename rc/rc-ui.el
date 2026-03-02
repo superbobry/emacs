@@ -10,7 +10,25 @@
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
-(global-tab-line-mode t)
+
+(use-package centaur-tabs
+  :demand
+  :config
+  (centaur-tabs-mode t)
+  :custom
+  (centaur-tabs-style "bar")
+  (centaur-tabs-height 32)
+  (centaur-tabs-set-icons t)
+  (centaur-tabs-icon-type 'nerd-icons)
+  (centaur-tabs-set-modified-marker t)
+  (centaur-tabs-show-navigation-buttons t)
+  (centaur-tabs-set-bar 'over)
+  (centaur-tabs-group-by nil)
+  :bind
+  ("C-<prior>" . centaur-tabs-backward)
+  ("C-<next>" . centaur-tabs-forward)
+  ("M-s-<left>" . centaur-tabs-backward)
+  ("M-s-<right>" . centaur-tabs-forward))
 
 ;; disable startup screen and *scratch* message
 (setq inhibit-startup-screen t
@@ -20,13 +38,10 @@
 (setq scroll-margin 0
       scroll-conservatively 100000
       scroll-preserve-screen-position 1)
-
-;; speedup cursor movemenet
-;; https://emacs.stackexchange.com/a/28746
-(setq auto-window-vscroll nil)
+      
+(pixel-scroll-precision-mode 1)
 
 ;; mode line settings
-(line-number-mode t)
 (column-number-mode t)
 (size-indication-mode t)
 
@@ -42,7 +57,7 @@
 
 ;; stop prompting me, allright?
 ;; a) y is yes and n is no
-(fset 'yes-or-no-p 'y-or-n-p)
+(setq use-short-answers t)
 ;; b) i don't care if the process is running
 (setq kill-buffer-query-functions
   (remq 'process-kill-buffer-query-function
@@ -55,8 +70,6 @@
   :custom (fira-code-mode-disabled-ligatures '("[]" "#{" "#(" "#_" "#_(" "x"))
   :config
   (fira-code-mode-set-font))
-
-(global-prettify-symbols-mode -1)
 
 (use-package doom-modeline
   :hook (after-init . doom-modeline-mode))

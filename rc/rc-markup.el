@@ -28,8 +28,6 @@
   :ensure auctex
   :defer t
   :init (progn
-          (require 'texmathp)
-
           (setq TeX-auto-save t
                 TeX-parse-self t
                 TeX-DVI-via-PDFTeX t)
@@ -38,7 +36,9 @@
                                         (LaTeX-math-mode 1)
                                         (TeX-fold-mode 1)
                                         (TeX-PDF-mode 1)
-                                        (outline-minor-mode 1)))))
+                                        (outline-minor-mode 1))))
+  :config
+  (require 'texmathp))
 
 
 ;;; rc-markup.el ends here

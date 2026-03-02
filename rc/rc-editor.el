@@ -5,9 +5,11 @@
 ;; A lot of stuff here was stolen from the wonderful 'Emacs Prelude'
 ;; project, available at 'https://github.com/bbatsov/prelude'.
 
+(global-set-key (kbd "C-c C-j") 'join-line)
+(global-set-key (kbd "C-x k") 'kill-current-buffer)
+
 (setq-default indent-tabs-mode nil  ;; don't use tabs to indent
               tab-width 4           ;; but maintain correct appearance
-              case-fold-search t    ;; case INsensitive search
               default-directory "~"
               fill-column 80)
 
@@ -28,11 +30,9 @@
       whitespace-line-column 80)
 
 ;; nice things
-(setq next-line-add-newlines nil    ;; don't add new lines when scrolling down
-      require-final-newline t     ;; end files with a newline
+(setq require-final-newline t     ;; end files with a newline
       mouse-yank-at-point t       ;; yank at cursor, NOT at mouse position
-      kill-whole-line t
-      bidi-display-reordering nil)
+      kill-whole-line t)
 
 ;; store all backup and autosave files in the tmp dir
 (setq backup-directory-alist
@@ -54,7 +54,7 @@
       uniquify-ignore-buffers-re "^\\*") ;; don't muck with special buffers
 
 ;; activate it for all buffers
-(setq-default save-place t)
+(save-place-mode 1)
 (require 'saveplace)
 
 ;; saveplace remembers your location in a file when saving files
@@ -109,7 +109,7 @@
   (super-save-mode +1))
 
 ;; diminish keeps the modeline tidy
-(require 'diminish)
+(use-package diminish)
 
 (use-package auto-package-update
   :config
@@ -142,8 +142,7 @@
 ;; we need a bit more funky pattern, as tramp will start $SHELL
 ;; (sudo -s), ie., zsh for root user
 (setq shell-prompt-pattern "^[^a-zA-Z].*[#$%>] *"
-      tramp-default-method "ssh"
-      tramp-temp-buffer-file-name (local-file-name "cache/tramp"))
+      tramp-default-method "ssh")
 
 ;; enabled auto-fill mode in text-mode and all related modes
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
@@ -153,36 +152,32 @@
   :defer t
   :config (add-hook 'after-init-hook #'global-flycheck-mode))
 
+;; load fast spellchecker
+(use-package jinx
+  :hook (emacs-startup . global-jinx-mode)
+  :custom (jinx-languages "en_GB")
+  :bind (("M-$" . jinx-correct)
+         ("C-M-$" . jinx-languages)))
+
 ;; load auto-complete
-(use-package company
-  :defer t
-  :init (global-company-mode)
+(use-package corfu
   :custom
-  (company-minumum-prefix-length 1)
-  (company-idle-delay 0.0))
-
-(use-package company-box
-  :hook (company-mode . company-box-mode))
-
-(use-package lsp-mode
-  :commands (lsp lsp-deferred)
-  :hook (prog-mode . lsp-enable-imenu)
+  (corfu-auto t)
+  (corfu-auto-prefix 2)
+  (corfu-auto-delay 0.0)
+  (corfu-quit-no-match 'separator)
   :init
-  (setq lsp-enable-snippet nil
+  (global-corfu-mode))
 
-        lsp-headerline-breadcrumb-segments '(symbols)
-        lsp-headerline-breadcrumb-icons-enable nil)
+(use-package eglot
+  :defer t
+  :commands (eglot eglot-ensure)
   :config
-  (lsp-enable-which-key-integration t)
-  (define-key lsp-mode-map (kbd "C-c l") lsp-command-map)
-  :custom
-  (lsp-headerline-breadcrumb-enable t)
-  (lsp-enable-imenu t)
-  (lsp-keymap-prefix "C-c l"))
-
-(use-package lsp-ui
-  :after lsp-mode
-  :commands lsp-ui-mode)
+  ;; Eglot uses standard Emacs keybindings, but we can customize the prefix.
+  (define-key eglot-mode-map (kbd "C-c l") 'eglot-command-map)
+  (add-to-list 'eglot-server-programs '(python-ts-mode . ("pyrefly" "server")))
+  (add-to-list 'eglot-server-programs '(c-ts-mode . ("clangd")))
+  (add-to-list 'eglot-server-programs '(c++-ts-mode . ("clangd"))))
 
 (use-package treemacs
   :hook (emacs-startup . treemacs)
@@ -205,10 +200,6 @@
 (use-package treemacs-projectile
   :after (treemacs projectile))
 
-(use-package lsp-treemacs
-  :after lsp-mode
-  :config
-  (lsp-treemacs-sync-mode 1))
 
 ;; ediff - don't start another frame
 (require 'ediff)
@@ -233,72 +224,61 @@
 ;;   :init (progn (golden-ratio-mode)
 ;;                (setq golden-ratio-auto-scale t)))
 
-(use-package ivy
-  :diminish ivy-mode
-  :bind
-  (:map ivy-minibuffer-map
-        ("C-w" . ivy-yank-word))
+(use-package vertico
+  :init
+  (vertico-mode)
+  :bind (:map vertico-map
+              ("RET" . vertico-directory-enter)
+              ("DEL" . vertico-directory-delete-char)
+              ("M-DEL" . vertico-directory-delete-word))
+  :hook (rfn-eshadow-update-overlay . vertico-directory-tidy))
+
+(use-package marginalia
+  :after vertico
+  :init
+  (marginalia-mode))
+
+(use-package orderless
+  :custom
+  (completion-styles '(orderless basic))
+  (completion-category-defaults nil)
+  (completion-category-overrides '((file (styles partial-completion))))
   :config
-  (progn
-    (ivy-mode 1)
-    (setq ivy-use-virtual-buffers t
-          ivy-use-selectable-prompt t
-          ivy-re-builders-alist '((swiper . ivy--regex-plus)
-                                  (counsel-ag . ivy--regex-plus)
-                                  (t . ivy--regex-fuzzy)))
+  ;; Allow fuzzy matching (like flx) 
+  (setq orderless-matching-styles '(orderless-literal orderless-regexp orderless-flex)))
 
-    (with-eval-after-load 'projectile
-      (setq projectile-completion-system 'ivy))
-
-    (with-eval-after-load 'magit
-      (setq magit-completing-read-function 'ivy-completing-read))))
-
-;; Enhance fuzzy matching
-(use-package flx
-  :before ivy)
-
-;; Enhance M-x
-(use-package amx
-  :after ivy)
-
-(use-package counsel
-  :diminish counsel-mode
+(use-package consult
   :bind
-  (("C-c i" . counsel-imenu)
-   ("C-h a" . counsel-apropos)
-   ("C-x f" . counsel-recentf)
-   ("C-x C-f" . counsel-find-file)
-   ("M-y" . counsel-yank-pop)
-   ("M-x" . counsel-M-x))
-  :config (setq counsel-find-file-at-point t))
-
-(use-package swiper
-  :bind ("C-s" . swiper)
-  :config (progn
-            (setq swiper-action-recenter t)))
+  (("C-c i" . consult-imenu)
+   ("C-x b" . consult-buffer)
+   ("C-x f" . consult-recent-file)
+   ("M-y" . consult-yank-pop)
+   ("C-s" . consult-line))
+  :hook (completion-list-mode . consult-preview-at-point-mode)
+  :init
+  (setq register-preview-delay 0.5
+        register-preview-function #'consult-register-format)
+  (advice-add #'register-preview :override #'consult-register-window)
+  :config
+  (consult-customize
+   consult-theme :preview-key '(:debounce 0.2 any)
+   consult-ripgrep consult-git-grep consult-grep
+   consult-bookmark consult-recent-file consult-xref
+   :preview-key '(:debounce 0.4 any)))
 
 (use-package helpful
   :bind
-  ([remap describe-function] . counsel-describe-function)
-  ([remap describe-command] . helpful-command)
-  ([remap describe-variable] . counsel-describe-variable)
-  ([remap describe-key] . helpful-key)
-  :custom
-  (counsel-describe-function-function #'helpful-callable)
-  (counsel-describe-variable-function #'helpful-variable))
+  ([remap describe-function] . helpful-callable)
+  ([remap describe-command]  . helpful-command)
+  ([remap describe-variable] . helpful-variable)
+  ([remap describe-key]      . helpful-key))
 
 (use-package discover-my-major
   :bind ("C-h C-m" . discover-my-major))
 
-(use-package projectile
-  :diminish projectile-mode
-  :bind-keymap ("C-c p" . projectile-command-map)
-  :init
-  (setq projectile-create-missing-test-files t
-        projectile-switch-project-action #'projectile-commander))
-
-(use-package counsel-projectile
-  :init (counsel-projectile-mode))
+(use-package project
+  :ensure nil
+  :bind-keymap ("C-c p" . project-prefix-map))
 
 ;; make a shell script executable automatically on save
 (add-hook 'after-save-hook
