@@ -246,6 +246,12 @@
   ;; Allow fuzzy matching (like flx)
   (setq orderless-matching-styles '(orderless-literal orderless-regexp orderless-flex)))
 
+(use-package vertico-prescient
+  :after vertico
+  :config
+  (setq vertico-prescient-enable-filtering nil)
+  (vertico-prescient-mode 1))
+
 (use-package consult
   :bind
   (("C-c i" . consult-imenu)
@@ -277,7 +283,9 @@
 
 (use-package project
   :ensure nil
-  :bind-keymap ("C-c p" . project-prefix-map))
+  :bind-keymap ("C-c p" . project-prefix-map)
+  :config
+  (setq project-switch-commands #'magit-status))
 
 ;; make a shell script executable automatically on save
 (add-hook 'after-save-hook
@@ -303,13 +311,6 @@
 ;; (use-package anzu
 ;;   :diminish anzu-mode
 ;;   :init (global-anzu-mode +1))
-
-;; better grep-find (consider helm-ag)
-;; (use-package ag
-;;   :defer t
-;;   :commands ag
-;;   :init (setq ag-highlight-search t
-;;               ag-reuse-window t))
 
 ;; view large files easily
 (use-package vlf-setup

@@ -21,7 +21,6 @@
   (centaur-tabs-set-icons t)
   (centaur-tabs-icon-type 'nerd-icons)
   (centaur-tabs-set-modified-marker t)
-  (centaur-tabs-show-navigation-buttons t)
   (centaur-tabs-set-bar 'over)
   (centaur-tabs-group-by nil)
   :bind
