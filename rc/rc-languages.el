@@ -38,6 +38,10 @@
                         (setq-local eldoc-documentation-function nil)))
             (add-hook 'python-ts-mode-hook 'eglot-ensure)))
 
+(use-package pet
+  :config
+  (add-hook 'python-base-mode-hook 'pet-mode -10))
+
 (with-eval-after-load 'treemacs
   (defun treemacs-ignore-__pycache__ (file _)
     (string= file "__pycache__"))

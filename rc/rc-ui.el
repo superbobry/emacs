@@ -37,7 +37,7 @@
 (setq scroll-margin 0
       scroll-conservatively 100000
       scroll-preserve-screen-position 1)
-      
+
 (pixel-scroll-precision-mode 1)
 
 ;; mode line settings
@@ -49,26 +49,19 @@
 (setq ring-bell-function 'ignore)
 
 (global-display-line-numbers-mode 0)
-(blink-cursor-mode -1)  ;; ... and cut out that blinking, okay?
+(blink-cursor-mode -1)
 
 (setq cursor-in-non-selected-windows nil
       use-dialog-box nil)
 
-;; stop prompting me, allright?
-;; a) y is yes and n is no
 (setq use-short-answers t)
-;; b) i don't care if the process is running
 (setq kill-buffer-query-functions
   (remq 'process-kill-buffer-query-function
         kill-buffer-query-functions))
 
 (use-package nerd-icons)
 
-(use-package fira-code-mode
-  :hook prog-mode
-  :custom (fira-code-mode-disabled-ligatures '("[]" "#{" "#(" "#_" "#_(" "x"))
-  :config
-  (fira-code-mode-set-font))
+(global-prettify-symbols-mode -1)
 
 (use-package doom-modeline
   :hook (after-init . doom-modeline-mode))

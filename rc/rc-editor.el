@@ -333,4 +333,14 @@
   :bind (("M-s-<down>" . mc/mark-next-like-this)
          ("M-s-<up>" . mc/mark-previous-like-this)))
 
+(use-package gptel
+  :bind (("C-c RET" . gptel-send))
+  :config
+  (setq gptel-model 'gemini-3.1-pro-preview
+        gptel-backend (gptel-make-gemini "Gemini"
+                        :key (lambda ()
+                               (let ((secret (plist-get (car (auth-source-search :host "gemini" :user "apikey" :require '(:secret))) :secret)))
+                                 (if (functionp secret) (funcall secret) secret)))
+                        :stream t)))
+
 ;;; rc-editor.el ends here
