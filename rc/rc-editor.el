@@ -175,31 +175,30 @@
   :config
   ;; Eglot uses standard Emacs keybindings, but we can customize the prefix.
   (define-key eglot-mode-map (kbd "C-c l") 'eglot-command-map)
-  (add-to-list 'eglot-server-programs '(python-ts-mode . ("pyrefly" "server")))
+  (add-to-list 'eglot-server-programs '(python-ts-mode . ("pyrefly" "lsp")))
   (add-to-list 'eglot-server-programs '(c-ts-mode . ("clangd")))
   (add-to-list 'eglot-server-programs '(c++-ts-mode . ("clangd"))))
 
-(use-package treemacs
-  :hook (emacs-startup . treemacs)
-  :init
-  (setq treemacs-position 'right)
-  :config
-  (treemacs-follow-mode t)
-  (treemacs-filewatch-mode t)
-  (treemacs-add-and-display-current-project-exclusively)
-  (treemacs-hide-gitignored-files-mode t)
-  (treemacs-toggle-show-dotfiles))
+;; (use-package treemacs
+;;   :pin melpa-stable
+;;   :hook (emacs-startup . treemacs)
+;;   :init
+;;   (setq treemacs-position 'right)
+;;   :config
+;;   (treemacs-follow-mode t)
+;;   (treemacs-filewatch-mode t)
+;;   (treemacs-add-and-display-current-project-exclusively)
+;;   (treemacs-hide-gitignored-files-mode t)
+;;   (treemacs-toggle-show-dotfiles))
 
-(use-package treemacs-nerd-icons
-  :config
-  (treemacs-load-theme "nerd-icons"))
+;; (use-package treemacs-nerd-icons
+;;   :pin melpa-stable
+;;   :config
+;;   (treemacs-load-theme "nerd-icons"))
 
-(use-package treemacs-magit
-  :after (treemacs magit))
-
-(use-package treemacs-projectile
-  :after (treemacs projectile))
-
+;; (use-package treemacs-magit
+;;   :pin melpa-stable
+;;   :after (treemacs magit))
 
 ;; ediff - don't start another frame
 (require 'ediff)
@@ -244,7 +243,7 @@
   (completion-category-defaults nil)
   (completion-category-overrides '((file (styles partial-completion))))
   :config
-  ;; Allow fuzzy matching (like flx) 
+  ;; Allow fuzzy matching (like flx)
   (setq orderless-matching-styles '(orderless-literal orderless-regexp orderless-flex)))
 
 (use-package consult

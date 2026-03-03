@@ -9,6 +9,14 @@
 (add-hook 'prog-mode-hook 'display-line-numbers-mode)
 
 
+(use-package treesit-auto
+  :demand t
+  :config
+  (setq treesit-auto-install 'prompt)
+  (treesit-auto-add-to-auto-mode-alist 'all)
+  (global-treesit-auto-mode))
+
+
 ;; Python
 
 (use-package python
