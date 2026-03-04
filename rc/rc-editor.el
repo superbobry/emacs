@@ -167,6 +167,7 @@
   (corfu-auto-delay 0.0)
   (corfu-quit-no-match 'separator)
   :init
+  (setq global-corfu-modes '((not text-mode) t))
   (global-corfu-mode))
 
 (use-package eglot
