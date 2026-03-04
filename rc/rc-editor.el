@@ -244,13 +244,7 @@
   (completion-category-overrides '((file (styles partial-completion))))
   :config
   ;; Allow fuzzy matching (like flx)
-  (setq orderless-matching-styles '(orderless-literal orderless-regexp orderless-flex)))
-
-(use-package vertico-prescient
-  :after vertico
-  :config
-  (setq vertico-prescient-enable-filtering nil)
-  (vertico-prescient-mode 1))
+  (setq orderless-matching-styles '(orderless-flex orderless-literal orderless-regexp)))
 
 (use-package consult
   :bind
