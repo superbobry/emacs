@@ -280,7 +280,7 @@
   :ensure nil
   :bind-keymap ("C-c p" . project-prefix-map)
   :config
-  (setq project-switch-commands #'magit-status))
+  (setq project-switch-commands #'magit-project-status))
 
 ;; make a shell script executable automatically on save
 (add-hook 'after-save-hook
