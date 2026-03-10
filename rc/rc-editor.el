@@ -173,7 +173,14 @@
 (use-package eglot
   :defer t
   :commands (eglot eglot-ensure)
+  :custom
+  (eglot-autoshutdown t)
+  (eglot-events-buffer-size 0)
   :config
+  ;; Performance tweaks
+  (setq read-process-output-max (* 1024 1024))
+  (fset #'jsonrpc--log-event #'ignore)
+
   ;; Eglot uses standard Emacs keybindings, but we can customize the prefix.
   (define-key eglot-mode-map (kbd "C-c l") 'eglot-command-map)
   (add-to-list 'eglot-server-programs '(python-ts-mode . ("pyrefly" "lsp")))
