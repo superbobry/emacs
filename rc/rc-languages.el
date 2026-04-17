@@ -13,8 +13,7 @@
   :demand t
   :config
   (setq treesit-auto-install 'prompt)
-  (treesit-auto-add-to-auto-mode-alist 'all)
-  (global-treesit-auto-mode))
+  (treesit-auto-add-to-auto-mode-alist 'all))
 
 
 ;; Python
@@ -40,6 +39,7 @@
 
 (use-package pet
   :config
+  (setq pet-find-file-functions '(pet-find-file-from-project-root))
   (add-hook 'python-base-mode-hook 'pet-mode -10))
 
 (with-eval-after-load 'treemacs
